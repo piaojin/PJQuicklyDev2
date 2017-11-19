@@ -1,0 +1,892 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		765F2EDB1FBFC8AC00B29314 /* PJTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EDA1FBFC8AC00B29314 /* PJTestViewController.swift */; };
+		765F2EE31FBFF7AB00B29314 /* PJTableViewDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EDE1FBFF7AB00B29314 /* PJTableViewDemoController.swift */; };
+		765F2EE41FBFF7AB00B29314 /* ExpressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EE01FBFF7AB00B29314 /* ExpressModel.swift */; };
+		765F2EE51FBFF7AB00B29314 /* ExpressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EE21FBFF7AB00B29314 /* ExpressTableViewCell.swift */; };
+		765F2EE71FC0752100B29314 /* ExpressModel2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EE61FC0752100B29314 /* ExpressModel2.swift */; };
+		765F2EED1FC1922900B29314 /* PJBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EEB1FC1922900B29314 /* PJBaseModel.swift */; };
+		765F2EEE1FC1922900B29314 /* PJBaseStructModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EEC1FC1922900B29314 /* PJBaseStructModel.swift */; };
+		765F2EF21FC192B800B29314 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EF01FC192B800B29314 /* AppDelegate.swift */; };
+		765F2EF31FC192B800B29314 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EF11FC192B800B29314 /* ViewController.swift */; };
+		765F2EFA1FC192C400B29314 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 765F2EF51FC192C400B29314 /* Assets.xcassets */; };
+		765F2EFB1FC192C400B29314 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 765F2EF61FC192C400B29314 /* LaunchScreen.storyboard */; };
+		765F2EFC1FC192C400B29314 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 765F2EF81FC192C400B29314 /* Main.storyboard */; };
+		92779AE88C9C5A8232FCD3D9 /* Pods_PJQuicklyDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A797E8AC333FE416B2154958 /* Pods_PJQuicklyDev.framework */; };
+		CA1B2A841EB4530B001A184D /* PJBaseCustomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B2A831EB4530B001A184D /* PJBaseCustomTableViewController.swift */; };
+		CAAD19611E9E56370046E69B /* PJQuicklyDevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD19601E9E56370046E69B /* PJQuicklyDevTests.swift */; };
+		CAAD196C1E9E56370046E69B /* PJQuicklyDevUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD196B1E9E56370046E69B /* PJQuicklyDevUITests.swift */; };
+		CAAD198E1E9E565C0046E69B /* PJBaseModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD197B1E9E565C0046E69B /* PJBaseModelViewController.swift */; };
+		CAAD198F1E9E565C0046E69B /* PJBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD197C1E9E565C0046E69B /* PJBaseTableViewController.swift */; };
+		CAAD19901E9E565C0046E69B /* PJBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD197D1E9E565C0046E69B /* PJBaseViewController.swift */; };
+		CAAD19911E9E565C0046E69B /* PJBaseTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD197F1E9E565C0046E69B /* PJBaseTableViewDataSource.swift */; };
+		CAAD19921E9E565C0046E69B /* PJBaseEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD19821E9E565C0046E69B /* PJBaseEmptyView.swift */; };
+		CAAD19931E9E565C0046E69B /* PJBaseErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD19831E9E565C0046E69B /* PJBaseErrorView.swift */; };
+		CAAD19941E9E565C0046E69B /* PJBaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD19841E9E565C0046E69B /* PJBaseTableViewCell.swift */; };
+		CAAD19951E9E565C0046E69B /* PJBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD19851E9E565C0046E69B /* PJBaseView.swift */; };
+		CAAD19961E9E565C0046E69B /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD19881E9E565C0046E69B /* NSDateExtension.swift */; };
+		CAAD19971E9E565C0046E69B /* PJCommonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD19891E9E565C0046E69B /* PJCommonExtension.swift */; };
+		CAAD19991E9E565C0046E69B /* PJHttpTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD198D1E9E565C0046E69B /* PJHttpTool.swift */; };
+		CAC1E6651E9F6514009B5085 /* PJConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1E6631E9F6514009B5085 /* PJConst.swift */; };
+		CAC1E6691E9F6533009B5085 /* PJRefreshNormalHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC1E6681E9F6533009B5085 /* PJRefreshNormalHeader.m */; };
+		CAC1E66D1E9F66E9009B5085 /* PJRefreshAutoNormalFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC1E66C1E9F66E9009B5085 /* PJRefreshAutoNormalFooter.m */; };
+		CAC1E6701E9F77A0009B5085 /* PJSVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC1E66F1E9F77A0009B5085 /* PJSVProgressHUD.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CAAD195D1E9E56370046E69B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CAAD19401E9E56370046E69B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CAAD19471E9E56370046E69B;
+			remoteInfo = PJQuicklyDev;
+		};
+		CAAD19681E9E56370046E69B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CAAD19401E9E56370046E69B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CAAD19471E9E56370046E69B;
+			remoteInfo = PJQuicklyDev;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		123A7FCFF14E6526D0DC242E /* Pods-PJQuicklyDev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PJQuicklyDev.release.xcconfig"; path = "Pods/Target Support Files/Pods-PJQuicklyDev/Pods-PJQuicklyDev.release.xcconfig"; sourceTree = "<group>"; };
+		765F2EDA1FBFC8AC00B29314 /* PJTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJTestViewController.swift; sourceTree = "<group>"; };
+		765F2EDE1FBFF7AB00B29314 /* PJTableViewDemoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJTableViewDemoController.swift; sourceTree = "<group>"; };
+		765F2EE01FBFF7AB00B29314 /* ExpressModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressModel.swift; sourceTree = "<group>"; };
+		765F2EE21FBFF7AB00B29314 /* ExpressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressTableViewCell.swift; sourceTree = "<group>"; };
+		765F2EE61FC0752100B29314 /* ExpressModel2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressModel2.swift; sourceTree = "<group>"; };
+		765F2EEB1FC1922900B29314 /* PJBaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJBaseModel.swift; sourceTree = "<group>"; };
+		765F2EEC1FC1922900B29314 /* PJBaseStructModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJBaseStructModel.swift; sourceTree = "<group>"; };
+		765F2EF01FC192B800B29314 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		765F2EF11FC192B800B29314 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		765F2EF51FC192C400B29314 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		765F2EF71FC192C400B29314 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		765F2EF91FC192C400B29314 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8A9925F6494C170D13347A04 /* Pods-PJQuicklyDev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PJQuicklyDev.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PJQuicklyDev/Pods-PJQuicklyDev.debug.xcconfig"; sourceTree = "<group>"; };
+		A797E8AC333FE416B2154958 /* Pods_PJQuicklyDev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PJQuicklyDev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA1B2A831EB4530B001A184D /* PJBaseCustomTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJBaseCustomTableViewController.swift; sourceTree = "<group>"; };
+		CAAD19481E9E56370046E69B /* PJQuicklyDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PJQuicklyDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAAD19571E9E56370046E69B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CAAD195C1E9E56370046E69B /* PJQuicklyDevTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PJQuicklyDevTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAAD19601E9E56370046E69B /* PJQuicklyDevTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJQuicklyDevTests.swift; sourceTree = "<group>"; };
+		CAAD19621E9E56370046E69B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CAAD19671E9E56370046E69B /* PJQuicklyDevUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PJQuicklyDevUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAAD196B1E9E56370046E69B /* PJQuicklyDevUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJQuicklyDevUITests.swift; sourceTree = "<group>"; };
+		CAAD196D1E9E56370046E69B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CAAD197B1E9E565C0046E69B /* PJBaseModelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJBaseModelViewController.swift; sourceTree = "<group>"; };
+		CAAD197C1E9E565C0046E69B /* PJBaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJBaseTableViewController.swift; sourceTree = "<group>"; };
+		CAAD197D1E9E565C0046E69B /* PJBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJBaseViewController.swift; sourceTree = "<group>"; };
+		CAAD197F1E9E565C0046E69B /* PJBaseTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJBaseTableViewDataSource.swift; sourceTree = "<group>"; };
+		CAAD19821E9E565C0046E69B /* PJBaseEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJBaseEmptyView.swift; sourceTree = "<group>"; };
+		CAAD19831E9E565C0046E69B /* PJBaseErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJBaseErrorView.swift; sourceTree = "<group>"; };
+		CAAD19841E9E565C0046E69B /* PJBaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJBaseTableViewCell.swift; sourceTree = "<group>"; };
+		CAAD19851E9E565C0046E69B /* PJBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJBaseView.swift; sourceTree = "<group>"; };
+		CAAD19881E9E565C0046E69B /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
+		CAAD19891E9E565C0046E69B /* PJCommonExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJCommonExtension.swift; sourceTree = "<group>"; };
+		CAAD198D1E9E565C0046E69B /* PJHttpTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJHttpTool.swift; sourceTree = "<group>"; };
+		CAAD199A1E9E57C60046E69B /* PJQuicklyDev-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PJQuicklyDev-Bridging-Header.h"; sourceTree = "<group>"; };
+		CAC1E6631E9F6514009B5085 /* PJConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJConst.swift; sourceTree = "<group>"; };
+		CAC1E6671E9F6533009B5085 /* PJRefreshNormalHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PJRefreshNormalHeader.h; sourceTree = "<group>"; };
+		CAC1E6681E9F6533009B5085 /* PJRefreshNormalHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PJRefreshNormalHeader.m; sourceTree = "<group>"; };
+		CAC1E66B1E9F66E9009B5085 /* PJRefreshAutoNormalFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PJRefreshAutoNormalFooter.h; sourceTree = "<group>"; };
+		CAC1E66C1E9F66E9009B5085 /* PJRefreshAutoNormalFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PJRefreshAutoNormalFooter.m; sourceTree = "<group>"; };
+		CAC1E66E1E9F77A0009B5085 /* PJSVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PJSVProgressHUD.h; sourceTree = "<group>"; };
+		CAC1E66F1E9F77A0009B5085 /* PJSVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PJSVProgressHUD.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CAAD19451E9E56370046E69B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92779AE88C9C5A8232FCD3D9 /* Pods_PJQuicklyDev.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAAD19591E9E56370046E69B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAAD19641E9E56370046E69B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		15BEEC3FE48DF81A96B8DD69 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8A9925F6494C170D13347A04 /* Pods-PJQuicklyDev.debug.xcconfig */,
+				123A7FCFF14E6526D0DC242E /* Pods-PJQuicklyDev.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		765F2EDC1FBFF7AB00B29314 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				765F2EDD1FBFF7AB00B29314 /* Controller */,
+				765F2EDF1FBFF7AB00B29314 /* Model */,
+				765F2EE11FBFF7AB00B29314 /* View */,
+			);
+			path = Demo;
+			sourceTree = SOURCE_ROOT;
+		};
+		765F2EDD1FBFF7AB00B29314 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				765F2EDE1FBFF7AB00B29314 /* PJTableViewDemoController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		765F2EDF1FBFF7AB00B29314 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				765F2EE01FBFF7AB00B29314 /* ExpressModel.swift */,
+				765F2EE61FC0752100B29314 /* ExpressModel2.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		765F2EE11FBFF7AB00B29314 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				765F2EE21FBFF7AB00B29314 /* ExpressTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		765F2EEA1FC1922900B29314 /* BaseModel */ = {
+			isa = PBXGroup;
+			children = (
+				765F2EEB1FC1922900B29314 /* PJBaseModel.swift */,
+				765F2EEC1FC1922900B29314 /* PJBaseStructModel.swift */,
+			);
+			path = BaseModel;
+			sourceTree = "<group>";
+		};
+		765F2EEF1FC192B800B29314 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				765F2EF01FC192B800B29314 /* AppDelegate.swift */,
+				765F2EF11FC192B800B29314 /* ViewController.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		765F2EF41FC192C400B29314 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				765F2EF51FC192C400B29314 /* Assets.xcassets */,
+				765F2EF61FC192C400B29314 /* LaunchScreen.storyboard */,
+				765F2EF81FC192C400B29314 /* Main.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CAAD193F1E9E56370046E69B = {
+			isa = PBXGroup;
+			children = (
+				CAAD194A1E9E56370046E69B /* PJQuicklyDev */,
+				CAAD195F1E9E56370046E69B /* PJQuicklyDevTests */,
+				CAAD196A1E9E56370046E69B /* PJQuicklyDevUITests */,
+				CAAD19491E9E56370046E69B /* Products */,
+				15BEEC3FE48DF81A96B8DD69 /* Pods */,
+				F74F5F2ACEB6EE0B22CDCE1F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		CAAD19491E9E56370046E69B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CAAD19481E9E56370046E69B /* PJQuicklyDev.app */,
+				CAAD195C1E9E56370046E69B /* PJQuicklyDevTests.xctest */,
+				CAAD19671E9E56370046E69B /* PJQuicklyDevUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CAAD194A1E9E56370046E69B /* PJQuicklyDev */ = {
+			isa = PBXGroup;
+			children = (
+				765F2EDC1FBFF7AB00B29314 /* Demo */,
+				CAAD19791E9E565C0046E69B /* Class */,
+				765F2EEF1FC192B800B29314 /* AppDelegate */,
+				765F2EF41FC192C400B29314 /* Resources */,
+				CAAD19571E9E56370046E69B /* Info.plist */,
+				CAAD199A1E9E57C60046E69B /* PJQuicklyDev-Bridging-Header.h */,
+			);
+			path = PJQuicklyDev;
+			sourceTree = "<group>";
+		};
+		CAAD195F1E9E56370046E69B /* PJQuicklyDevTests */ = {
+			isa = PBXGroup;
+			children = (
+				CAAD19601E9E56370046E69B /* PJQuicklyDevTests.swift */,
+				CAAD19621E9E56370046E69B /* Info.plist */,
+			);
+			path = PJQuicklyDevTests;
+			sourceTree = "<group>";
+		};
+		CAAD196A1E9E56370046E69B /* PJQuicklyDevUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CAAD196B1E9E56370046E69B /* PJQuicklyDevUITests.swift */,
+				CAAD196D1E9E56370046E69B /* Info.plist */,
+			);
+			path = PJQuicklyDevUITests;
+			sourceTree = "<group>";
+		};
+		CAAD19791E9E565C0046E69B /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				765F2EEA1FC1922900B29314 /* BaseModel */,
+				CAAD197A1E9E565C0046E69B /* BaseController */,
+				CAAD197E1E9E565C0046E69B /* BaseDataSource */,
+				CAAD19811E9E565C0046E69B /* BaseView */,
+				CAAD19861E9E565C0046E69B /* Common */,
+				765F2EDA1FBFC8AC00B29314 /* PJTestViewController.swift */,
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
+		CAAD197A1E9E565C0046E69B /* BaseController */ = {
+			isa = PBXGroup;
+			children = (
+				CAAD197B1E9E565C0046E69B /* PJBaseModelViewController.swift */,
+				CAAD197C1E9E565C0046E69B /* PJBaseTableViewController.swift */,
+				CAAD197D1E9E565C0046E69B /* PJBaseViewController.swift */,
+				CA1B2A831EB4530B001A184D /* PJBaseCustomTableViewController.swift */,
+			);
+			path = BaseController;
+			sourceTree = "<group>";
+		};
+		CAAD197E1E9E565C0046E69B /* BaseDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				CAAD197F1E9E565C0046E69B /* PJBaseTableViewDataSource.swift */,
+			);
+			path = BaseDataSource;
+			sourceTree = "<group>";
+		};
+		CAAD19811E9E565C0046E69B /* BaseView */ = {
+			isa = PBXGroup;
+			children = (
+				CAAD19821E9E565C0046E69B /* PJBaseEmptyView.swift */,
+				CAAD19831E9E565C0046E69B /* PJBaseErrorView.swift */,
+				CAAD19841E9E565C0046E69B /* PJBaseTableViewCell.swift */,
+				CAAD19851E9E565C0046E69B /* PJBaseView.swift */,
+			);
+			path = BaseView;
+			sourceTree = "<group>";
+		};
+		CAAD19861E9E565C0046E69B /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CAC1E6621E9F6514009B5085 /* Const */,
+				CAC1E6641E9F6514009B5085 /* Lib */,
+				CAAD19871E9E565C0046E69B /* Extension */,
+				CAAD198B1E9E565C0046E69B /* Tools */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		CAAD19871E9E565C0046E69B /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				CAAD19881E9E565C0046E69B /* NSDateExtension.swift */,
+				CAAD19891E9E565C0046E69B /* PJCommonExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		CAAD198B1E9E565C0046E69B /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				CAAD198C1E9E565C0046E69B /* HttpTool */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		CAAD198C1E9E565C0046E69B /* HttpTool */ = {
+			isa = PBXGroup;
+			children = (
+				CAAD198D1E9E565C0046E69B /* PJHttpTool.swift */,
+			);
+			path = HttpTool;
+			sourceTree = "<group>";
+		};
+		CAC1E6621E9F6514009B5085 /* Const */ = {
+			isa = PBXGroup;
+			children = (
+				CAC1E6631E9F6514009B5085 /* PJConst.swift */,
+			);
+			path = Const;
+			sourceTree = "<group>";
+		};
+		CAC1E6641E9F6514009B5085 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				CAC1E6661E9F6533009B5085 /* PJ */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		CAC1E6661E9F6533009B5085 /* PJ */ = {
+			isa = PBXGroup;
+			children = (
+				CAC1E6671E9F6533009B5085 /* PJRefreshNormalHeader.h */,
+				CAC1E6681E9F6533009B5085 /* PJRefreshNormalHeader.m */,
+				CAC1E66B1E9F66E9009B5085 /* PJRefreshAutoNormalFooter.h */,
+				CAC1E66C1E9F66E9009B5085 /* PJRefreshAutoNormalFooter.m */,
+				CAC1E66E1E9F77A0009B5085 /* PJSVProgressHUD.h */,
+				CAC1E66F1E9F77A0009B5085 /* PJSVProgressHUD.m */,
+			);
+			path = PJ;
+			sourceTree = "<group>";
+		};
+		F74F5F2ACEB6EE0B22CDCE1F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A797E8AC333FE416B2154958 /* Pods_PJQuicklyDev.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CAAD19471E9E56370046E69B /* PJQuicklyDev */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CAAD19701E9E56370046E69B /* Build configuration list for PBXNativeTarget "PJQuicklyDev" */;
+			buildPhases = (
+				9B37520C0B0D51C6EF9F9EE8 /* [CP] Check Pods Manifest.lock */,
+				CAAD19441E9E56370046E69B /* Sources */,
+				CAAD19451E9E56370046E69B /* Frameworks */,
+				CAAD19461E9E56370046E69B /* Resources */,
+				B4333890739BA2E331A5C925 /* [CP] Embed Pods Frameworks */,
+				3B0CCD6C05F3D3DEE3D2C819 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PJQuicklyDev;
+			productName = PJQuicklyDev;
+			productReference = CAAD19481E9E56370046E69B /* PJQuicklyDev.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CAAD195B1E9E56370046E69B /* PJQuicklyDevTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CAAD19731E9E56370046E69B /* Build configuration list for PBXNativeTarget "PJQuicklyDevTests" */;
+			buildPhases = (
+				CAAD19581E9E56370046E69B /* Sources */,
+				CAAD19591E9E56370046E69B /* Frameworks */,
+				CAAD195A1E9E56370046E69B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CAAD195E1E9E56370046E69B /* PBXTargetDependency */,
+			);
+			name = PJQuicklyDevTests;
+			productName = PJQuicklyDevTests;
+			productReference = CAAD195C1E9E56370046E69B /* PJQuicklyDevTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CAAD19661E9E56370046E69B /* PJQuicklyDevUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CAAD19761E9E56370046E69B /* Build configuration list for PBXNativeTarget "PJQuicklyDevUITests" */;
+			buildPhases = (
+				CAAD19631E9E56370046E69B /* Sources */,
+				CAAD19641E9E56370046E69B /* Frameworks */,
+				CAAD19651E9E56370046E69B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CAAD19691E9E56370046E69B /* PBXTargetDependency */,
+			);
+			name = PJQuicklyDevUITests;
+			productName = PJQuicklyDevUITests;
+			productReference = CAAD19671E9E56370046E69B /* PJQuicklyDevUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CAAD19401E9E56370046E69B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "飘金";
+				TargetAttributes = {
+					CAAD19471E9E56370046E69B = {
+						CreatedOnToolsVersion = 8.3;
+						LastSwiftMigration = 0830;
+						ProvisioningStyle = Manual;
+					};
+					CAAD195B1E9E56370046E69B = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = KQ97X6WRL9;
+						ProvisioningStyle = Automatic;
+						TestTargetID = CAAD19471E9E56370046E69B;
+					};
+					CAAD19661E9E56370046E69B = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = KQ97X6WRL9;
+						ProvisioningStyle = Automatic;
+						TestTargetID = CAAD19471E9E56370046E69B;
+					};
+				};
+			};
+			buildConfigurationList = CAAD19431E9E56370046E69B /* Build configuration list for PBXProject "PJQuicklyDev" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CAAD193F1E9E56370046E69B;
+			productRefGroup = CAAD19491E9E56370046E69B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CAAD19471E9E56370046E69B /* PJQuicklyDev */,
+				CAAD195B1E9E56370046E69B /* PJQuicklyDevTests */,
+				CAAD19661E9E56370046E69B /* PJQuicklyDevUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CAAD19461E9E56370046E69B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				765F2EFA1FC192C400B29314 /* Assets.xcassets in Resources */,
+				765F2EFC1FC192C400B29314 /* Main.storyboard in Resources */,
+				765F2EFB1FC192C400B29314 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAAD195A1E9E56370046E69B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAAD19651E9E56370046E69B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3B0CCD6C05F3D3DEE3D2C819 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PJQuicklyDev/Pods-PJQuicklyDev-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9B37520C0B0D51C6EF9F9EE8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PJQuicklyDev-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B4333890739BA2E331A5C925 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PJQuicklyDev/Pods-PJQuicklyDev-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PJQuicklyDev/Pods-PJQuicklyDev-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CAAD19441E9E56370046E69B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAC1E66D1E9F66E9009B5085 /* PJRefreshAutoNormalFooter.m in Sources */,
+				765F2EE31FBFF7AB00B29314 /* PJTableViewDemoController.swift in Sources */,
+				CAAD19971E9E565C0046E69B /* PJCommonExtension.swift in Sources */,
+				CAAD19931E9E565C0046E69B /* PJBaseErrorView.swift in Sources */,
+				CAAD198F1E9E565C0046E69B /* PJBaseTableViewController.swift in Sources */,
+				CAAD19911E9E565C0046E69B /* PJBaseTableViewDataSource.swift in Sources */,
+				765F2EF21FC192B800B29314 /* AppDelegate.swift in Sources */,
+				CAAD19921E9E565C0046E69B /* PJBaseEmptyView.swift in Sources */,
+				CAAD19991E9E565C0046E69B /* PJHttpTool.swift in Sources */,
+				CAC1E6651E9F6514009B5085 /* PJConst.swift in Sources */,
+				CAAD198E1E9E565C0046E69B /* PJBaseModelViewController.swift in Sources */,
+				CAAD19941E9E565C0046E69B /* PJBaseTableViewCell.swift in Sources */,
+				CAAD19961E9E565C0046E69B /* NSDateExtension.swift in Sources */,
+				CAC1E6691E9F6533009B5085 /* PJRefreshNormalHeader.m in Sources */,
+				CAAD19901E9E565C0046E69B /* PJBaseViewController.swift in Sources */,
+				765F2EE51FBFF7AB00B29314 /* ExpressTableViewCell.swift in Sources */,
+				CAAD19951E9E565C0046E69B /* PJBaseView.swift in Sources */,
+				765F2EED1FC1922900B29314 /* PJBaseModel.swift in Sources */,
+				CAC1E6701E9F77A0009B5085 /* PJSVProgressHUD.m in Sources */,
+				765F2EF31FC192B800B29314 /* ViewController.swift in Sources */,
+				765F2EE71FC0752100B29314 /* ExpressModel2.swift in Sources */,
+				765F2EDB1FBFC8AC00B29314 /* PJTestViewController.swift in Sources */,
+				765F2EE41FBFF7AB00B29314 /* ExpressModel.swift in Sources */,
+				CA1B2A841EB4530B001A184D /* PJBaseCustomTableViewController.swift in Sources */,
+				765F2EEE1FC1922900B29314 /* PJBaseStructModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAAD19581E9E56370046E69B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAAD19611E9E56370046E69B /* PJQuicklyDevTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAAD19631E9E56370046E69B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAAD196C1E9E56370046E69B /* PJQuicklyDevUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CAAD195E1E9E56370046E69B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CAAD19471E9E56370046E69B /* PJQuicklyDev */;
+			targetProxy = CAAD195D1E9E56370046E69B /* PBXContainerItemProxy */;
+		};
+		CAAD19691E9E56370046E69B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CAAD19471E9E56370046E69B /* PJQuicklyDev */;
+			targetProxy = CAAD19681E9E56370046E69B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		765F2EF61FC192C400B29314 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				765F2EF71FC192C400B29314 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		765F2EF81FC192C400B29314 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				765F2EF91FC192C400B29314 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CAAD196E1E9E56370046E69B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CAAD196F1E9E56370046E69B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CAAD19711E9E56370046E69B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8A9925F6494C170D13347A04 /* Pods-PJQuicklyDev.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = PJQuicklyDev/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" PJDEBUG";
+				PRODUCT_BUNDLE_IDENTIFIER = piaojin.PJQuicklyDev;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SWIFT_MODULE_NAME)/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		CAAD19721E9E56370046E69B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 123A7FCFF14E6526D0DC242E /* Pods-PJQuicklyDev.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = PJQuicklyDev/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" PJDEBUG";
+				PRODUCT_BUNDLE_IDENTIFIER = piaojin.PJQuicklyDev;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SWIFT_MODULE_NAME)/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		CAAD19741E9E56370046E69B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = KQ97X6WRL9;
+				INFOPLIST_FILE = PJQuicklyDevTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = piaojin.PJQuicklyDevTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PJQuicklyDev.app/PJQuicklyDev";
+			};
+			name = Debug;
+		};
+		CAAD19751E9E56370046E69B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = KQ97X6WRL9;
+				INFOPLIST_FILE = PJQuicklyDevTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = piaojin.PJQuicklyDevTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PJQuicklyDev.app/PJQuicklyDev";
+			};
+			name = Release;
+		};
+		CAAD19771E9E56370046E69B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = KQ97X6WRL9;
+				INFOPLIST_FILE = PJQuicklyDevUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = piaojin.PJQuicklyDevUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = PJQuicklyDev;
+			};
+			name = Debug;
+		};
+		CAAD19781E9E56370046E69B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = KQ97X6WRL9;
+				INFOPLIST_FILE = PJQuicklyDevUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = piaojin.PJQuicklyDevUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = PJQuicklyDev;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CAAD19431E9E56370046E69B /* Build configuration list for PBXProject "PJQuicklyDev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAAD196E1E9E56370046E69B /* Debug */,
+				CAAD196F1E9E56370046E69B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CAAD19701E9E56370046E69B /* Build configuration list for PBXNativeTarget "PJQuicklyDev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAAD19711E9E56370046E69B /* Debug */,
+				CAAD19721E9E56370046E69B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CAAD19731E9E56370046E69B /* Build configuration list for PBXNativeTarget "PJQuicklyDevTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAAD19741E9E56370046E69B /* Debug */,
+				CAAD19751E9E56370046E69B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CAAD19761E9E56370046E69B /* Build configuration list for PBXNativeTarget "PJQuicklyDevUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAAD19771E9E56370046E69B /* Debug */,
+				CAAD19781E9E56370046E69B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CAAD19401E9E56370046E69B /* Project object */;
+}
