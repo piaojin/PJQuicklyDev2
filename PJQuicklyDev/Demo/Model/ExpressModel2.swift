@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import ObjectMapper
+import HandyJSON
 
-struct ExpressModel2: Mappable, PJDecodable {
+struct ExpressModel2: HandyJSON, PJDecodable {
     
     var message : String?
     var nu : String?
@@ -19,26 +19,14 @@ struct ExpressModel2: Mappable, PJDecodable {
     var state : String?
     var data : [ExpressItemModel]?
     
-    init?(map: Map) {
-        
-    }
-    
-    mutating func mapping(map: Map) {
-        message    <- map["message"]
-        nu    <- map["nu"]
-        condition    <- map["condition"]
-        com    <- map["com"]
-        status    <- map["status"]
-        state    <- map["state"]
-        data    <- map["data"]
-    }
-    
     func parse(jsonString: String) -> ExpressModel2? {
         return nil
     }
     
     static func parseStruct(jsonString: String) -> ExpressModel2? {
-        let object = ExpressModel2(JSONString: jsonString)
-        return object
+        if let object = ExpressModel2.deserialize(from: jsonString) {
+            return object
+        }
+        return nil
     }
 }

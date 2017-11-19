@@ -17,24 +17,6 @@ class ExpressModel: PJBaseModel {
     var status : String?
     var state : String?
     var data : [ExpressItemModel]?
-    
-    required init?(map: Map) {
-        super.init()
-    }
-    
-    required init() {
-        super.init()
-    }
-    
-    override func mapping(map: Map) {
-        message    <- map["message"]
-        nu    <- map["nu"]
-        condition    <- map["condition"]
-        com    <- map["com"]
-        status    <- map["status"]
-        state    <- map["state"]
-        data    <- map["data"]
-    }
 }
 
 /*****{"time":"2017-04-11 18:02:56","ftime":"2017-04-11 18:02:56","context":"[合肥蜀山四部] [合肥市] [合肥蜀山四部]的钟先生已收件 电话:18134500700","location":""}*******/
@@ -45,19 +27,4 @@ class ExpressItemModel: PJBaseModel {
     var location : String?
     /***cell的高度***/
     var rowH : CGFloat = 0
-
-    required init?(map: Map) {
-        super.init()
-    }
-    
-    required init() {
-        super.init()
-    }
-    
-    override func mapping(map: Map) {
-        time    <- map["time"]
-        ftime    <- map["ftime"]
-        context    <- map["context"]
-        location    <- map["location"]
-    }
 }

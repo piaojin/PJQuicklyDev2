@@ -48,6 +48,7 @@ class PJTableViewDemoController: PJBaseTableViewController {
         // MARK: 第一步:/******发起网络请求,默认get请求******/
         self.doRequest()
         
+        ///请求的数据转成class(ExpressModel)
         var baseRequest = PJBaseRequest<ExpressModel>(path: self.requestUrl)
         baseRequest.headers = self.headers
         baseRequest.httpMethod = .get
@@ -60,6 +61,7 @@ class PJTableViewDemoController: PJBaseTableViewController {
             return
         }
 
+        ///请求的数据转成struct(ExpressModel2)
         var r = PJBaseStrcutRequest<ExpressModel2>(path: "query")
         r.parameter = self.getParams()
         PJHttpRequestClient().sendRequestForStruct(r, success: { (structModel, response) in
@@ -76,7 +78,7 @@ class PJTableViewDemoController: PJBaseTableViewController {
     }
     
     /**
-     *  网络请求配置,子类可以重写,如果有需要,可以设置返回的数据的模型类型
+     *  网络请求配置,子类可以重写,如果有需要
      */
 //    override func getBaseRequest() -> PJBaseRequest<PJBaseModelViewController.ModelType> {
 //        var baseRequest = PJBaseRequest<PJBaseModelViewController.ModelType>(path: self.requestUrl, responseClass: self.getModelClassType())

@@ -7,30 +7,22 @@
 //
 
 import UIKit
-import ObjectMapper
+import HandyJSON
 
-struct PJBaseStructModel: Mappable, PJDecodable {
+struct PJBaseStructModel: HandyJSON, PJDecodable {
     
     var code: Int?
     var message: String?
     var data: Any?
-    
-    init?(map: Map) {
-        
-    }
-    
-    mutating func mapping(map: Map) {
-        code    <- map["code"]
-        message         <- map["message"]
-        data      <- map["data"]
-    }
     
     func parse(jsonString: String) -> PJBaseStructModel? {
         return nil
     }
     
     static func parseStruct(jsonString: String) -> PJBaseStructModel? {
-        let object = PJBaseStructModel(JSONString: jsonString)
-        return object
+        if let object = PJBaseStructModel.deserialize(from: jsonString) {
+            return object
+        }
+        return nil
     }
 }
