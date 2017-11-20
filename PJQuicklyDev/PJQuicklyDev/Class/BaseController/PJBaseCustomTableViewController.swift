@@ -117,15 +117,25 @@ class PJBaseCustomTableViewController: PJBaseModelViewController,UITableViewDele
     func tableViewFrame() -> CGRect{
         return self.view.bounds
     }
-}
-
-// MARK: - 上下拉刷新数据相关
-extension PJBaseCustomTableViewController{
     
+    override func onDataUpdated() {
+        super.onDataUpdated()
+        self.createDataSource()
+        self.handleWhenLessOnePage()
+        self.handleWhenNoneData()
+        self.setPullEndStatus()
+    }
+    
+    override func onLoadFailed() {
+        super.onLoadFailed()
+        self.setPullFailedStatus()
+    }
+    
+    // MARK: - 上下拉刷新数据相关
     /**
      下拉刷新
      */
-    func beginPullDownRefreshing(){
+    @objc func beginPullDownRefreshing(){
         if self.canPullDownRefreshed() {
             self.beforePullDownRefreshing()
             self.refreshForNewData()
@@ -151,7 +161,7 @@ extension PJBaseCustomTableViewController{
     /**
      上拉刷新
      */
-    func beginPullUpLoading() {
+    @objc func beginPullUpLoading() {
         self.beforePullUpLoading()
         self.isLoading = true
         self.isPullingUp = true
@@ -212,7 +222,7 @@ extension PJBaseCustomTableViewController{
     /**
      停止下拉更多
      */
-    func endRefresh() {
+    @objc func endRefresh() {
         self.tableView?.mj_header.endRefreshing()
         self.isLoading = false
         if self.pullLoadType != .pullUpLoadMore {
@@ -272,34 +282,15 @@ extension PJBaseCustomTableViewController{
         }
     }
     
-    override func onDataUpdated() {
-        super.onDataUpdated()
-        self.createDataSource()
-        self.handleWhenLessOnePage()
-        self.handleWhenNoneData()
-        self.setPullEndStatus()
-    }
-    
-    override func onLoadFailed() {
-        super.onLoadFailed()
-        self.setPullFailedStatus()
-    }
-}
-
-// MARK: - tableView相关
-extension PJBaseCustomTableViewController{
-    
+    // MARK: - tableView相关
     /**
      *   子类重写，以设置tableView数据源
      */
     func createDataSource(){
         
     }
-}
-
-// MARK: - 网络请求相关
-extension PJBaseCustomTableViewController{
     
+    // MARK: - 网络请求相关
     /**
      在网络请求之前可以做的处理
      */
@@ -343,7 +334,7 @@ extension PJBaseCustomTableViewController{
 }
 
 // MARK: - tableView dataSource
-extension PJBaseCustomTableViewController{
+extension PJBaseCustomTableViewController {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let count = self.items?.count else {
             return 0

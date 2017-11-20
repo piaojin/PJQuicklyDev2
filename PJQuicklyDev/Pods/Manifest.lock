@@ -3,25 +3,25 @@ PODS:
   - HandyJSON (4.0.0-beta.1)
   - Kingfisher (4.1.1)
   - MJRefresh (3.1.14)
-  - SnapKit (3.2.0)
   - SVProgressHUD (2.1.2)
+  - UITableView+FDTemplateLayoutCell (1.6)
 
 DEPENDENCIES:
   - Alamofire (~> 4.5.1)
   - HandyJSON (~> 4.0.0-beta.1)
   - Kingfisher (~> 4.1.1)
   - MJRefresh (~> 3.1.14)
-  - SnapKit (~> 3.2.0)
   - SVProgressHUD
+  - UITableView+FDTemplateLayoutCell (~> 1.6)
 
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   HandyJSON: 428bb18e2c34c2a77361accebf90cf64e4f74118
   Kingfisher: 6793a473357b5dbee42b0068ef203fe8325f259e
   MJRefresh: 6642e35b3227a5447b9fd5e17c552c90196c9859
-  SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
 
-PODFILE CHECKSUM: 81cd42a8cfddbc9273716d614f7cd2ac41004695
+PODFILE CHECKSUM: a8a5003660e512699226f672f24dfa5185fad1b0
 
 COCOAPODS: 1.2.0

@@ -137,9 +137,6 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
         baseRequest.parameter = self.params
         return baseRequest
     }
-}
-
-extension PJBaseModelViewController{
     
     /**
      *  发起请求数据
@@ -250,10 +247,8 @@ extension PJBaseModelViewController{
             self.newItemsCount = 0;
         }
     }
-}
-
-/********子类需要重写的方法（PJBaseRequestFunc）*********/
-extension PJBaseModelViewController {
+    
+    // MARK: /********子类需要重写的方法（PJBaseRequestFunc）*********/
     ///网络请求地址
     func getRequestUrl() -> String {
         PJPrintLog("------->子类需要重写getRequestUrl<-------")

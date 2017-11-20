@@ -87,12 +87,6 @@ class PJTableViewDemoController: PJBaseTableViewController {
 //        baseRequest.parameter = self.params
 //        return baseRequest
 //    }
-}
-
-/**
- *   子类重写
- */
-extension PJTableViewDemoController {
     
     /**
      *   第二步:子类重写，网络请求完成
@@ -101,13 +95,6 @@ extension PJTableViewDemoController {
         if let expressModel = success as? ExpressModel {
             self.updateView(expressModel: expressModel)
         }
-    }
- 
-    // MARK: 第三步:
-    func updateView(expressModel : ExpressModel){
-        // TODO: - 注意此处添加网络返回的数据到表格代理数据源中
-        self.pjTableViewDemoDataSource.addItems(items: expressModel.data)
-        // TODO: - 更新表格显示self.createDataSource(),该调用会在父类进行,子类无需再次手动调用
     }
     
     /**
@@ -139,5 +126,18 @@ extension PJTableViewDemoController {
     /// - Returns: 获取返回的数据的模型类型
     override func getModelClassType() -> AnyClass {
         return ExpressModel.classForCoder()
+    }
+}
+
+/**
+ *   子类重写
+ */
+extension PJTableViewDemoController {
+ 
+    // MARK: 第三步:
+    func updateView(expressModel : ExpressModel){
+        // TODO: - 注意此处添加网络返回的数据到表格代理数据源中
+        self.pjTableViewDemoDataSource.addItems(items: expressModel.data)
+        // TODO: - 更新表格显示self.createDataSource(),该调用会在父类进行,子类无需再次手动调用
     }
 }

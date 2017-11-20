@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PJBaseViewController: UIViewController ,PJBaseEmptyViewDelegate,PJBaseErrorViewDelegate, UIGestureRecognizerDelegate{
+class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErrorViewDelegate, UIGestureRecognizerDelegate {
     
     //是否加载过空视图
     var isAddEmptyView:Bool = false
@@ -56,13 +56,6 @@ class PJBaseViewController: UIViewController ,PJBaseEmptyViewDelegate,PJBaseErro
         PJPrintLog("子类重写initView以初始化UI控件")
     }
     
-    deinit {
-        PJPrintLog("\(self.classForCoder) deinit")
-    }
-}
-
-extension PJBaseViewController{
-    
     // MARK: 初始化导航栏
     func initNavigationController(){
         if(self.navigationController != nil){
@@ -76,12 +69,12 @@ extension PJBaseViewController{
     }
     
     // MARK: 返回方法,可自定义重写,可以控制动画效果
-    func backView(animated: Bool) {
+    @objc func backView(animated: Bool) {
         self.navigationController!.popViewController(animated: true)
     }
     
     // MARK: 显示正在加载
-    func showLoading(show: Bool){
+    func showLoading(show: Bool) {
         if show {
             PJSVProgressHUD.show(withStatus: "加载中...")
         } else {
@@ -121,7 +114,7 @@ extension PJBaseViewController{
      *   设置为空时的提示文字
      *
      */
-    func setEmptyText(text: String?){
+    func setEmptyText(text: String?) {
         self.emptyView.setEmptyText(text: text)
     }
     
@@ -166,9 +159,7 @@ extension PJBaseViewController{
     func setErrorText(text: String?){
         self.errorView.setErrorText(text: text)
     }
-}
-
-extension PJBaseViewController {
+    
     /**
      *   实现协议PJBaseEmptyViewDelegate
      */
@@ -181,5 +172,9 @@ extension PJBaseViewController {
      */
     func errorClick() {
         
+    }
+    
+    deinit {
+        PJPrintLog("\(self.classForCoder) deinit")
     }
 }

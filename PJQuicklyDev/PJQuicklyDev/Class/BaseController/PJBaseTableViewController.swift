@@ -109,7 +109,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
     func initTableView(){
         self.view.addSubview(self.tableView!)
     }
-    
+
     /**
      初始化UI控件
      */
@@ -136,6 +136,68 @@ class PJBaseTableViewController: PJBaseModelViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: 网络请求相关
+    /**
+     在网络请求之前可以做的处理
+     */
+    override func beforeDoRequest() {
+        self.params["page"] = self.page
+        self.params["limit"] = self.limit
+        self.baseRequest.parameter = self.params
+    }
+    
+    /**
+     *   数据请求返回
+     */
+    override func didFinishLoad(success: Any?, failure: Any?) {
+        self.endRefreshing()
+        super.didFinishLoad(success: success, failure: failure)
+    }
+    
+    /**
+     数据请求失败
+     */
+    override func didFailLoadWithError(failure: Any?) {
+        if self.pullLoadType == .pullUpLoadMore {
+            self.page -= 1
+        }
+        self.endRefreshing()
+        super.didFailLoadWithError(failure: failure)
+    }
+    
+    /**
+     * 显示正在加载,如果是表格下拉或上拉刷新则不显示加载动画,直接用表格的刷新动画(头部或尾部菊花转圈动画)
+     */
+    override func showLoading(show: Bool){
+        if show{
+            if self.pullLoadType == .pullDefault{
+                super.showLoading(show: show)
+            }
+        }else{
+            super.showLoading(show: show)
+        }
+    }
+    
+    /**
+     *   子类重写，以设置tableView数据源
+     */
+    func createDataSource(){
+        
+    }
+    
+    override func onDataUpdated() {
+        super.onDataUpdated()
+        self.createDataSource()
+        self.handleWhenLessOnePage()
+        self.handleWhenNoneData()
+        self.setPullEndStatus()
+    }
+    
+    override func onLoadFailed() {
+        super.onLoadFailed()
+        self.setPullFailedStatus()
+    }
+    
     func tableViewStyle() -> UITableViewStyle{
         return UITableViewStyle.plain
     }
@@ -144,11 +206,8 @@ class PJBaseTableViewController: PJBaseModelViewController {
     func tableViewFrame() -> CGRect{
         return self.view.bounds
     }
-}
-
-// MARK: - 上下拉刷新数据相关
-extension PJBaseTableViewController {
     
+    // MARK: - 上下拉刷新数据相关
     /**
      下拉刷新
      */
@@ -208,7 +267,7 @@ extension PJBaseTableViewController {
             if isSection{
                 self.dataSourceAndDelegate?.sectionsItems?.removeAll()
             }else{
-               self.dataSourceAndDelegate?.items?.removeAll()
+                self.dataSourceAndDelegate?.items?.removeAll()
             }
         }
         
@@ -248,7 +307,7 @@ extension PJBaseTableViewController {
     /**
      停止下拉更多
      */
-    func endRefresh() {
+    @objc func endRefresh() {
         self.tableView?.mj_header.endRefreshing()
         self.isLoading = false
         if self.pullLoadType != .pullUpLoadMore {
@@ -305,75 +364,6 @@ extension PJBaseTableViewController {
             }
         }else {
             self.showEmpty(show: false)
-        }
-    }
-    
-    override func onDataUpdated() {
-        super.onDataUpdated()
-        self.createDataSource()
-        self.handleWhenLessOnePage()
-        self.handleWhenNoneData()
-        self.setPullEndStatus()
-    }
-    
-    override func onLoadFailed() {
-        super.onLoadFailed()
-        self.setPullFailedStatus()
-    }
-}
-
-// MARK: - tableView相关
-extension PJBaseTableViewController {
-    
-    /**
-     *   子类重写，以设置tableView数据源
-     */
-    func createDataSource(){
-        
-    }
-}
-
-// MARK: - 网络请求相关
-extension PJBaseTableViewController{
-    
-    /**
-     在网络请求之前可以做的处理
-     */
-    override func beforeDoRequest(){
-        self.params["page"] = self.page
-        self.params["limit"] = self.limit
-        self.baseRequest.parameter = self.params
-    }
-    
-    /**
-     *   数据请求返回
-     */
-    override func didFinishLoad(success: Any?, failure: Any?) {
-        self.endRefreshing()
-        super.didFinishLoad(success: success, failure: failure)
-    }
-    
-    /**
-     数据请求失败
-     */
-    override func didFailLoadWithError(failure: Any?) {
-        if self.pullLoadType == .pullUpLoadMore {
-            self.page -= 1
-        }
-        self.endRefreshing()
-        super.didFailLoadWithError(failure: failure)
-    }
-    
-     /**
-     * 显示正在加载,如果是表格下拉或上拉刷新则不显示加载动画,直接用表格的刷新动画(头部或尾部菊花转圈动画)
-     */
-    override func showLoading(show: Bool){
-        if show{
-            if self.pullLoadType == .pullDefault{
-                super.showLoading(show: show)
-            }
-        }else{
-            super.showLoading(show: show)
         }
     }
 }

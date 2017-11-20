@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ObjectMapper
 import HandyJSON
 /*
  *
@@ -28,8 +27,8 @@ class PJBaseModel: NSObject, HandyJSON, PJDecodable {
 extension PJBaseModel {
     
     func parse(jsonString: String) -> Self? {
-        let type = type(of: self)
-        if let baseModel = type.deserialize(from: jsonString) {
+        let classType = type(of: self)
+        if let baseModel = classType.deserialize(from: jsonString) {
             return baseModel
         }
         return nil

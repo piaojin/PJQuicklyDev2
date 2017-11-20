@@ -45,7 +45,7 @@ class PJBaseView: UIView {
     /**
      子类重写点击事件
      */
-    func viewClick(){
+    @objc func viewClick(){
         
     }
 

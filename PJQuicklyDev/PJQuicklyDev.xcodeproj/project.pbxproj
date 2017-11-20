@@ -19,7 +19,6 @@
 		765F2EFA1FC192C400B29314 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 765F2EF51FC192C400B29314 /* Assets.xcassets */; };
 		765F2EFB1FC192C400B29314 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 765F2EF61FC192C400B29314 /* LaunchScreen.storyboard */; };
 		765F2EFC1FC192C400B29314 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 765F2EF81FC192C400B29314 /* Main.storyboard */; };
-		765F2EFE1FC19FA000B29314 /* RuntimePropertyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EFD1FC19FA000B29314 /* RuntimePropertyExtension.swift */; };
 		92779AE88C9C5A8232FCD3D9 /* Pods_PJQuicklyDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A797E8AC333FE416B2154958 /* Pods_PJQuicklyDev.framework */; };
 		CA1B2A841EB4530B001A184D /* PJBaseCustomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B2A831EB4530B001A184D /* PJBaseCustomTableViewController.swift */; };
 		CAAD19611E9E56370046E69B /* PJQuicklyDevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD19601E9E56370046E69B /* PJQuicklyDevTests.swift */; };
@@ -72,7 +71,6 @@
 		765F2EF51FC192C400B29314 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		765F2EF71FC192C400B29314 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		765F2EF91FC192C400B29314 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		765F2EFD1FC19FA000B29314 /* RuntimePropertyExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimePropertyExtension.swift; sourceTree = "<group>"; };
 		8A9925F6494C170D13347A04 /* Pods-PJQuicklyDev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PJQuicklyDev.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PJQuicklyDev/Pods-PJQuicklyDev.debug.xcconfig"; sourceTree = "<group>"; };
 		A797E8AC333FE416B2154958 /* Pods_PJQuicklyDev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PJQuicklyDev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1B2A831EB4530B001A184D /* PJBaseCustomTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJBaseCustomTableViewController.swift; sourceTree = "<group>"; };
@@ -315,7 +313,6 @@
 			children = (
 				CAAD19881E9E565C0046E69B /* NSDateExtension.swift */,
 				CAAD19891E9E565C0046E69B /* PJCommonExtension.swift */,
-				765F2EFD1FC19FA000B29314 /* RuntimePropertyExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -594,7 +591,6 @@
 				CAAD19901E9E565C0046E69B /* PJBaseViewController.swift in Sources */,
 				765F2EE51FBFF7AB00B29314 /* ExpressTableViewCell.swift in Sources */,
 				CAAD19951E9E565C0046E69B /* PJBaseView.swift in Sources */,
-				765F2EFE1FC19FA000B29314 /* RuntimePropertyExtension.swift in Sources */,
 				765F2EED1FC1922900B29314 /* PJBaseModel.swift in Sources */,
 				CAC1E6701E9F77A0009B5085 /* PJSVProgressHUD.m in Sources */,
 				765F2EF31FC192B800B29314 /* ViewController.swift in Sources */,
@@ -761,7 +757,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PJQuicklyDev/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" PJDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = piaojin.PJQuicklyDev;
@@ -769,7 +765,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SWIFT_MODULE_NAME)/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -782,14 +778,14 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PJQuicklyDev/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" PJDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = piaojin.PJQuicklyDev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SWIFT_MODULE_NAME)/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
