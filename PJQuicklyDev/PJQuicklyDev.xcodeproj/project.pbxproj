@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7624D60B1FC3F9AD00904499 /* PJCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7624D60A1FC3F9AD00904499 /* PJCacheManager.swift */; };
 		765F2EDB1FBFC8AC00B29314 /* PJTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EDA1FBFC8AC00B29314 /* PJTestViewController.swift */; };
 		765F2EE31FBFF7AB00B29314 /* PJTableViewDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EDE1FBFF7AB00B29314 /* PJTableViewDemoController.swift */; };
 		765F2EE41FBFF7AB00B29314 /* ExpressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EE01FBFF7AB00B29314 /* ExpressModel.swift */; };
@@ -59,6 +60,7 @@
 
 /* Begin PBXFileReference section */
 		123A7FCFF14E6526D0DC242E /* Pods-PJQuicklyDev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PJQuicklyDev.release.xcconfig"; path = "Pods/Target Support Files/Pods-PJQuicklyDev/Pods-PJQuicklyDev.release.xcconfig"; sourceTree = "<group>"; };
+		7624D60A1FC3F9AD00904499 /* PJCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJCacheManager.swift; sourceTree = "<group>"; };
 		765F2EDA1FBFC8AC00B29314 /* PJTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJTestViewController.swift; sourceTree = "<group>"; };
 		765F2EDE1FBFF7AB00B29314 /* PJTableViewDemoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJTableViewDemoController.swift; sourceTree = "<group>"; };
 		765F2EE01FBFF7AB00B29314 /* ExpressModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressModel.swift; sourceTree = "<group>"; };
@@ -136,6 +138,14 @@
 				123A7FCFF14E6526D0DC242E /* Pods-PJQuicklyDev.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		7624D6091FC3F99300904499 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				7624D60A1FC3F9AD00904499 /* PJCacheManager.swift */,
+			);
+			path = Cache;
 			sourceTree = "<group>";
 		};
 		765F2EDC1FBFF7AB00B29314 /* Demo */ = {
@@ -320,6 +330,7 @@
 		CAAD198B1E9E565C0046E69B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				7624D6091FC3F99300904499 /* Cache */,
 				CAAD198C1E9E565C0046E69B /* HttpTool */,
 			);
 			path = Tools;
@@ -586,6 +597,7 @@
 				CAC1E6651E9F6514009B5085 /* PJConst.swift in Sources */,
 				CAAD198E1E9E565C0046E69B /* PJBaseModelViewController.swift in Sources */,
 				CAAD19941E9E565C0046E69B /* PJBaseTableViewCell.swift in Sources */,
+				7624D60B1FC3F9AD00904499 /* PJCacheManager.swift in Sources */,
 				CAAD19961E9E565C0046E69B /* NSDateExtension.swift in Sources */,
 				CAC1E6691E9F6533009B5085 /* PJRefreshNormalHeader.m in Sources */,
 				CAAD19901E9E565C0046E69B /* PJBaseViewController.swift in Sources */,

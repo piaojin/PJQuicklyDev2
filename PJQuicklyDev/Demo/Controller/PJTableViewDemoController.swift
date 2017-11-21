@@ -46,7 +46,7 @@ class PJTableViewDemoController: PJBaseTableViewController {
         super.viewDidLoad()
         self.tableView?.register(ExpressTableViewCell.classForCoder(), forCellReuseIdentifier: "ExpressTableViewCell")
         // MARK: 第一步:/******发起网络请求,默认get请求******/
-        self.doRequest()
+//        self.doRequest()
         
         ///请求的数据转成class(ExpressModel)
         var baseRequest = PJBaseRequest<ExpressModel>(path: self.requestUrl)
@@ -54,23 +54,23 @@ class PJTableViewDemoController: PJBaseTableViewController {
         baseRequest.httpMethod = .get
         baseRequest.parameter = self.params
         PJHttpRequestClient().send(baseRequest, success: { (model, response) -> Void in
-            if let model = model {
-
+            if let model = model as? ExpressModel {
+                PJCacheManager.saveBigObject(key: "piaojin", value: model)
             }
         }) { (error) -> Void in
             return
         }
 
         ///请求的数据转成struct(ExpressModel2)
-        var r = PJBaseStrcutRequest<ExpressModel2>(path: "query")
-        r.parameter = self.getParams()
-        PJHttpRequestClient().sendRequestForStruct(r, success: { (structModel, response) in
-            if let model = structModel {
-
-            }
-        }) { (error) in
-
-        }
+//        var r = PJBaseStrcutRequest<ExpressModel2>(path: "query")
+//        r.parameter = self.getParams()
+//        PJHttpRequestClient().sendRequestForStruct(r, success: { (structModel, response) in
+//            if let model = structModel {
+//
+//            }
+//        }) { (error) in
+//
+//        }
     }
     
     override func initView() {

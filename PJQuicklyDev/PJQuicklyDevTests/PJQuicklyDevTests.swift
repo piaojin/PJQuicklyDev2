@@ -24,6 +24,13 @@ class PJQuicklyDevTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+//        PJCacheManager.setDefault(key: "piaojin", value: "hello piaojin!")
+//        PJCacheManager.removeUserDefault(key: "piaojin")
+//        print(PJCacheManager.getDefault(key: "piaojin") ?? "")
+//        print(PJCacheManager.documnetPath)
+//        print(PJCacheManager.documnetPath)
+//        let bigObjectPath = PJCacheManager.documnetPath + PJCacheManager.bigObject + "piaojin"
+//        try? PJCacheManager.createDirectory(path: bigObjectPath)
     }
     
     func testPerformanceExample() {
