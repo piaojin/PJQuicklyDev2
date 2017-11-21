@@ -51,6 +51,26 @@ struct PJCacheManager {
     ///tmp目录 ./tmp.用于存放临时文件，保存应用程序再次启动过程中不需要的信息，重启后清空
     static let tmpDir = NSTemporaryDirectory()
     
+    static let userDefaults = UserDefaults.standard
+    
+    static func saveCustomObject(customObject object: NSCoding, key: String) {
+        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: object)
+        self.userDefaults.set(encodedObject, forKey: key)
+        self.userDefaults.synchronize()
+    }
+    
+    static func removeCustomObject(key: String) {
+        self.userDefaults.removeObject(forKey: key)
+    }
+    
+    static func getCustomObject(forKey key: String) -> Any? {
+        if let decodedObject = self.userDefaults.object(forKey: key), let data = decodedObject as? Data {
+            let object = NSKeyedUnarchiver.unarchiveObject(with: data)
+            return object
+        }
+        return nil
+    }
+    
     static func createDirectory(path: String) throws {
         do {
             //创建子目录对应的文件夹
@@ -64,48 +84,48 @@ struct PJCacheManager {
         self.fileManager.createFile(atPath: atPath, contents: data, attributes: nil)
     }
     
-    static func saveBigObject<T: HandyJSON>(key:String, value: T) {
-        let bigObjectPath = self.documnetPath + self.bigObject + key.md5()
-        self.saveBigObject(key: key, value: value, forPath: bigObjectPath)
-    }
+//    static func saveBigObject<T: HandyJSON>(key:String, value: T) {
+//        let bigObjectPath = self.documnetPath + self.bigObject + key.md5()
+//        self.saveBigObject(key: key, value: value, forPath: bigObjectPath)
+//    }
     
     ///保存大对象(只要是遵循HandyJSON协议的都可以)
-    static func saveBigObject<T: HandyJSON>(key:String, value: T, forPath: String) {
-        if let value = value.toJSONString(), let data = value.data(using: String.Encoding.utf8) {
-            if self.fileManager.fileExists(atPath: forPath) {
-                do {
-                    try self.fileManager.removeItem(atPath: forPath)
-                } catch let error {
-                    Log(.App,.Error, "saveBigObject ->removeItem error:\(error)")
-                }
-            }
-            self.createFile(atPath: forPath, data: data)
-        } else {
-            Log(.App,.Error, "bigObject toJSONString error")
-        }
-    }
-    
-    static func getBigObject<T: HandyJSON>(key:String, forPath: String, classType: T) -> T? {
-        do {
-            let bigObjectString = try String(contentsOfFile: forPath, encoding: String.Encoding.utf8)
-            let classType = type(of: classType)
-            let object = classType.deserialize(from: bigObjectString)
-            return object
-        } catch let error {
-            Log(.App,.Error, "getBigObject forPath: \(forPath) -> error:\(error)")
-            return nil
-        }
-    }
-    
-    ///保存中小对象(只要是遵循HandyJSON协议的都可以)
-    static func saveObject<T: HandyJSON>(key:String, value: T) {
-        if let value = value.toJSONString() {
-            UserDefaults.standard.set(value, forKey: key)
-            UserDefaults.standard.synchronize()
-        } else {
-            UserDefaults.standard.removeObject(forKey: key)
-        }
-    }
+//    static func saveBigObject<T: HandyJSON>(key:String, value: T, forPath: String) {
+//        if let value = value.toJSONString(), let data = value.data(using: String.Encoding.utf8) {
+//            if self.fileManager.fileExists(atPath: forPath) {
+//                do {
+//                    try self.fileManager.removeItem(atPath: forPath)
+//                } catch let error {
+//                    Log(.App,.Error, "saveBigObject ->removeItem error:\(error)")
+//                }
+//            }
+//            self.createFile(atPath: forPath, data: data)
+//        } else {
+//            Log(.App,.Error, "bigObject toJSONString error")
+//        }
+//    }
+//
+//    static func getBigObject<T: HandyJSON>(key:String, forPath: String, classType: T) -> T? {
+//        do {
+//            let bigObjectString = try String(contentsOfFile: forPath, encoding: String.Encoding.utf8)
+//            let classType = type(of: classType)
+//            let object = classType.deserialize(from: bigObjectString)
+//            return object
+//        } catch let error {
+//            Log(.App,.Error, "getBigObject forPath: \(forPath) -> error:\(error)")
+//            return nil
+//        }
+//    }
+//
+//    ///保存中小对象(只要是遵循HandyJSON协议的都可以)
+//    static func saveObject<T: HandyJSON>(key:String, value: T) {
+//        if let value = value.toJSONString() {
+//            UserDefaults.standard.set(value, forKey: key)
+//            UserDefaults.standard.synchronize()
+//        } else {
+//            UserDefaults.standard.removeObject(forKey: key)
+//        }
+//    }
     
     static func setDefault(key:String, value: Any?) {
         if value == nil {
