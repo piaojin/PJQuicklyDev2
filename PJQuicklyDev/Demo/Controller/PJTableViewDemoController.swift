@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NSLogger
 
 let cellID = "ExpressTableViewCell"
 
@@ -47,46 +48,46 @@ class PJTableViewDemoController: PJBaseTableViewController {
         self.tableView?.register(ExpressTableViewCell.classForCoder(), forCellReuseIdentifier: "ExpressTableViewCell")
         // MARK: 第一步:/******发起网络请求,默认get请求******/
 //        self.doRequest()
-        
+        Log(.Model, .Info, "test NSLoger")
         ///请求的数据转成class(ExpressModel)
-        var baseRequest = PJBaseRequest<ExpressModel>(path: self.requestUrl)
-        baseRequest.headers = self.headers
-        baseRequest.httpMethod = .get
-        baseRequest.parameter = self.params
-        PJHttpRequestClient().send(baseRequest, success: { (model, response) -> Void in
-            if let model = model as? ExpressModel {
-//                PJCacheManager.saveBigObject(key: "piaojin", value: model)
-//                let object = PJCacheManager.getBigObject2(key: "piaojin", ExpressModel.self())
-//                print("\(object)")
-//                PJCacheManager.saveObject(key: "piaojin", value: model)
-//                let object = PJCacheManager.getObject(key: "piaojin", returnClassType: ExpressModel.self())
-//                print("\(object)")
-//                PJCacheManager.saveCustomObject(customObject: model, key: "zlq")
-//                let object = PJCacheManager.getCustomObject(forKey: "zlq") as? ExpressModel
-//                print("\(object)")
-            }
-        }) { (error) -> Void in
-            return
-        }
+//        var baseRequest = PJBaseRequest<ExpressModel>(path: self.requestUrl)
+//        baseRequest.headers = self.headers
+//        baseRequest.httpMethod = .get
+//        baseRequest.parameter = self.params
+//        PJHttpRequestClient().send(baseRequest, success: { (model, response) -> Void in
+//            if let model = model as? ExpressModel {
+////                PJCacheManager.saveBigObject(key: "piaojin", value: model)
+////                let object = PJCacheManager.getBigObject2(key: "piaojin", ExpressModel.self())
+////                print("\(object)")
+////                PJCacheManager.saveObject(key: "piaojin", value: model)
+////                let object = PJCacheManager.getObject(key: "piaojin", returnClassType: ExpressModel.self())
+////                print("\(object)")
+////                PJCacheManager.saveCustomObject(customObject: model, key: "zlq")
+////                let object = PJCacheManager.getCustomObject(forKey: "zlq") as? ExpressModel
+////                print("\(object)")
+//            }
+//        }) { (error) -> Void in
+//            return
+//        }
 
         ///请求的数据转成struct(ExpressModel2)
-        var r = PJBaseStrcutRequest<ExpressModel2>(path: "query")
-        r.parameter = self.getParams()
-        PJHttpRequestClient().sendRequestForStruct(r, success: { (structModel, response) in
-            if let model = structModel {
-//                PJCacheManager.saveBigObject(key: "piaojin2", value: model)
-//                let object = PJCacheManager.getBigObject2(key: "piaojin", ExpressModel2.self())
-//                print("\(object)")
-//                PJCacheManager.saveObject(key: "piaojin", value: model)
-//                let object = PJCacheManager.getObject(key: "piaojin", returnClassType: ExpressModel2.self())
-//                print("\(object)")
-//                PJCacheManager.saveCustomObject(customObject: model, key: "zlq")
-//                let object = PJCacheManager.getCustomObject(forKey: "zlq") as? ExpressModel2
-//                print("\(object)")
-            }
-        }) { (error) in
+//        var r = PJBaseStrcutRequest<ExpressModel2>(path: "query")
+//        r.parameter = self.getParams()
+//        PJHttpRequestClient().sendRequestForStruct(r, success: { (structModel, response) in
+//            if let model = structModel {
+////                PJCacheManager.saveBigObject(key: "piaojin2", value: model)
+////                let object = PJCacheManager.getBigObject2(key: "piaojin", ExpressModel2.self())
+////                print("\(object)")
+////                PJCacheManager.saveObject(key: "piaojin", value: model)
+////                let object = PJCacheManager.getObject(key: "piaojin", returnClassType: ExpressModel2.self())
+////                print("\(object)")
+////                PJCacheManager.saveCustomObject(customObject: model, key: "zlq")
+////                let object = PJCacheManager.getCustomObject(forKey: "zlq") as? ExpressModel2
+////                print("\(object)")
+//            }
+//        }) { (error) in
 
-        }
+//        }
     }
     
     override func initView() {

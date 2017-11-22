@@ -83,5 +83,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Demo/Controller/PJTableViewDemoController.swift"
+            timestampString = "533048764.014026"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PJQuicklyDev.PJTableViewDemoController.viewDidLoad() -&gt; ()"
+                  moduleName = "PJQuicklyDev"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zoey.weng/Desktop/PJQuicklyDev2/PJQuicklyDev/Demo/Controller/PJTableViewDemoController.swift"
+                  timestampString = "533048729.626695"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "443">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "implicit closure #1 : @autoclosure () -&gt; Swift.String in PJQuicklyDev.PJTableViewDemoController.viewDidLoad() -&gt; ()"
+                  moduleName = "PJQuicklyDev"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zoey.weng/Desktop/PJQuicklyDev2/PJQuicklyDev/Demo/Controller/PJTableViewDemoController.swift"
+                  timestampString = "533048729.630016"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
