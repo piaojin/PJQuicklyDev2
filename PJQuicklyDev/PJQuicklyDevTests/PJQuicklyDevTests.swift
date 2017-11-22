@@ -31,6 +31,8 @@ class PJQuicklyDevTests: XCTestCase {
 //        print(PJCacheManager.documnetPath)
 //        let bigObjectPath = PJCacheManager.documnetPath + PJCacheManager.bigObject + "piaojin"
 //        try? PJCacheManager.createDirectory(path: bigObjectPath)
+        let model = ExpressModel()
+        model.setValue("message", forKey: "message")
     }
     
     func testPerformanceExample() {

@@ -84,48 +84,59 @@ struct PJCacheManager {
         self.fileManager.createFile(atPath: atPath, contents: data, attributes: nil)
     }
     
-//    static func saveBigObject<T: HandyJSON>(key:String, value: T) {
-//        let bigObjectPath = self.documnetPath + self.bigObject + key.md5()
-//        self.saveBigObject(key: key, value: value, forPath: bigObjectPath)
-//    }
+    //保存大对象(只要是遵循HandyJSON协议的都可以)
+    static func saveBigObject<T: HandyJSON>(key:String, value: T) {
+        let bigObjectPath = self.documnetPath + self.bigObject + key.md5()
+        self.saveBigObject(key: key, value: value, forPath: bigObjectPath)
+    }
     
-    ///保存大对象(只要是遵循HandyJSON协议的都可以)
-//    static func saveBigObject<T: HandyJSON>(key:String, value: T, forPath: String) {
-//        if let value = value.toJSONString(), let data = value.data(using: String.Encoding.utf8) {
-//            if self.fileManager.fileExists(atPath: forPath) {
-//                do {
-//                    try self.fileManager.removeItem(atPath: forPath)
-//                } catch let error {
-//                    Log(.App,.Error, "saveBigObject ->removeItem error:\(error)")
-//                }
-//            }
-//            self.createFile(atPath: forPath, data: data)
-//        } else {
-//            Log(.App,.Error, "bigObject toJSONString error")
-//        }
-//    }
-//
-//    static func getBigObject<T: HandyJSON>(key:String, forPath: String, classType: T) -> T? {
-//        do {
-//            let bigObjectString = try String(contentsOfFile: forPath, encoding: String.Encoding.utf8)
-//            let classType = type(of: classType)
-//            let object = classType.deserialize(from: bigObjectString)
-//            return object
-//        } catch let error {
-//            Log(.App,.Error, "getBigObject forPath: \(forPath) -> error:\(error)")
-//            return nil
-//        }
-//    }
-//
-//    ///保存中小对象(只要是遵循HandyJSON协议的都可以)
-//    static func saveObject<T: HandyJSON>(key:String, value: T) {
-//        if let value = value.toJSONString() {
-//            UserDefaults.standard.set(value, forKey: key)
-//            UserDefaults.standard.synchronize()
-//        } else {
-//            UserDefaults.standard.removeObject(forKey: key)
-//        }
-//    }
+    //保存大对象(只要是遵循HandyJSON协议的都可以)
+    static func saveBigObject<T: HandyJSON>(key:String, value: T, forPath: String) {
+        if let value = value.toJSONString(), let data = value.data(using: String.Encoding.utf8) {
+            if self.fileManager.fileExists(atPath: forPath) {
+                do {
+                    try self.fileManager.removeItem(atPath: forPath)
+                } catch let error {
+                    Log(.App,.Error, "saveBigObject ->removeItem error:\(error)")
+                }
+            }
+            self.createFile(atPath: forPath, data: data)
+        } else {
+            Log(.App,.Error, "bigObject toJSONString error")
+        }
+    }
+    
+    //获取大对象，classType为要转成的类型，可以是class也可以是struct,用法PJCacheManager.getBigObject(key: "piaojin", Model.self())
+    static func getBigObject<T: HandyJSON>(key:String, returnClassType : T) -> T? {
+        do {
+            let bigObjectPath = self.documnetPath + self.bigObject + key.md5()
+            let bigObjectString = try String(contentsOfFile: bigObjectPath, encoding: String.Encoding.utf8)
+            let object = JSONDeserializer<T>.deserializeFrom(json: bigObjectString)
+            return object
+        } catch let error {
+            Log(.App,.Error, "getBigObject forPath -> error:\(error)")
+            return nil
+        }
+    }
+    
+    ///保存中小对象(只要是遵循HandyJSON协议的都可以)
+    static func saveObject<T: HandyJSON>(key:String, value: T) {
+        if let value = value.toJSONString() {
+            UserDefaults.standard.set(value, forKey: key)
+            UserDefaults.standard.synchronize()
+        } else {
+            UserDefaults.standard.removeObject(forKey: key)
+        }
+    }
+    
+    //获取中小对象，classType为要转成的类型，可以是class也可以是struct,用法PJCacheManager.getObject(key: "piaojin", Model.self())
+    static func getObject<T: HandyJSON>(key:String, returnClassType : T) -> T? {
+        if let bigObjectString = self.getDefault(key: key) as? String {
+            let object = JSONDeserializer<T>.deserializeFrom(json: bigObjectString)
+            return object
+        }
+        return nil
+    }
     
     static func setDefault(key:String, value: Any?) {
         if value == nil {

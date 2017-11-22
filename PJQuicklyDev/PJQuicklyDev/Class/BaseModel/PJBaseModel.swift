@@ -13,8 +13,21 @@ import HandyJSON
  *假设服务器返的数据格式是{code:200, data: {字典}, message: "message"}
  *
 */
-class PJBaseModel: NSObject, HandyJSON, PJDecodable, NSCoding {
+@objcMembers class PJBaseModel: NSObject, HandyJSON, PJDecodable, NSCoding {
     
+    ///如果子类需要归档，则子类需要重写调用encode和aDecoder
+    /**
+     *
+     *
+       internal override func encode(with aCoder: NSCoder) {
+         super.encode(with: aCoder)
+       }
+     
+       internal required init?(coder aDecoder: NSCoder) {
+         super.init(coder: aDecoder)
+       }
+     *
+    */
     internal func encode(with aCoder: NSCoder) {
         var count :UInt32 = 0
         if let ivar = class_copyIvarList(self.classForCoder, &count) {
@@ -30,7 +43,6 @@ class PJBaseModel: NSObject, HandyJSON, PJDecodable, NSCoding {
                     //利用kvc 取值
                     let value = self.value(forKey: strName)
                     aCoder.encode(value, forKey: strName)
-                    print("\(strName)")
                 }
             }
             // 释放c 语言对象
@@ -55,7 +67,6 @@ class PJBaseModel: NSObject, HandyJSON, PJDecodable, NSCoding {
                     let value = aDecoder.decodeObject(forKey: strName)
                     //利用kvc给属性赋值
                     setValue(value, forKeyPath: strName)
-                    print("\(strName)")
                 }
             }
             // 释放c 语言对象
@@ -63,6 +74,9 @@ class PJBaseModel: NSObject, HandyJSON, PJDecodable, NSCoding {
         }
     }
     
+    func setValue(value: AnyObject?, forUndefinedKey key: String ) {
+        print("UndefinedKey \(key) \(String(describing: value))")
+    }
     
 //    var code: Int?
 //    var message: String?
