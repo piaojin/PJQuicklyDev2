@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7624D60B1FC3F9AD00904499 /* PJCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7624D60A1FC3F9AD00904499 /* PJCacheManager.swift */; };
-		765F2EDB1FBFC8AC00B29314 /* PJTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EDA1FBFC8AC00B29314 /* PJTestViewController.swift */; };
 		765F2EE31FBFF7AB00B29314 /* PJTableViewDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EDE1FBFF7AB00B29314 /* PJTableViewDemoController.swift */; };
 		765F2EE41FBFF7AB00B29314 /* ExpressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EE01FBFF7AB00B29314 /* ExpressModel.swift */; };
 		765F2EE51FBFF7AB00B29314 /* ExpressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EE21FBFF7AB00B29314 /* ExpressTableViewCell.swift */; };
@@ -61,7 +60,6 @@
 /* Begin PBXFileReference section */
 		123A7FCFF14E6526D0DC242E /* Pods-PJQuicklyDev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PJQuicklyDev.release.xcconfig"; path = "Pods/Target Support Files/Pods-PJQuicklyDev/Pods-PJQuicklyDev.release.xcconfig"; sourceTree = "<group>"; };
 		7624D60A1FC3F9AD00904499 /* PJCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJCacheManager.swift; sourceTree = "<group>"; };
-		765F2EDA1FBFC8AC00B29314 /* PJTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJTestViewController.swift; sourceTree = "<group>"; };
 		765F2EDE1FBFF7AB00B29314 /* PJTableViewDemoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJTableViewDemoController.swift; sourceTree = "<group>"; };
 		765F2EE01FBFF7AB00B29314 /* ExpressModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressModel.swift; sourceTree = "<group>"; };
 		765F2EE21FBFF7AB00B29314 /* ExpressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressTableViewCell.swift; sourceTree = "<group>"; };
@@ -272,7 +270,6 @@
 				CAAD197E1E9E565C0046E69B /* BaseDataSource */,
 				CAAD19811E9E565C0046E69B /* BaseView */,
 				CAAD19861E9E565C0046E69B /* Common */,
-				765F2EDA1FBFC8AC00B29314 /* PJTestViewController.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -607,7 +604,6 @@
 				CAC1E6701E9F77A0009B5085 /* PJSVProgressHUD.m in Sources */,
 				765F2EF31FC192B800B29314 /* ViewController.swift in Sources */,
 				765F2EE71FC0752100B29314 /* ExpressModel2.swift in Sources */,
-				765F2EDB1FBFC8AC00B29314 /* PJTestViewController.swift in Sources */,
 				765F2EE41FBFF7AB00B29314 /* ExpressModel.swift in Sources */,
 				CA1B2A841EB4530B001A184D /* PJBaseCustomTableViewController.swift in Sources */,
 				765F2EEE1FC1922900B29314 /* PJBaseStructModel.swift in Sources */,

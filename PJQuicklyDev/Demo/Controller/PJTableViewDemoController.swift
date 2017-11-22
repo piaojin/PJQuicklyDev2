@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import NSLogger
+import CocoaLumberjack
 
 let cellID = "ExpressTableViewCell"
 
@@ -46,9 +46,9 @@ class PJTableViewDemoController: PJBaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView?.register(ExpressTableViewCell.classForCoder(), forCellReuseIdentifier: "ExpressTableViewCell")
+        DDLogInfo("hello piaojin!")
         // MARK: 第一步:/******发起网络请求,默认get请求******/
 //        self.doRequest()
-        Log(.Model, .Info, "test NSLoger")
         ///请求的数据转成class(ExpressModel)
 //        var baseRequest = PJBaseRequest<ExpressModel>(path: self.requestUrl)
 //        baseRequest.headers = self.headers

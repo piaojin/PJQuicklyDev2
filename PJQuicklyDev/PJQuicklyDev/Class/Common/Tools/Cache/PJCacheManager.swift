@@ -8,8 +8,8 @@
 
 import UIKit
 import HandyJSON
-import NSLogger
 import CryptoSwift
+import CocoaLumberjack
 
 // MARK: 数据缓存类
 struct PJCacheManager {
@@ -76,7 +76,7 @@ struct PJCacheManager {
             //创建子目录对应的文件夹
             try self.fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
         } catch let error {
-            Log(.App,.Error, "createDirectory error:\(error)")
+            DDLogError("createDirectory error:\(error)")
         }
     }
     
@@ -97,12 +97,12 @@ struct PJCacheManager {
                 do {
                     try self.fileManager.removeItem(atPath: forPath)
                 } catch let error {
-                    Log(.App,.Error, "saveBigObject ->removeItem error:\(error)")
+                    DDLogError("saveBigObject ->removeItem error:\(error)")
                 }
             }
             self.createFile(atPath: forPath, data: data)
         } else {
-            Log(.App,.Error, "bigObject toJSONString error")
+            DDLogError("bigObject toJSONString error")
         }
     }
     
@@ -114,7 +114,7 @@ struct PJCacheManager {
             let object = JSONDeserializer<T>.deserializeFrom(json: bigObjectString)
             return object
         } catch let error {
-            Log(.App,.Error, "getBigObject forPath -> error:\(error)")
+            DDLogError("getBigObject forPath -> error:\(error)")
             return nil
         }
     }

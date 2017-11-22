@@ -1,38 +1,38 @@
 PODS:
   - Alamofire (4.5.1)
+  - CocoaLumberjack/Default (3.3.0)
+  - CocoaLumberjack/Swift (3.3.0):
+    - CocoaLumberjack/Default
   - CryptoSwift (0.8.0)
   - FSPagerView (0.7.1)
   - HandyJSON (4.0.0-beta.1)
   - Kingfisher (4.1.1)
   - MJRefresh (3.1.14)
-  - NSLogger/ObjC (1.8.3)
-  - NSLogger/Swift (1.8.3):
-    - NSLogger/ObjC
   - SVProgressHUD (2.1.2)
   - UITableView+FDTemplateLayoutCell (1.6)
 
 DEPENDENCIES:
   - Alamofire (~> 4.5.1)
+  - CocoaLumberjack/Swift (~> 3.3.0)
   - CryptoSwift (~> 0.8.0)
   - FSPagerView (~> 0.7.1)
   - HandyJSON (~> 4.0.0-beta.1)
   - Kingfisher (~> 4.1.1)
   - MJRefresh (~> 3.1.14)
-  - NSLogger/Swift (~> 1.8.3)
   - SVProgressHUD
   - UITableView+FDTemplateLayoutCell (~> 1.6)
 
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  CocoaLumberjack: 3c8c74683302f9012bb168e1c4b7ae3c0b558431
   CryptoSwift: f81907430ebbe38b8404b4f6fb40f3c576a8755f
   FSPagerView: 958aba39684e1573755ddcfcc29f7eebb8413cee
   HandyJSON: 428bb18e2c34c2a77361accebf90cf64e4f74118
   Kingfisher: 6793a473357b5dbee42b0068ef203fe8325f259e
   MJRefresh: 6642e35b3227a5447b9fd5e17c552c90196c9859
-  NSLogger: c9b80dbeee1d65eb553647a1f6f1f72171b04808
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
 
-PODFILE CHECKSUM: 5bb31c8898235578988f7931b93bf37feb180b07
+PODFILE CHECKSUM: df4a98f8aaa814cf3f97ce14c0576af3bc449931
 
 COCOAPODS: 1.2.0

@@ -14,17 +14,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         //"http://v5.owner.mjbang.cn/api/gallery/get_experience_house"
     }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let testViewController = PJTestViewController()
-        self.present(testViewController, animated: true, completion: nil)
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
