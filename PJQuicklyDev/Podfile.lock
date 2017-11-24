@@ -8,7 +8,10 @@ PODS:
   - HandyJSON (4.0.0-beta.1)
   - Kingfisher (4.1.1)
   - MJRefresh (3.1.14)
+  - ReachabilitySwift (4.1.0)
   - SVProgressHUD (2.1.2)
+  - SwiftString (0.5)
+  - Toast-Swift (2.0.0)
   - UITableView+FDTemplateLayoutCell (1.6)
 
 DEPENDENCIES:
@@ -19,7 +22,10 @@ DEPENDENCIES:
   - HandyJSON (~> 4.0.0-beta.1)
   - Kingfisher (~> 4.1.1)
   - MJRefresh (~> 3.1.14)
+  - ReachabilitySwift (~> 4.1.0)
   - SVProgressHUD
+  - SwiftString (~> 0.5)
+  - Toast-Swift (~> 2.0.0)
   - UITableView+FDTemplateLayoutCell (~> 1.6)
 
 SPEC CHECKSUMS:
@@ -30,9 +36,12 @@ SPEC CHECKSUMS:
   HandyJSON: 428bb18e2c34c2a77361accebf90cf64e4f74118
   Kingfisher: 6793a473357b5dbee42b0068ef203fe8325f259e
   MJRefresh: 6642e35b3227a5447b9fd5e17c552c90196c9859
+  ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  SwiftString: ec9c31c55b2aa147a1154f5f5f8483dc71e3165f
+  Toast-Swift: 5b2f8f720f7e78e48511f693df1f9c9a6e38a25a
   UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
 
-PODFILE CHECKSUM: df4a98f8aaa814cf3f97ce14c0576af3bc449931
+PODFILE CHECKSUM: 6237a82f950ba8f315b6f3a2f5ec9220afd292a6
 
 COCOAPODS: 1.2.0
