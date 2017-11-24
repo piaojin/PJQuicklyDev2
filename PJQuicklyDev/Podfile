@@ -17,6 +17,6 @@ target 'PJQuicklyDev' do
     pod 'FSPagerView', '~> 0.7.1'
     pod 'CocoaLumberjack/Swift', '~> 3.3.0'
     pod 'ReachabilitySwift', '~> 4.1.0'
-    pod 'SwiftString', '~> 0.5'
-    pod 'Toast-Swift', '~> 2.0.0'
+    #pod 'SwiftString', '~> 0.5'
+    pod 'Toast-Swift'
 end

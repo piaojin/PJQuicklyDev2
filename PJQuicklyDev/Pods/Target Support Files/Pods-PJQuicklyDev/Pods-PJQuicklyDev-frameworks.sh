@@ -98,7 +98,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/MJRefresh/MJRefresh.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReachabilitySwift/Reachability.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SVProgressHUD/SVProgressHUD.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/SwiftString/SwiftString.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Toast-Swift/Toast_Swift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/UITableView+FDTemplateLayoutCell/UITableView_FDTemplateLayoutCell.framework"
 fi
@@ -112,7 +111,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/MJRefresh/MJRefresh.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReachabilitySwift/Reachability.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SVProgressHUD/SVProgressHUD.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/SwiftString/SwiftString.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Toast-Swift/Toast_Swift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/UITableView+FDTemplateLayoutCell/UITableView_FDTemplateLayoutCell.framework"
 fi
