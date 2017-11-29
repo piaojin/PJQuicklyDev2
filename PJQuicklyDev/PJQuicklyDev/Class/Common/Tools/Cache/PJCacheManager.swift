@@ -14,13 +14,14 @@ import CocoaLumberjack
 // MARK: 数据缓存类
 struct PJCacheManager {
     
+    static var shared = PJCacheManager()
     static let bigObject = "/BigObject/"
     static let fileManager = FileManager()
     ///获取程序的Home目录
     static let homeDirectory = NSHomeDirectory()
     
     ///用户文档目录，苹果建议将程序中建立的或在程序中浏览到的文件数据保存在该目录下，iTunes备份和恢复的时候会包括此目录
-    static var documnetPath: String = {
+    lazy var documnetPath: String = {
         let documentPaths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
         if let path = documentPaths.first {
             return path
@@ -29,7 +30,7 @@ struct PJCacheManager {
         }
     }()
     
-    static var libraryPath: String = {
+    lazy var libraryPath: String = {
         let libraryPaths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
         if let path = libraryPaths.first {
             return path
@@ -39,7 +40,7 @@ struct PJCacheManager {
     }()
     
     ///主要存放缓存文件，iTunes不会备份此目录，此目录下文件不会再应用退出时删除
-    static var cachePath: String = {
+    lazy var cachePath: String = {
         let cachePaths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.cachesDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
         if let path = cachePaths.first {
             return path
@@ -53,20 +54,28 @@ struct PJCacheManager {
     
     static let userDefaults = UserDefaults.standard
     
-    static func saveCustomObject(customObject object: NSCoding, key: String) {
-        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: object)
-        self.userDefaults.set(encodedObject, forKey: key)
-        self.userDefaults.synchronize()
+    static func saveCustomObject<T: Encodable>(customObject object: T, key: String) {
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(object) {
+            print(String(data: data, encoding: .utf8)!)
+            self.userDefaults.set(data, forKey: key)
+            self.userDefaults.synchronize()
+        }
     }
     
     static func removeCustomObject(key: String) {
         self.userDefaults.removeObject(forKey: key)
     }
     
-    static func getCustomObject(forKey key: String) -> Any? {
+    static func getCustomObject<T: Decodable>(type: T, forKey key: String) -> T? {
         if let decodedObject = self.userDefaults.object(forKey: key), let data = decodedObject as? Data {
-            let object = NSKeyedUnarchiver.unarchiveObject(with: data)
-            return object
+            let decoder = JSONDecoder()
+            if let object = try? decoder.decode(T.self, from: data) {
+                print("\(String(describing: object))")
+                return object
+            } else {
+                return nil
+            }
         }
         return nil
     }
@@ -86,7 +95,7 @@ struct PJCacheManager {
     
     //保存大对象(只要是遵循HandyJSON协议的都可以)
     static func saveBigObject<T: HandyJSON>(key:String, value: T) {
-        let bigObjectPath = self.documnetPath + self.bigObject + key.md5()
+        let bigObjectPath = self.shared.documnetPath + self.bigObject + key.md5()
         self.saveBigObject(key: key, value: value, forPath: bigObjectPath)
     }
     
@@ -109,7 +118,7 @@ struct PJCacheManager {
     //获取大对象，classType为要转成的类型，可以是class也可以是struct,用法PJCacheManager.getBigObject(key: "piaojin", Model.self())
     static func getBigObject<T: HandyJSON>(key:String, returnClassType : T) -> T? {
         do {
-            let bigObjectPath = self.documnetPath + self.bigObject + key.md5()
+            let bigObjectPath = self.shared.documnetPath + self.bigObject + key.md5()
             let bigObjectString = try String(contentsOfFile: bigObjectPath, encoding: String.Encoding.utf8)
             let object = JSONDeserializer<T>.deserializeFrom(json: bigObjectString)
             return object

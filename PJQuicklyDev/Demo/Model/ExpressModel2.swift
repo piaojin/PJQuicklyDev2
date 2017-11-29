@@ -9,7 +9,7 @@
 import UIKit
 import HandyJSON
 
-struct ExpressModel2: HandyJSON, PJDecodable {
+struct ExpressModel2: HandyJSON, PJDecodable, Codable {
     
     var message : String?
     var nu : String?

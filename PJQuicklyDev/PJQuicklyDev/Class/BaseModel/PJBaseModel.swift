@@ -13,76 +13,13 @@ import HandyJSON
  *假设服务器返的数据格式是{code:200, data: {字典}, message: "message"}
  *
 */
-@objcMembers class PJBaseModel: NSObject, HandyJSON, PJDecodable, NSCoding {
-    
-    ///如果子类需要归档，则子类需要重写调用encode和aDecoder
-    /**
-     *
-     *
-       internal override func encode(with aCoder: NSCoder) {
-         super.encode(with: aCoder)
-       }
-     
-       internal required init?(coder aDecoder: NSCoder) {
-         super.init(coder: aDecoder)
-       }
-     *
-    */
-    internal func encode(with aCoder: NSCoder) {
-        var count :UInt32 = 0
-        if let ivar = class_copyIvarList(self.classForCoder, &count) {
-            for i in 0..<Int(count) {
-                let iv = ivar[i]
-                //获取成员变量的名称 -> c语言字符串
-                if let cName = ivar_getName(iv) {
-                    //转换成String字符串
-                    guard let strName = String(cString: cName, encoding: String.Encoding.utf8) else{
-                        //继续下一次遍历
-                        continue
-                    }
-                    //利用kvc 取值
-                    let value = self.value(forKey: strName)
-                    aCoder.encode(value, forKey: strName)
-                }
-            }
-            // 释放c 语言对象
-            free(ivar)
-        }
-    }
-    
-    internal required init?(coder aDecoder: NSCoder) {
-        super.init()
-        var count :UInt32 = 0
-        if let ivar = class_copyIvarList(self.classForCoder, &count) {
-            for i in 0..<Int(count) {
-                let iv = ivar[i]
-                //获取成员变量的名称 -》 c语言字符串
-                if let cName = ivar_getName(iv) {
-                    //转换成String字符串
-                    guard let strName = String(cString: cName, encoding: String.Encoding.utf8) else{
-                        //继续下一次遍历
-                        continue
-                    }
-                    //进行解档取值
-                    let value = aDecoder.decodeObject(forKey: strName)
-                    //利用kvc给属性赋值
-                    setValue(value, forKeyPath: strName)
-                }
-            }
-            // 释放c 语言对象
-            free(ivar)
-        }
-    }
-    
-    func setValue(value: AnyObject?, forUndefinedKey key: String ) {
-        print("UndefinedKey \(key) \(String(describing: value))")
-    }
+class PJBaseModel: NSObject, HandyJSON, PJDecodable {
     
 //    var code: Int?
 //    var message: String?
 //    var data: Any?
     
-    override required init() {
+    required override init() {
         super.init()
     }
 }

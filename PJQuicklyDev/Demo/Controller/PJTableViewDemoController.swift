@@ -56,7 +56,9 @@ class PJTableViewDemoController: PJBaseTableViewController {
         baseRequest.parameter = self.params
         PJHttpRequestClient().send(baseRequest, success: { (model, response) -> Void in
             if let model = model as? ExpressModel {
-                DDLogInfo("普通请求完成，json转class类型，\(model)")
+                PJCacheManager.saveCustomObject(customObject: model, key: "piaojin")
+                let object = PJCacheManager.getCustomObject(type: ExpressModel.self(), forKey: "piaojin")
+                DDLogInfo("普通请求完成，json转struct类型，\(String(describing: object))")
             }
         }) { (error) -> Void in
             return
@@ -67,7 +69,9 @@ class PJTableViewDemoController: PJBaseTableViewController {
         r.parameter = self.getParams()
         PJHttpRequestClient().sendRequestForStruct(r, success: { (structModel, response) in
             if let model = structModel {
-                DDLogInfo("普通请求完成，json转struct类型，\(model)")
+                PJCacheManager.saveCustomObject(customObject: model, key: "piaojin")
+                let object = PJCacheManager.getCustomObject(type: ExpressModel2.self(), forKey: "piaojin")
+                DDLogInfo("普通请求完成，json转struct类型，\(String(describing: object))")
             }
         }) { (error) in
 
