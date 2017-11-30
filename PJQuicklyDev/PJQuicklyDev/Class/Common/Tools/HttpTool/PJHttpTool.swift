@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 ///请求的结果是要转成class的模型
-typealias PJSuccess = (_ data: Any?, _ response : Any?) -> Void
+typealias PJSuccess<T: PJRequest> = (_ data: T.Response?, _ response : Any?) -> Void
 ///请求的结果是要转成struct的模型
 typealias PJSuccessForStruct<T: PJRequest> = (_ data: T.Response?, _ response : Any?) -> Void
 typealias PJFatalError = (_ error : Any?) -> Void
@@ -24,7 +24,7 @@ enum PJResponseDataType : Int{
 
 ///网络请求协议
 protocol PJClient {
-    func send<T: PJRequest>(_ r: T, success: @escaping PJSuccess, fatalError: @escaping PJFatalError)
+    func send<T: PJRequest>(_ r: T, success: @escaping PJSuccess<T>, fatalError: @escaping PJFatalError)
     func sendRequestForStruct<T: PJRequest>(_ r: T, success: @escaping PJSuccessForStruct<T>, fatalError: @escaping PJFatalError)
 }
 
@@ -106,7 +106,7 @@ struct PJHttpRequestClient: PJClient {
     }
     
     ///用于网络请求的数据要转成class类型的模型
-    func send<T: PJRequest>(_ r: T, success: @escaping PJSuccess, fatalError: @escaping PJFatalError) {
+    func send<T: PJRequest>(_ r: T, success: @escaping PJSuccess<T>, fatalError: @escaping PJFatalError) {
         let url = r.host.appending(r.path)
         let request: DataRequest = Alamofire.request(url, method: r.httpMethod, parameters: r.parameter, encoding: URLEncoding.default, headers: r.headers)
         
@@ -130,7 +130,7 @@ struct PJHttpRequestClient: PJClient {
     }
     
     /*****解析服务器返回的数据*****/
-    func responseHandle<T: PJRequest, P>(_ r: T, response : DataResponse<P>, success: @escaping PJSuccess, fatalError: @escaping PJFatalError) {
+    func responseHandle<T: PJRequest, P>(_ r: T, response : DataResponse<P>, success: @escaping PJSuccess<T>, fatalError: @escaping PJFatalError) {
         if response.result.isSuccess {
             
             if let data = response.data, let jsonString = String(data:data, encoding: String.Encoding.utf8) {
@@ -139,13 +139,13 @@ struct PJHttpRequestClient: PJClient {
                 if let classType = NSClassFromString(className) as? PJBaseModel.Type {
                     let model = classType.init()
                     let object = model.parse(jsonString: jsonString)
-                    success(object, response)
+                    success(object as? T.Response, response)
                 } else {
-                    success(response.result.value, response)
+                    success(nil, response)
                 }
             } else {
                 PJPrintLog("请求成功结果\(String(describing: response.result.value))")
-                success(response.result.value, response)
+                success(nil, response)
             }
         }else{
             PJPrintLog("请求失败结果error = \(String(describing: response.result.error))")

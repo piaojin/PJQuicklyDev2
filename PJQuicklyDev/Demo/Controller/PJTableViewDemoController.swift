@@ -55,7 +55,7 @@ class PJTableViewDemoController: PJBaseTableViewController {
         baseRequest.httpMethod = .get
         baseRequest.parameter = self.params
         PJHttpRequestClient().send(baseRequest, success: { (model, response) -> Void in
-            if let model = model as? ExpressModel {
+            if let model = model {
                 PJCacheManager.saveCustomObject(customObject: model, key: "piaojin")
                 let object = PJCacheManager.getCustomObject(type: ExpressModel.self(), forKey: "piaojin")
                 DDLogInfo("普通请求完成，json转struct类型，\(String(describing: object))")
