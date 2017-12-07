@@ -60,10 +60,17 @@ class PJBaseTableViewCell: UITableViewCell {
         if let cell = tableview.dequeueReusableCell(withIdentifier: cellid) as? PJBaseTableViewCell {
             return cell
         } else {
-            if let cell = Bundle.main.loadNibNamed(cellid, owner: nil, options: nil)?.first as? PJBaseTableViewCell {
-                return cell
+            if PJBaseTableViewCell.isLoadFromXIB {
+                if let cell = Bundle.main.loadNibNamed(cellid, owner: nil, options: nil)?.first as? PJBaseTableViewCell {
+                    return cell
+                } else {
+                    DDLogError("loadNibNamed from xib error")
+                    let cellType = self
+                    return cellType.init()
+                }
             } else {
-                return PJBaseTableViewCell()
+                let cellType = self
+                return cellType.init()
             }
         }
     }
