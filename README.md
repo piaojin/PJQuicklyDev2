@@ -8,7 +8,7 @@
 #### 本次的网络请求重构的目的在于解耦，网络请求的方式get,post等等，网络请求的具体实现可以随意替换（即低耦合了）.
 
 #### 如果定义一个网络发送协议，而让其他具体的类去遵循并且实现具体的网络请求功能:
-```
+```swift
 ///网络请求协议
 protocol PJClient {
     func send<T: PJRequest>(_ r: T, success: @escaping PJSuccess, fatalError: @escaping PJFatalError)
@@ -17,7 +17,7 @@ protocol PJClient {
 ```
 #### 这样以后哦要替换底层网络具体实现时就很容易了，并且不会影响到现有的网络请求相关业务逻辑.
 
-```
+```swift
 ///默认的网络请求实现结构体
 struct PJHttpRequestClient: PJClient {
     
@@ -85,17 +85,17 @@ struct PJHttpRequestClient: PJClient {
 }
 ```
 `PJHttpRequestClient`是网络具体实现struct,其中
-```
+```swift
 func send<T: PJRequest>(_ r: T, success: @escaping PJSuccess, fatalError: @escaping PJFatalError)
 ```
 #### 是实现PJClient的协议的方法，网络调用时类似:
-```
+```swift
 PJHttpRequestClient().send
 ```
 #### `send`函数里面的具体网络实现可以修改，用原生也好，第三方也好，只要能达到网络请求的目的，随意替换，而不用去大改代码，这就是面向协议的好处。
 
 #### 把网络请求相关的配置也抽象出来也是比较灵活的
-```
+```swift
 ///网络请求配置协议
 protocol PJRequest {
     var path: String { get }
@@ -152,7 +152,7 @@ struct PJBaseStrcutRequest<T: PJDecodable>: PJRequest {
 
 > ### 数据解析
 #### 显然数据解析也要达到解耦的目的，不管具体用第三方库还是自己一行一行写去解析数据,都是为了达到解析的目的，这样也采用协议，具体解析怎么实现可以随时替换，而不影响现有的解析好的。
-```
+```swift
 ///模型解析协议
 protocol PJDecodable {
     /// PJDecodable 用于解析class类型的模型，由于class不能继承static 静态方法，故使用普通成员方法
@@ -163,11 +163,11 @@ protocol PJDecodable {
 ```
 
 #### 前面的`protocol PJRequest`有定义`associatedtype Response: PJDecodable`即是协议的泛型，表示网络请求返回后要解析转换后的目的模型。实现该协议时需要指定具体的目的类型`struct PJBaseRequest<T: PJBaseModel>: PJRequest`，这里我们希望代码可以复用故又加了一层泛型，这样`/// 如果需要改变类型，可以用子类重写改类型`typealias Response = T`,T即是目的解析类型，这样调用网络配置类时大概是这样:
-```
+```swift
 PJBaseRequest<Model>(path: requestUrl)
 ```
 #### 每个model类只要去实现协议，并且实现具体的数据解析操作
-```
+```swift
 func parse(jsonString: String) -> Self? {
         let classType = type(of: self)
         if let baseModel = classType.deserialize(from: jsonString) {
@@ -187,7 +187,7 @@ func parse(jsonString: String) -> Self? {
 #### 这里数据解析使用`HandyJSON`,当然你大可以换其他的，因为很容易换。
 
 > #### 这样一个完整的网络的请求，返回数据解析是这样:
-```
+```swift
 ///请求的数据转成class(ExpressModel)
 var baseRequest = PJBaseRequest<ExpressModel>(path: self.requestUrl)
         baseRequest.headers = self.headers
@@ -220,7 +220,7 @@ var baseRequest = PJBaseRequest<ExpressModel>(path: self.requestUrl)
 #### 具体的用法大概这样:
 #### 前期必要设置
 #### `dataSource`，实现`PJBaseTableViewDataSourceAndDelegate`协议，`PJBaseTableViewDataSourceAndDelegate`协议是对tableView的dataSource的抽出提取，以减小controller大小
-```
+```swift
 class PJTableViewDemoDataSource: PJBaseTableViewDataSourceAndDelegate{
     // MARK: /***********必须重写以告诉表格什么数据模型对应什么cell*************/
     override func tableView(tableView: UITableView, cellClassForObject object: AnyObject?) -> AnyClass {
@@ -232,7 +232,7 @@ class PJTableViewDemoDataSource: PJBaseTableViewDataSourceAndDelegate{
 }
 ```
 #### 只要实现这么一个方法，在控制器中:
-```
+```swift
 lazy var pjTableViewDemoDataSource : PJTableViewDemoDataSource = {
         let tempDataSource = PJTableViewDemoDataSource(dataSourceWithItems: nil)
         // TODO: /*******cell点击事件*******/
@@ -301,7 +301,7 @@ lazy var pjTableViewDemoDataSource : PJTableViewDemoDataSource = {
     }
 ```
 #### 一个带有分页，数据为空，数据显示，网络请求，数据解析，显示的tableView变完成了。
-```
+```swift
 self.doRequest()
 ```
 #### 发起网络请求，一个完整的tableview网络请求变搞定。当然可以定制，修改这边不一一列举。今天就到这里，大概是这样，代码和思路大量借鉴🐱神(福建文档写的最烂的男人😜(有问题联系804488815@qq.com))
