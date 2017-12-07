@@ -36,7 +36,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
     }
     
     lazy var tableView:UITableView? = {
-        var tempTableView = UITableView(frame: self.tableViewFrame(), style: self.tableViewStyle())
+        var tempTableView = UITableView(frame: CGRect.zero, style: self.tableViewStyle())
         tempTableView.backgroundColor = self.view.backgroundColor
         tempTableView.separatorStyle = UITableViewCellSeparatorStyle.none
         return tempTableView
@@ -98,6 +98,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.addTableView()
         self.initTableView()
         self.initFreshView()
         self.initTableViewData()
@@ -106,8 +107,25 @@ class PJBaseTableViewController: PJBaseModelViewController {
     /**
      子类可以重写，以初始化tabeView
      */
-    func initTableView(){
+    func addTableView() {
         self.view.addSubview(self.tableView!)
+    }
+    
+    /**
+     子类可以重写，以初始化tabeView
+     */
+    func initTableView(){
+        tableView?.tableFooterView = UIView()
+        tableView?.translatesAutoresizingMaskIntoConstraints = false
+        tableView?.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        tableView?.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        if #available(iOS 11.0, *) {
+            tableView?.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+            tableView?.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        } else {
+            tableView?.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true
+            tableView?.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor).isActive = true
+        }
     }
 
     /**
@@ -202,11 +220,6 @@ class PJBaseTableViewController: PJBaseModelViewController {
         return UITableViewStyle.plain
     }
     
-    // MARK: - 表格的frame
-    func tableViewFrame() -> CGRect{
-        return self.view.bounds
-    }
-    
     // MARK: - 上下拉刷新数据相关
     /**
      下拉刷新
@@ -291,7 +304,6 @@ class PJBaseTableViewController: PJBaseModelViewController {
         else if self.pullLoadType == .pullUpLoadMore {
             self.endLoadMore()
         }
-        
     }
     
     /**

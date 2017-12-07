@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CocoaLumberjack
 
 class PJBaseTableViewCell: UITableViewCell {
     
