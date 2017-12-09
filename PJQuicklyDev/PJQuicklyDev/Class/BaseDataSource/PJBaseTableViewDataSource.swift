@@ -34,14 +34,14 @@ class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,UITab
     /**
      * 单组数据的数据源
      */
-    lazy var items :[AnyObject]? = {
+    lazy var items : [AnyObject]? = {
         return [AnyObject]()
     }()
     
     /**
      * 分组数据的数据源
      */
-    lazy var sectionsItems :[AnyObject]? = {
+    lazy var sectionsItems : [AnyObject]? = {
         return [AnyObject]()
     }()
     
@@ -52,12 +52,7 @@ class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,UITab
     
     /**
      * cell的点击事件回调闭包     */
-    var cellClickClosure :((_ tableView:UITableView,_ indexPath : IndexPath,_ cell : UITableViewCell,_ object : Any?) -> Void)?
-    
-    /**
-     cell子控件点击事件
-     */
-    var subVieClickClosure : ((_ sender:AnyObject?, _ object:AnyObject?) -> Void)?
+    var cellClickClosure : ((_ tableView:UITableView,_ indexPath : IndexPath,_ cell : UITableViewCell,_ object : Any?) -> Void)?
     
     /**
      是否处理重用造成的数据重复显示问题
@@ -99,12 +94,12 @@ class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,UITab
     /**
      获取cell的高度
      */
-    func getHeightForRow(tableView:UITableView, atIndexPath indexPath:IndexPath) -> CGFloat{
+    func getHeightForRow(tableView:UITableView, atIndexPath indexPath:IndexPath) -> CGFloat {
         let object = self.tableView(tableView: tableView, objectForRowAtIndexPath: indexPath)
         let cls : AnyClass = self.tableView(tableView: tableView, cellClassForObject: object)
-        if let tempCls = cls as? PJBaseTableViewCell.Type{
+        if let tempCls = cls as? PJBaseTableViewCell.Type {
             return tempCls.tableView(tableView: tableView, rowHeightForObject: object,indexPath:indexPath)
-        }else{
+        } else {
             return 44.0;
         }
     }
@@ -117,14 +112,14 @@ class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,UITab
     }
     
     /// MARK: 子类可以重写以获取到刚初始化的cell,可在此时做一些额外的操作
-    func pj_tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath, cell: UITableViewCell,object:AnyObject?){
+    func pj_tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath, cell: UITableViewCell,object:AnyObject?) {
         
     }
     
     /**
      * 子类重写,以告诉表格每个model所对应的cell是哪个
      */
-    func tableView(tableView: UITableView, cellClassForObject object: AnyObject?) -> AnyClass{
+    func tableView(tableView: UITableView, cellClassForObject object: AnyObject?) -> AnyClass {
         return PJBaseTableViewCell.classForCoder()
     }
     
@@ -142,7 +137,7 @@ class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,UITab
     }
     
     func tableView(tableView: UITableView, objectForRowAtIndexPath indexPath: IndexPath) -> AnyObject? {
-        if self.isSection(){
+        if self.isSection() {
             /**
              *因数据结构差异，需在子类重写
              * eg: id obj = [self.sectionsItems objectAtIndex:(NSUInteger) indexPath.section];
@@ -154,20 +149,20 @@ class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,UITab
              }
              */
             return nil
-        }else{
-            if let tempItems = self.items{
-                if tempItems.count > 0 && indexPath.row < tempItems.count{
+        } else {
+            if let tempItems = self.items {
+                if tempItems.count > 0 && indexPath.row < tempItems.count {
                     return self.items![indexPath.row]
-                }else{
+                } else {
                     return nil
                 }
-            }else{
+            } else {
                 return nil
             }
         }
     }
     
-    deinit{
+    deinit {
         self.items = nil
         self.sectionsItems = nil
     }
@@ -181,22 +176,22 @@ extension PJBaseTableViewDataSourceAndDelegate {
     /**
      * 是否是分组数据,默认否,默认单组,子类可以重写
      */
-    func isSection() -> Bool{
+    func isSection() -> Bool {
         return false
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if self.isSection(){
-            if let tempSectionsItems = self.sectionsItems{
-                if tempSectionsItems.count > 0{
+        if self.isSection() {
+            if let tempSectionsItems = self.sectionsItems {
+                if tempSectionsItems.count > 0 {
                     return self.sectionsItems!.count
-                }else{
+                } else {
                     return 1
                 }
-            }else{
+            } else {
                 return 1;
             }
-        }else{
+        } else {
             return 1
         }
     }
@@ -205,8 +200,8 @@ extension PJBaseTableViewDataSourceAndDelegate {
      *若为多组需要子类重写
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.isSection(){
-            if let tempSectionsItemsCount = self.sectionsItems?.count{
+        if self.isSection() {
+            if let tempSectionsItemsCount = self.sectionsItems?.count {
                 /**
                  *因数据结构差异，需在子类重写
                  * eg:
@@ -214,13 +209,13 @@ extension PJBaseTableViewDataSourceAndDelegate {
                  return item.dataArray.count
                  */
                 return tempSectionsItemsCount
-            }else{
+            } else {
                 return 0
             }
-        }else{
-            if let tempCount = self.items?.count{
+        } else {
+            if let tempCount = self.items?.count {
                 return tempCount
-            }else{
+            } else {
                 return 0
             }
         }
@@ -235,8 +230,8 @@ extension PJBaseTableViewDataSourceAndDelegate {
         let cellClass:AnyClass = self.tableView(tableView: tableView, cellClassForObject: object)
         let className:String = NSStringFromClass(cellClass)
         //用类型名称做ID
-        let identifier:String = "\(cellClass.self)"
-        var cell:UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: identifier)
+        let identifier: String = "\(cellClass.self)"
+        var cell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: identifier)
         if cell == nil {
             //获取cell类型
             if let classType = NSClassFromString(className) as? PJBaseTableViewCell.Type {
@@ -247,21 +242,21 @@ extension PJBaseTableViewDataSourceAndDelegate {
                      *
                      */
                     cell = classType.cellWithTableView(tableview: tableView)
-                }else{
+                } else {
                     if self.isRepeatCell {
                         //不重用cell
                         cell = classType.init(style: UITableViewCellStyle.default, reuseIdentifier: nil)
-                    }else{
+                    } else {
                         cell = classType.init(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
                     }
                 }
-            }else{
+            } else {
                 //创建PJBaseTableViewCell失败
                 PJPrintLog("获取cell类型失败,创建PJBaseTableViewCell失败!")
                 cell = PJBaseTableViewCell()
                 cell?.textLabel?.text = "获取cell类型失败,创建PJBaseTableViewCell失败!"
             }
-        }else{
+        } else {
             if self.isClearRepeat {
                 //删除cell的所有子视图
                 while cell?.contentView.subviews.last != nil {
@@ -275,11 +270,9 @@ extension PJBaseTableViewDataSourceAndDelegate {
             pjBaseTableViewCell.clearData()
             //传递数据
             pjBaseTableViewCell.setModel(model: object)
-            //设置子控件点击事件
-            pjBaseTableViewCell.subVieClickClosure = self.subVieClickClosure
         }
         
-        if object != nil{
+        if object != nil {
             self.pj_tableView(tableView, cellForRowAt: indexPath, cell: cell!, object: object)
         }
         
@@ -291,15 +284,15 @@ extension PJBaseTableViewDataSourceAndDelegate {
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //自动计算cell高度(带有缓存)
-        if self.isAutoCalculate{
+        if self.isAutoCalculate {
             return tableView.fd_heightForCell(withIdentifier: cellID, cacheBy: indexPath) { [weak self] (cell : Any?) in
-                guard let tempCell = cell as? PJBaseTableViewCell else{
+                guard let tempCell = cell as? PJBaseTableViewCell else {
                     return
                 }
                 //自动计算cell高度
                 tempCell.setModel(model: self?.tableView(tableView: tableView, objectForRowAtIndexPath: indexPath))
             }
-        }else{
+        } else {
             return self.getHeightForRow(tableView: tableView, atIndexPath: indexPath)
         }
     }

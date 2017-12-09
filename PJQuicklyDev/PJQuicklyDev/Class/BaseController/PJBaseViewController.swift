@@ -94,7 +94,7 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
     // MARK: 显示空页面
     func showEmpty(show: Bool) {
         if show {
-            if !self.isAddEmptyView{
+            if !self.isAddEmptyView {
                 self.isAddEmptyView = true
                 self.view.addSubview(self.emptyView)
             }
