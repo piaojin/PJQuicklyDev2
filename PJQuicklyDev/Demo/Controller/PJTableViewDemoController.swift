@@ -34,12 +34,6 @@ class PJTableViewDemoController: PJBaseTableViewController {
             (tableView:UITableView,indexPath : IndexPath,cell : UITableViewCell,object : Any?) in
             PJSVProgressHUD.showSuccess(withStatus: "点击了cell")
         }
-        
-        // TODO: /************cell的子控件的点击事件************/
-        tempDataSource.subVieClickClosure = {
-            (sender:AnyObject?, object:AnyObject?) in
-            
-        }
         return tempDataSource
     }()
     

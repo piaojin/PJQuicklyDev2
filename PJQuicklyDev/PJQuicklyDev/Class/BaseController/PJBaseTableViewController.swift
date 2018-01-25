@@ -123,8 +123,8 @@ class PJBaseTableViewController: PJBaseModelViewController {
             tableView?.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
             tableView?.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         } else {
-            tableView?.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true
-            tableView?.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor).isActive = true
+            tableView?.topAnchor.constraint(equalTo: self.topLayoutGuide.topAnchor).isActive = true
+            tableView?.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.bottomAnchor).isActive = true
         }
     }
 
