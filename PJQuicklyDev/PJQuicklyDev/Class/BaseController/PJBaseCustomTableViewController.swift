@@ -19,7 +19,6 @@ class PJBaseCustomTableViewController: PJBaseModelViewController,UITableViewDele
         tempTableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tempTableView.estimatedRowHeight = 66
         tempTableView.rowHeight = UITableViewAutomaticDimension
-        self.view.addSubview(tempTableView)
         return tempTableView
     }()
     
@@ -80,6 +79,7 @@ class PJBaseCustomTableViewController: PJBaseModelViewController,UITableViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initFreshView()
+        self.initTableView()
         self.initTableViewData()
     }
     
@@ -94,6 +94,24 @@ class PJBaseCustomTableViewController: PJBaseModelViewController,UITableViewDele
     }
     
     /**
+     子类可以重写，以初始化tabeView
+     */
+    func initTableView() {
+        self.view.addSubview(self.tableView!)
+        tableView?.tableFooterView = UIView()
+        tableView?.translatesAutoresizingMaskIntoConstraints = false
+        tableView?.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        tableView?.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        if #available(iOS 11.0, *) {
+            self.tableView?.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+            self.tableView?.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        } else {
+            self.tableView?.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true
+            self.tableView?.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.bottomAnchor).isActive = true
+        }
+    }
+    
+    /**
      初始化默认值
      */
     func initTableViewData(){
@@ -102,6 +120,14 @@ class PJBaseCustomTableViewController: PJBaseModelViewController,UITableViewDele
         self.forbidLoadMore = false
         self.page = 1
         self.limit = 10
+        self.registerCell()
+    }
+    
+    /**
+     注册cell
+     */
+    func registerCell() {
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -109,12 +135,12 @@ class PJBaseCustomTableViewController: PJBaseModelViewController,UITableViewDele
         // Dispose of any resources that can be recreated.
     }
     
-    func tableViewStyle() -> UITableViewStyle{
+    func tableViewStyle() -> UITableViewStyle {
         return UITableViewStyle.plain
     }
     
     // MARK: - 表格的frame
-    func tableViewFrame() -> CGRect{
+    func tableViewFrame() -> CGRect {
         return self.view.bounds
     }
     
@@ -206,7 +232,6 @@ class PJBaseCustomTableViewController: PJBaseModelViewController,UITableViewDele
         else if self.pullLoadType == .pullUpLoadMore {
             self.endLoadMore()
         }
-        
     }
     
     /**

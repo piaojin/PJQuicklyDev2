@@ -16,25 +16,23 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
     var isAddErrorView:Bool = false
     
     //用于各个控制器之间传值
-    var query: Dictionary<NSObject,AnyObject>?
+    var query: [String : Any]?
     
     //空视图子类可重写
-    lazy var emptyView: PJBaseEmptyView! = {
-        [unowned self] in
+    lazy var emptyView: PJBaseEmptyView = {
         return self.getEmptyView()
-        }()
+    }()
     
     //出错视图子类可重写
-    lazy var errorView: PJBaseErrorView! = {
-        [unowned self] in
+    lazy var errorView: PJBaseErrorView = {
         return self.getErrorView()
-        }()
+    }()
     
     /*
      * 控制器传值
      *
      */
-    convenience init(query: Dictionary<NSObject,AnyObject>?){
+    convenience init(query: [String : Any]?){
         self.init(nibName: nil, bundle: nil)
         self.query = query
     }
@@ -134,7 +132,7 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
      */
     func showError(show: Bool) {
         if show {
-            if !self.isAddErrorView{
+            if !self.isAddErrorView {
                 self.isAddErrorView = true
                 self.view.addSubview(self.errorView)
             }
@@ -156,7 +154,7 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
      *   设置出错时的提示文字
      *
      */
-    func setErrorText(text: String?){
+    func setErrorText(text: String?) {
         self.errorView.setErrorText(text: text)
     }
     

@@ -175,7 +175,7 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
         //不是在下拉刷新
         if !self.isPullingUp {
             self.showLoading(show:true)
-        }else{
+        } else {
             DispatchQueue.global().async {
                 //如果现在加载中而且不是在下拉刷新
                 DispatchQueue.main.async {
@@ -192,7 +192,7 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     /**
      *  请求完成
      */
-    func didFinishLoad(success: Any?, failure: Any?){
+    func didFinishLoad(success: Any?, failure: Any?) {
         self.requestDidFinishLoad(success: success, failure: failure)
         self.onDataUpdated()
         self.showLoading(show: false)
@@ -229,9 +229,9 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
      *   添加数据，每次请求完数据调用,item中的数据即是一个个model
      *
      */
-    func addItems(items: [Any]?){
-        if let tempItem = items{
-            self.items? += items!
+    func addItems(items: [Any]?) {
+        if let tempItem = items {
+            self.items? += tempItem
             self.newItemsCount = tempItem.count
         }else{
             self.newItemsCount = 0
@@ -239,9 +239,9 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     }
     
     //添加数据，每次请求完数据调用,item即是一个model
-    func addItem(item: AnyObject?){
-        if let _ = item{
-            self.items?.append(item!)
+    func addItem(item: Any?) {
+        if let tempItem = item {
+            self.items?.append(tempItem)
             self.newItemsCount = 1;
         }else{
             self.newItemsCount = 0;

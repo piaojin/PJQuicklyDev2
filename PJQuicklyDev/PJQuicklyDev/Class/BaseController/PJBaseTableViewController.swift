@@ -29,7 +29,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
                 self.tableView?.dataSource = self.dataSourceAndDelegate
             }
             
-            if ((self.tableView?.delegate) == nil) {
+            if self.tableView?.delegate == nil {
                 self.tableView?.delegate = self.dataSourceAndDelegate
             }
         }
@@ -65,7 +65,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
      是否可以下拉刷新
      */
     var loadRefreshEnable:Bool = true {
-        willSet{
+        willSet {
             self.tableView?.mj_header.isHidden = !newValue
         }
     }
@@ -74,7 +74,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
      是否禁用上拉刷新
      */
     var forbidLoadMore:Bool = false {
-        willSet{
+        willSet {
             self.tableView?.mj_footer.isHidden = newValue
             //            self.tableView?.mj_footer.isAutomaticallyHidden = false
             self.tableView?.mj_footer.isHidden = false
@@ -85,7 +85,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
      是否禁用下拉刷新
      */
     var forbidRefresh:Bool = false {
-        willSet{
+        willSet {
             self.tableView?.mj_header.isHidden = newValue
         }
     }
@@ -102,7 +102,6 @@ class PJBaseTableViewController: PJBaseModelViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.addTableView()
         self.initTableView()
         self.registerCell()
         self.initFreshView()
@@ -110,16 +109,10 @@ class PJBaseTableViewController: PJBaseModelViewController {
     }
     
     /**
-     子类可以重写，添加tableView视图
-     */
-    func addTableView(){
-        self.view.addSubview(self.tableView!)
-    }
-    
-    /**
      子类可以重写，以初始化tabeView
      */
-    func initTableView(){
+    func initTableView() {
+        self.view.addSubview(self.tableView!)
         tableView?.tableFooterView = UIView()
         tableView?.translatesAutoresizingMaskIntoConstraints = false
         tableView?.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
@@ -146,7 +139,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
     /**
      初始化默认值
      */
-    func initTableViewData(){
+    func initTableViewData() {
         self.loadRefreshEnable = true
         self.loadMoreEnable = true
         self.forbidLoadMore = false
@@ -198,9 +191,9 @@ class PJBaseTableViewController: PJBaseModelViewController {
     /**
      * 显示正在加载,如果是表格下拉或上拉刷新则不显示加载动画,直接用表格的刷新动画(头部或尾部菊花转圈动画)
      */
-    override func showLoading(show: Bool){
-        if show{
-            if self.pullLoadType == .pullDefault{
+    override func showLoading(show: Bool) {
+        if show {
+            if self.pullLoadType == .pullDefault {
                 super.showLoading(show: show)
             }
         }else{
@@ -211,7 +204,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
     /**
      *   子类重写，以设置tableView数据源
      */
-    func createDataSource(){
+    func createDataSource() {
         
     }
     
@@ -228,12 +221,12 @@ class PJBaseTableViewController: PJBaseModelViewController {
         self.setPullFailedStatus()
     }
     
-    func tableViewStyle() -> UITableViewStyle{
+    func tableViewStyle() -> UITableViewStyle {
         return UITableViewStyle.plain
     }
     
     // MARK: - 表格的frame
-    func tableViewFrame() -> CGRect{
+    func tableViewFrame() -> CGRect {
         return self.view.bounds
     }
     
@@ -241,7 +234,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
     /**
      下拉刷新
      */
-    @objc func beginPullDownRefreshing(){
+    @objc func beginPullDownRefreshing() {
         if self.canPullDownRefreshed() {
             self.beforePullDownRefreshing()
             self.refreshForNewData()
@@ -253,7 +246,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
     }
     
     //初始化：是否上拉更多
-    func canPullUpLoadMore() -> Bool{
+    func canPullUpLoadMore() -> Bool {
         return self.loadMoreEnable
     }
     
@@ -364,7 +357,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
     func handleWhenLessOnePage() {
         if !self.forbidLoadMore {
             var isLoadMore = true
-            if let tempItemsCount = self.items?.count{
+            if let tempItemsCount = self.items?.count {
                 if (tempItemsCount < self.limit && self.page == 1) || tempItemsCount <= 0 {
                     isLoadMore = false
                 }
