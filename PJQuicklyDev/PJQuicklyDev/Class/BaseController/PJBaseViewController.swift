@@ -58,11 +58,11 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
     
     // MARK: 初始化导航栏
     func initNavigationController(){
-        if(self.navigationController != nil){
+        if let navigationController = self.navigationController {
             //解决右滑不能放回上一个控制器
-            self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-            self.navigationController!.interactivePopGestureRecognizer!.isEnabled = true
-            self.navigationController!.isNavigationBarHidden = false
+            navigationController.interactivePopGestureRecognizer?.delegate = self
+            navigationController.interactivePopGestureRecognizer!.isEnabled = true
+            navigationController.isNavigationBarHidden = false
             let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_back_normal-1"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(backView(animated:)))
             self.navigationItem.leftBarButtonItem = leftBarButtonItem
         }
@@ -70,7 +70,7 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
     
     // MARK: 返回方法,可自定义重写,可以控制动画效果
     @objc func backView(animated: Bool) {
-        self.navigationController!.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: 显示正在加载

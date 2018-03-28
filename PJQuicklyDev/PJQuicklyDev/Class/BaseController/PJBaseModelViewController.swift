@@ -29,7 +29,7 @@ protocol PJBaseRequestFunc {
     /**
      *  网络请求参数
      */
-    func getParams() -> [String:Any]
+    func getParams() -> [String : Any]
     
     /**
      *  网络请求头

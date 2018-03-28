@@ -35,10 +35,13 @@ class PJBaseTableViewController: PJBaseModelViewController {
         }
     }
     
+    //默认自动计算高度
     lazy var tableView:UITableView? = {
-        var tempTableView = UITableView(frame: CGRect.zero, style: self.tableViewStyle())
+        var tempTableView = UITableView(frame: self.tableViewFrame(), style: self.tableViewStyle())
         tempTableView.backgroundColor = self.view.backgroundColor
         tempTableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        tempTableView.estimatedRowHeight = 44.0
+        tempTableView.rowHeight = UITableViewAutomaticDimension
         return tempTableView
     }()
     
@@ -73,7 +76,8 @@ class PJBaseTableViewController: PJBaseModelViewController {
     var forbidLoadMore:Bool = false {
         willSet{
             self.tableView?.mj_footer.isHidden = newValue
-            self.tableView?.mj_footer.isAutomaticallyHidden = false
+            //            self.tableView?.mj_footer.isAutomaticallyHidden = false
+            self.tableView?.mj_footer.isHidden = false
         }
     }
     
@@ -90,7 +94,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
         let tempFreshHeader = PJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(beginPullDownRefreshing))
         return tempFreshHeader
     }()
-
+    
     lazy var freshFooter:PJRefreshAutoNormalFooter? = {
         let tempFreshFooter = PJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(beginPullUpLoading))
         return tempFreshFooter
@@ -100,14 +104,15 @@ class PJBaseTableViewController: PJBaseModelViewController {
         super.viewDidLoad()
         self.addTableView()
         self.initTableView()
+        self.registerCell()
         self.initFreshView()
         self.initTableViewData()
     }
     
     /**
-     子类可以重写，以初始化tabeView
+     子类可以重写，添加tableView视图
      */
-    func addTableView() {
+    func addTableView(){
         self.view.addSubview(self.tableView!)
     }
     
@@ -120,14 +125,14 @@ class PJBaseTableViewController: PJBaseModelViewController {
         tableView?.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         tableView?.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         if #available(iOS 11.0, *) {
-            tableView?.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-            tableView?.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            self.tableView?.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+            self.tableView?.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         } else {
-            tableView?.topAnchor.constraint(equalTo: self.topLayoutGuide.topAnchor).isActive = true
-            tableView?.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.bottomAnchor).isActive = true
+            self.tableView?.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true
+            self.tableView?.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.bottomAnchor).isActive = true
         }
     }
-
+    
     /**
      初始化UI控件
      */
@@ -147,6 +152,13 @@ class PJBaseTableViewController: PJBaseModelViewController {
         self.forbidLoadMore = false
         self.page = 1
         self.limit = 10
+    }
+    
+    /**
+     注册cell
+     */
+    func registerCell() {
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -218,6 +230,11 @@ class PJBaseTableViewController: PJBaseModelViewController {
     
     func tableViewStyle() -> UITableViewStyle{
         return UITableViewStyle.plain
+    }
+    
+    // MARK: - 表格的frame
+    func tableViewFrame() -> CGRect{
+        return self.view.bounds
     }
     
     // MARK: - 上下拉刷新数据相关
@@ -304,6 +321,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
         else if self.pullLoadType == .pullUpLoadMore {
             self.endLoadMore()
         }
+        
     }
     
     /**
@@ -379,3 +397,4 @@ class PJBaseTableViewController: PJBaseModelViewController {
         }
     }
 }
+

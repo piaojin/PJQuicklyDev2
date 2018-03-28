@@ -38,6 +38,7 @@
 		CAC1E6691E9F6533009B5085 /* PJRefreshNormalHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC1E6681E9F6533009B5085 /* PJRefreshNormalHeader.m */; };
 		CAC1E66D1E9F66E9009B5085 /* PJRefreshAutoNormalFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC1E66C1E9F66E9009B5085 /* PJRefreshAutoNormalFooter.m */; };
 		CAC1E6701E9F77A0009B5085 /* PJSVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC1E66F1E9F77A0009B5085 /* PJSVProgressHUD.m */; };
+		CADA9CB6206BBADF00CE47F5 /* PJBaseTableViewManualDataSourceAndDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADA9CB5206BBADF00CE47F5 /* PJBaseTableViewManualDataSourceAndDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		CAC1E66C1E9F66E9009B5085 /* PJRefreshAutoNormalFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PJRefreshAutoNormalFooter.m; sourceTree = "<group>"; };
 		CAC1E66E1E9F77A0009B5085 /* PJSVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PJSVProgressHUD.h; sourceTree = "<group>"; };
 		CAC1E66F1E9F77A0009B5085 /* PJSVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PJSVProgressHUD.m; sourceTree = "<group>"; };
+		CADA9CB5206BBADF00CE47F5 /* PJBaseTableViewManualDataSourceAndDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PJBaseTableViewManualDataSourceAndDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,6 +290,7 @@
 		CAAD197E1E9E565C0046E69B /* BaseDataSource */ = {
 			isa = PBXGroup;
 			children = (
+				CADA9CB5206BBADF00CE47F5 /* PJBaseTableViewManualDataSourceAndDelegate.swift */,
 				CAAD197F1E9E565C0046E69B /* PJBaseTableViewDataSource.swift */,
 			);
 			path = BaseDataSource;
@@ -598,6 +601,7 @@
 				CAAD19961E9E565C0046E69B /* NSDateExtension.swift in Sources */,
 				CAC1E6691E9F6533009B5085 /* PJRefreshNormalHeader.m in Sources */,
 				CAAD19901E9E565C0046E69B /* PJBaseViewController.swift in Sources */,
+				CADA9CB6206BBADF00CE47F5 /* PJBaseTableViewManualDataSourceAndDelegate.swift in Sources */,
 				765F2EE51FBFF7AB00B29314 /* ExpressTableViewCell.swift in Sources */,
 				CAAD19951E9E565C0046E69B /* PJBaseView.swift in Sources */,
 				765F2EED1FC1922900B29314 /* PJBaseModel.swift in Sources */,

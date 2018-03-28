@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PJBaseEmptyViewDelegate : NSObjectProtocol{
+protocol PJBaseEmptyViewDelegate : NSObjectProtocol {
     /**
      为空时点击回调
      */

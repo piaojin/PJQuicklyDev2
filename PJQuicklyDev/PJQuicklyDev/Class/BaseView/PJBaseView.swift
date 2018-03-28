@@ -10,8 +10,12 @@ import UIKit
 
 class PJBaseView: UIView {
 
-    lazy var label:UILabel! = {
-        return UILabel()
+    lazy var label:UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
     }()
     
     override init(frame: CGRect) {
@@ -22,7 +26,7 @@ class PJBaseView: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
     
     /**
@@ -30,16 +34,15 @@ class PJBaseView: UIView {
      */
     func initView(){
         self.label.text = "设置提示文字"
-        self.label.sizeToFit()
-        self.label.frame = CGRect(x: (self.pj_width - self.label.pj_width) / 2.0, y: (self.pj_height - self.label.pj_height) / 2.0, width: self.label.pj_width, height: self.label.pj_height)
         self.addSubview(self.label)
+        self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        self.label.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        self.label.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
     
     func setLabelText(text:String?) {
         self.label.text = text
-        self.label.sizeToFit()
-        self.label.frame = CGRect(x: (self.pj_width - self.label.pj_width) / 2.0, y: (self.pj_height - self.label.pj_height) / 2.0, width: self.label.pj_width, height: self.label.pj_height)
-        self.addSubview(self.label)
     }
     
     /**

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PJBaseErrorViewDelegate : NSObjectProtocol{
+protocol PJBaseErrorViewDelegate : NSObjectProtocol {
     /**
      为空时点击回调
      */

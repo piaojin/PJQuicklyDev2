@@ -49,7 +49,7 @@ class ExpressTableViewCell: PJBaseTableViewCell {
     /**
      设置数据
      */
-    override func setModel(model: AnyObject?) {
+    override func setModel(model: Any?) {
         self.expressItemModel = model as? ExpressItemModel
         self.currentArriveAddress.text = self.expressItemModel?.context
         self.timeLabel.text = self.expressItemModel?.time
