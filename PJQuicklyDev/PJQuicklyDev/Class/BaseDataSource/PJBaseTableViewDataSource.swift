@@ -13,17 +13,17 @@ protocol PJBaseTableViewDataSourceDelegate {
     /**
      * 子类必须实现协议,以告诉表格每个model所对应的cell是哪个
      */
-    func tableView(tableView: UITableView, cellClassForObject object: AnyObject?) -> AnyClass
+    func tableView(tableView: UITableView, cellClassForObject object: Any?) -> AnyClass
     
     /**
      *若为多组需要子类重写
      */
-    func tableView(tableView: UITableView, indexPathForObject object: AnyObject) -> NSIndexPath?
+    func tableView(tableView: UITableView, indexPathForObject object: Any) -> NSIndexPath?
     
-    func tableView(tableView: UITableView, objectForRowAtIndexPath indexPath: IndexPath) -> AnyObject?
+    func tableView(tableView: UITableView, objectForRowAtIndexPath indexPath: IndexPath) -> Any?
     
     /// MARK: 子类可以重写以获取到刚初始化的cell,可在此时做一些额外的操作
-    func pj_tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath, cell: UITableViewCell,object:AnyObject?)
+    func pj_tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath, cell: UITableViewCell,object:Any?)
 }
 
 /**
@@ -34,15 +34,15 @@ class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,UITab
     /**
      * 单组数据的数据源
      */
-    lazy var items :[AnyObject]? = {
-        return [AnyObject]()
+    lazy var items :[Any]? = {
+        return [Any]()
     }()
     
     /**
      * 分组数据的数据源
      */
-    lazy var sectionsItems :[AnyObject]? = {
-        return [AnyObject]()
+    lazy var sectionsItems :[Any]? = {
+        return [Any]()
     }()
     
     /**
@@ -67,7 +67,7 @@ class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,UITab
     /**
      * 只有单组数据
      */
-    init(dataSourceWithItems items: [AnyObject]?) {
+    init(dataSourceWithItems items: [Any]?) {
         super.init()
         if let tempItems = items {
             self.items? += tempItems
@@ -77,7 +77,7 @@ class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,UITab
     /**
      * 分组数据
      */
-    init(dataSourceWithSectionsItems items: [AnyObject]?) {
+    init(dataSourceWithSectionsItems items: [Any]?) {
         super.init()
         if let tempSectionsItems = items {
             self.sectionsItems? += tempSectionsItems
@@ -99,21 +99,21 @@ class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,UITab
     }
     
     /// MARK: 子类可以重写以获取到刚初始化的cell,可在此时做一些额外的操作
-    func pj_tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath, cell: UITableViewCell,object:AnyObject?){
+    func pj_tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath, cell: UITableViewCell,object:Any?) {
         
     }
     
     /**
      * 子类重写,以告诉表格每个model所对应的cell是哪个
      */
-    func tableView(tableView: UITableView, cellClassForObject object: AnyObject?) -> AnyClass{
+    func tableView(tableView: UITableView, cellClassForObject object: Any?) -> AnyClass{
         return PJBaseTableViewCell.classForCoder()
     }
     
     /**
      *若为多组需要子类重写
      */
-    func tableView(tableView: UITableView, indexPathForObject object: AnyObject) -> NSIndexPath? {
+    func tableView(tableView: UITableView, indexPathForObject object: Any) -> NSIndexPath? {
         var objectIndex:Int
         let tempItems = self.items! as NSArray
         objectIndex = tempItems.index(of: object)
@@ -123,7 +123,7 @@ class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,UITab
         return nil
     }
     
-    func tableView(tableView: UITableView, objectForRowAtIndexPath indexPath: IndexPath) -> AnyObject? {
+    func tableView(tableView: UITableView, objectForRowAtIndexPath indexPath: IndexPath) -> Any? {
         if self.isSection(){
             /**
              *因数据结构差异，需在子类重写
@@ -209,7 +209,7 @@ extension PJBaseTableViewDataSourceAndDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let object: AnyObject? = self.tableView(tableView: tableView, objectForRowAtIndexPath: indexPath)
+        let object: Any? = self.tableView(tableView: tableView, objectForRowAtIndexPath: indexPath)
         
         /**
          *根据子类重写方法中返回的类型名来创建对应的cell
@@ -284,7 +284,7 @@ extension PJBaseTableViewDataSourceAndDelegate {
     /**
      * 单组数据添加多个模型数据
      */
-    func addItems(items : [AnyObject]?) {
+    func addItems(items : [Any]?) {
         if let _ = items {
             self.items? += items!
         }
@@ -293,7 +293,7 @@ extension PJBaseTableViewDataSourceAndDelegate {
     /**
      * 单组数据添加一个模型数据
      */
-    func addItem(item : AnyObject?) {
+    func addItem(item : Any?) {
         if let _ = item {
             self.items?.append(item!)
         }
@@ -302,7 +302,7 @@ extension PJBaseTableViewDataSourceAndDelegate {
     /**
      * 分组数据添加多个模型数据
      */
-    func addSectionItems(sectionItems : [AnyObject]?) {
+    func addSectionItems(sectionItems : [Any]?) {
         if let _ = sectionItems {
             self.sectionsItems? += sectionItems!
         }

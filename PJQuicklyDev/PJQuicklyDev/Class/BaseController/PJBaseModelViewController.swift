@@ -66,8 +66,8 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     /**
      *  数据源
      */
-    lazy var items: [AnyObject]? =  {
-        return [AnyObject]()
+    lazy var items: [Any]? =  {
+        return [Any]()
     }()
     
     /**
@@ -229,7 +229,7 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
      *   添加数据，每次请求完数据调用,item中的数据即是一个个model
      *
      */
-    func addItems(items: [AnyObject]?){
+    func addItems(items: [Any]?){
         if let tempItem = items{
             self.items? += items!
             self.newItemsCount = tempItem.count

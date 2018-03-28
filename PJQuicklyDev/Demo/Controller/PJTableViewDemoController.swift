@@ -13,8 +13,11 @@ let cellID = "ExpressTableViewCell"
 
 class PJTableViewDemoDataSource: PJBaseTableViewDataSourceAndDelegate{
     // MARK: /***********必须重写以告诉表格什么数据模型对应什么cell*************/
-    override func tableView(tableView: UITableView, cellClassForObject object: AnyObject?) -> AnyClass {
-        if let _ = object?.isKind(of: ExpressItemModel.classForCoder()){
+    override func tableView(tableView: UITableView, cellClassForObject object: Any?) -> AnyClass {
+//        if let _ = object?.isKind(of: ExpressItemModel.classForCoder()){
+//            return ExpressTableViewCell.classForCoder()
+//        }
+        if object is ExpressItemModel {
             return ExpressTableViewCell.classForCoder()
         }
         return super.tableView(tableView: tableView, cellClassForObject: object)
