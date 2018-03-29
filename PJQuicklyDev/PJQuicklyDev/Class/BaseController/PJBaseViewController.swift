@@ -11,9 +11,11 @@ import UIKit
 class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErrorViewDelegate, UIGestureRecognizerDelegate {
     
     //是否加载过空视图
-    var isAddEmptyView:Bool = false
+    var isAddEmptyView = false
     //是否加载过出错视图
-    var isAddErrorView:Bool = false
+    var isAddErrorView = false
+    
+    var isRootViewController = false
     
     //用于各个控制器之间传值
     var query: [String : Any]?
@@ -32,20 +34,18 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
      * 控制器传值
      *
      */
-    convenience init(query: [String : Any]?){
-        self.init(nibName: nil, bundle: nil)
+    convenience init(query: [String : Any]?) {
+        self.init()
         self.query = query
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let count = self.navigationController?.viewControllers.count, count >= 1 {
+        self.view.backgroundColor = .white
+        if self.isRootViewController {
             self.initNavigationController()
         }
         
-        self.view.backgroundColor = UIColor.colorWithRGB(red: 239, green: 240, blue: 241)
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.initView()
     }
     
@@ -56,28 +56,39 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
     
     // MARK: 初始化导航栏
     func initNavigationController(){
-        if let navigationController = self.navigationController {
-            //解决右滑不能放回上一个控制器
-            navigationController.interactivePopGestureRecognizer?.delegate = self
-            navigationController.interactivePopGestureRecognizer!.isEnabled = true
-            navigationController.isNavigationBarHidden = false
-            let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_back_normal-1"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(backView(animated:)))
-            self.navigationItem.leftBarButtonItem = leftBarButtonItem
-        }
+        //解决右滑不能放回上一个控制器
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        self.navigationController?.isNavigationBarHidden = false
+        let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: self.backButtonImageName()), style: UIBarButtonItemStyle.plain, target: self, action: #selector(back(animated:)))
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
-    // MARK: 返回方法,可自定义重写,可以控制动画效果
-    @objc func backView(animated: Bool) {
-        self.navigationController?.popViewController(animated: true)
+    //导航栏返回按钮图片名字
+    func backButtonImageName() -> String {
+        return ""
+    }
+    
+    // MARK: 返回方法,可自定义重写
+    @objc func back(animated: Bool) {
+        if let navigationController = self.navigationController {
+            navigationController.popViewController(animated: true)
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     // MARK: 显示正在加载
     func showLoading(show: Bool) {
         if show {
-            PJSVProgressHUD.show(withStatus: "加载中...")
+            PJSVProgressHUD.show(withStatus: self.loadingText())
         } else {
             PJSVProgressHUD.dismiss()
         }
+    }
+    
+    func loadingText() -> String {
+        return "加载中..."
     }
     
     // MARK: 子类可以重写，以改成需要的错误视图
@@ -97,9 +108,9 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
                 self.view.addSubview(self.emptyView)
             }
             self.view.bringSubview(toFront: self.emptyView)
-            self.emptyView.isHidden = false;
+            self.emptyView.isHidden = false
         } else {
-            self.emptyView.isHidden = true;
+            self.emptyView.isHidden = true
         }
     }
     
@@ -137,9 +148,9 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
                 self.view.addSubview(self.errorView)
             }
             self.view.bringSubview(toFront: self.errorView)
-            self.errorView.isHidden = false;
+            self.errorView.isHidden = false
         } else {
-            self.errorView.isHidden = true;
+            self.errorView.isHidden = true
         }
     }
     

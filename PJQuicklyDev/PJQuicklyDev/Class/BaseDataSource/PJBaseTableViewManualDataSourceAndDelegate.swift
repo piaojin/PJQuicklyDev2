@@ -13,12 +13,12 @@ class PJBaseTableViewManualDataSourceAndDelegate: PJBaseTableViewDataSourceAndDe
     /**
      获取cell的高度
      */
-    func getHeightForRow(tableView:UITableView, at indexPath:IndexPath) -> CGFloat{
+    func getHeightForRow(tableView:UITableView, at indexPath:IndexPath) -> CGFloat {
         let object = self.tableView(tableView: tableView, objectForRowAtIndexPath: indexPath)
         let cls : AnyClass = self.tableView(tableView: tableView, cellClassForObject: object)
         if let tempCls = cls as? PJBaseTableViewCell.Type {
             return tempCls.tableView(tableView: tableView, rowHeightForObject: object,indexPath:indexPath)
-        }else{
+        } else {
             return 44.0;
         }
     }
@@ -38,7 +38,7 @@ class PJBaseTableViewManualDataSourceAndDelegate: PJBaseTableViewDataSourceAndDe
                 //自动计算cell高度
                 tempCell.setModel(model: self?.tableView(tableView: tableView, objectForRowAtIndexPath: indexPath))
             }
-        }else{
+        } else {
             return self.getHeightForRow(tableView: tableView, at: indexPath)
         }
     }

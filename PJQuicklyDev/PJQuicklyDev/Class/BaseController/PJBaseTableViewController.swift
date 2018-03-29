@@ -14,32 +14,32 @@ class PJBaseTableViewController: PJBaseModelViewController {
      * 表格的数据源和事件全部放在里面
      */
     weak var dataSourceAndDelegate: PJBaseTableViewDataSourceAndDelegate? {
-        didSet{
+        didSet {
             if let isSection = self.dataSourceAndDelegate?.isSection() {
-                if isSection{
+                if isSection {
                     self.addItems(items: self.dataSourceAndDelegate?.sectionsItems)
-                }else{
+                } else {
                     self.addItems(items: self.dataSourceAndDelegate?.items)
                 }
             }
             
-            if let _ = self.tableView?.dataSource {
-                self.tableView?.reloadData()
-            }else{
-                self.tableView?.dataSource = self.dataSourceAndDelegate
+            if let _ = self.tableView.dataSource {
+                self.tableView.reloadData()
+            } else {
+                self.tableView.dataSource = self.dataSourceAndDelegate
             }
             
-            if self.tableView?.delegate == nil {
-                self.tableView?.delegate = self.dataSourceAndDelegate
+            if self.tableView.delegate == nil {
+                self.tableView.delegate = self.dataSourceAndDelegate
             }
         }
     }
     
     //默认自动计算高度
-    lazy var tableView:UITableView? = {
+    lazy var tableView:UITableView = {
         var tempTableView = UITableView(frame: self.tableViewFrame(), style: self.tableViewStyle())
         tempTableView.backgroundColor = self.view.backgroundColor
-        tempTableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        tempTableView.separatorStyle = .none
         tempTableView.estimatedRowHeight = 44.0
         tempTableView.rowHeight = UITableViewAutomaticDimension
         return tempTableView
@@ -48,54 +48,54 @@ class PJBaseTableViewController: PJBaseModelViewController {
     /**
      刷新类型,上拉或下拉
      */
-    var pullLoadType:PullLoadType = .pullDefault
-    var page:Int = 0
-    var limit:Int = 15
+    var pullLoadType: PullLoadType = .pullDefault
+    var page: Int = 0
+    var limit: Int = 15
     
     /**
      是否可以上拉刷新
      */
-    var loadMoreEnable:Bool = true {
-        willSet{
-            self.tableView?.mj_footer.isHidden = !newValue
+    var loadMoreEnable: Bool = true {
+        willSet {
+            self.tableView.mj_footer.isHidden = !newValue
         }
     }
     
     /**
      是否可以下拉刷新
      */
-    var loadRefreshEnable:Bool = true {
+    var loadRefreshEnable: Bool = true {
         willSet {
-            self.tableView?.mj_header.isHidden = !newValue
+            self.tableView.mj_header.isHidden = !newValue
         }
     }
     
     /**
      是否禁用上拉刷新
      */
-    var forbidLoadMore:Bool = false {
+    var forbidLoadMore: Bool = false {
         willSet {
-            self.tableView?.mj_footer.isHidden = newValue
+            self.tableView.mj_footer.isHidden = newValue
             //            self.tableView?.mj_footer.isAutomaticallyHidden = false
-            self.tableView?.mj_footer.isHidden = false
+            self.tableView.mj_footer.isHidden = false
         }
     }
     
     /**
      是否禁用下拉刷新
      */
-    var forbidRefresh:Bool = false {
+    var forbidRefresh: Bool = false {
         willSet {
-            self.tableView?.mj_header.isHidden = newValue
+            self.tableView.mj_header.isHidden = newValue
         }
     }
     
-    lazy var freshHeader:PJRefreshNormalHeader? = {
+    lazy var freshHeader: PJRefreshNormalHeader? = {
         let tempFreshHeader = PJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(beginPullDownRefreshing))
         return tempFreshHeader
     }()
     
-    lazy var freshFooter:PJRefreshAutoNormalFooter? = {
+    lazy var freshFooter: PJRefreshAutoNormalFooter? = {
         let tempFreshFooter = PJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(beginPullUpLoading))
         return tempFreshFooter
     }()
@@ -112,17 +112,17 @@ class PJBaseTableViewController: PJBaseModelViewController {
      子类可以重写，以初始化tabeView
      */
     func initTableView() {
-        self.view.addSubview(self.tableView!)
-        tableView?.tableFooterView = UIView()
-        tableView?.translatesAutoresizingMaskIntoConstraints = false
-        tableView?.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        tableView?.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        self.view.addSubview(self.tableView)
+        tableView.tableFooterView = UIView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         if #available(iOS 11.0, *) {
-            self.tableView?.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-            self.tableView?.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            self.tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         } else {
-            self.tableView?.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true
-            self.tableView?.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.bottomAnchor).isActive = true
+            self.tableView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true
+            self.tableView.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.bottomAnchor).isActive = true
         }
     }
     
@@ -131,9 +131,9 @@ class PJBaseTableViewController: PJBaseModelViewController {
      */
     func initFreshView() {
         //下拉刷新
-        self.tableView?.mj_header = self.freshHeader
+        self.tableView.mj_header = self.freshHeader
         //上拉加载更多
-        self.tableView?.mj_footer = self.freshFooter
+        self.tableView.mj_footer = self.freshFooter
     }
     
     /**
@@ -164,9 +164,18 @@ class PJBaseTableViewController: PJBaseModelViewController {
      在网络请求之前可以做的处理
      */
     override func beforeDoRequest() {
-        self.params["page"] = self.page
-        self.params["limit"] = self.limit
+        self.params[self.pageParameterName()] = self.page
+        self.params[self.limitParameterName()] = self.limit
         self.baseRequest.parameter = self.params
+    }
+    
+    //分页参数
+    func pageParameterName() -> String {
+        return "page"
+    }
+    
+    func limitParameterName() -> String {
+        return "limit"
     }
     
     /**
@@ -196,7 +205,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
             if self.pullLoadType == .pullDefault {
                 super.showLoading(show: show)
             }
-        }else{
+        } else {
             super.showLoading(show: show)
         }
     }
@@ -287,9 +296,9 @@ class PJBaseTableViewController: PJBaseModelViewController {
         self.items?.removeAll()
         //if let 解包,只要成功解包就会进入{}中,并不会因为isSection()的值为true,故这边要这么写
         if let isSection = self.dataSourceAndDelegate?.isSection() {
-            if isSection{
+            if isSection {
                 self.dataSourceAndDelegate?.sectionsItems?.removeAll()
-            }else{
+            } else {
                 self.dataSourceAndDelegate?.items?.removeAll()
             }
         }
@@ -310,8 +319,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
     func endRefreshing() {
         if self.pullLoadType == .pullDownRefresh {
             self.endRefresh()
-        }
-        else if self.pullLoadType == .pullUpLoadMore {
+        } else if self.pullLoadType == .pullUpLoadMore {
             self.endLoadMore()
         }
         
@@ -321,7 +329,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
      停止上拉更多
      */
     func endLoadMore() {
-        self.tableView?.mj_footer.endRefreshing()
+        self.tableView.mj_footer.endRefreshing()
         self.isLoading = false
         self.pullLoadType = .pullDefault
         self.isPullingUp = false
@@ -331,7 +339,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
      停止下拉更多
      */
     @objc func endRefresh() {
-        self.tableView?.mj_header.endRefreshing()
+        self.tableView.mj_header.endRefreshing()
         self.isLoading = false
         if self.pullLoadType != .pullUpLoadMore {
             self.pullLoadType = .pullDefault
@@ -341,8 +349,7 @@ class PJBaseTableViewController: PJBaseModelViewController {
     func setPullEndStatus() {
         if self.pullLoadType == .pullUpLoadMore {
             self.endLoadMore()
-        }
-        else {
+        } else {
             self.perform(#selector(endRefresh), with: nil, afterDelay: 0.62)
         }
     }
@@ -375,17 +382,16 @@ class PJBaseTableViewController: PJBaseModelViewController {
      *   如果无数据则进行处理
      */
     func handleWhenNoneData() {
-        
         if self.page == 1 {
             if let tempCount = self.items?.count {
-                if tempCount <= 0{
+                if tempCount <= 0 {
                     //没有数据
                     self.showEmpty(show: true)
                 }
-            }else {
+            } else {
                 self.showEmpty(show: false)
             }
-        }else {
+        } else {
             self.showEmpty(show: false)
         }
     }

@@ -64,7 +64,7 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     typealias ModelType = PJBaseModel
     
     /**
-     *  数据源
+     *  数据源(设置为可选是因为这样外包或子类使用时不用去每次都解包，父类统一解包)
      */
     lazy var items: [Any]? =  {
         return [Any]()
@@ -91,12 +91,12 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     /**
      *  请求参数,子类重写以设置请求参数(重写params的get)
      */
-    var params:[String:Any] = [:]
+    var params:[String : Any] = [:]
     
     /**
      *  请求地址，需要子类重写
      */
-    var requestUrl: String! {
+    var requestUrl: String {
         return self.getRequestUrl()
     }
     
@@ -226,7 +226,7 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     }
     
     /**
-     *   添加数据，每次请求完数据调用,item中的数据即是一个个model
+     *   添加数据，每次请求完数据调用,items中的数据即是一个个model(items设置成可选，外部调用时不用每次都解包，这边统一处理，下同)
      *
      */
     func addItems(items: [Any]?) {
@@ -252,11 +252,11 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     ///网络请求地址
     func getRequestUrl() -> String {
         PJPrintLog("------->子类需要重写getRequestUrl<-------")
-        return "url"
+        return ""
     }
     
     ///网络请求参数
-    func getParams() -> [String:Any] {
+    func getParams() -> [String : Any] {
         PJPrintLog("------->子类需要重写getParams<-------")
         return [:]
     }
