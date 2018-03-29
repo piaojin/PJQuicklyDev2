@@ -242,9 +242,9 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     func addItem(item: Any?) {
         if let tempItem = item {
             self.items?.append(tempItem)
-            self.newItemsCount = 1;
+            self.newItemsCount = 1
         }else{
-            self.newItemsCount = 0;
+            self.newItemsCount = 0
         }
     }
     

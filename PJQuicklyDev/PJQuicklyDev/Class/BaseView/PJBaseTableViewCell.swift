@@ -50,7 +50,7 @@ open class PJBaseTableViewCell: UITableViewCell, PJBaseTableViewCellProtocol {
      cell的高度,如果是以自动计算高度的方式获取cell高度,则子类无需重写改方法,否则需要子类重写改方法以手动计算cell的高度
      */
     public static func tableView(tableView: UITableView, rowHeightForObject model: Any?,indexPath:IndexPath) -> CGFloat {
-        return 44.0;
+        return 44.0
     }
     
     /**

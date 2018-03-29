@@ -12,10 +12,18 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
     
     //是否加载过空视图
     var isAddEmptyView = false
+    
     //是否加载过出错视图
     var isAddErrorView = false
     
+    //是否是首页
     var isRootViewController = false
+    
+    //导航栏是否启用自定义返回按钮
+    var isUseCustomBack = true
+    
+    //导航栏返回按钮图片名字
+    var backButtonImageName: String = ""
     
     //用于各个控制器之间传值
     var query: [String : Any]?
@@ -42,7 +50,7 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        if self.isRootViewController {
+        if self.isRootViewController, self.isUseCustomBack {
             self.initNavigationController()
         }
         
@@ -60,13 +68,8 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         self.navigationController?.isNavigationBarHidden = false
-        let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: self.backButtonImageName()), style: UIBarButtonItemStyle.plain, target: self, action: #selector(back(animated:)))
+        let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: self.backButtonImageName), style: UIBarButtonItemStyle.plain, target: self, action: #selector(back(animated:)))
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
-    }
-    
-    //导航栏返回按钮图片名字
-    func backButtonImageName() -> String {
-        return ""
     }
     
     // MARK: 返回方法,可自定义重写

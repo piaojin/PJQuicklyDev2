@@ -20,7 +20,7 @@ protocol PJBaseTableViewDataSourceDelegate {
      */
     func tableView(tableView: UITableView, indexPathForObject object: Any) -> NSIndexPath?
     
-    func tableView(tableView: UITableView, objectForRowAtIndexPath indexPath: IndexPath) -> Any?
+    func tableView(tableView: UITableView, objectAt indexPath: IndexPath) -> Any?
     
     /// MARK: 子类可以重写以获取到刚初始化的cell,可在此时做一些额外的操作
     func pj_tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath, cell: UITableViewCell,object:Any?)
@@ -123,7 +123,7 @@ class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,UITab
         return nil
     }
     
-    func tableView(tableView: UITableView, objectForRowAtIndexPath indexPath: IndexPath) -> Any? {
+    func tableView(tableView: UITableView, objectAt indexPath: IndexPath) -> Any? {
         if self.isSection(){
             /**
              *因数据结构差异，需在子类重写
@@ -176,7 +176,7 @@ extension PJBaseTableViewDataSourceAndDelegate {
                     return 1
                 }
             } else {
-                return 1;
+                return 1
             }
         } else {
             return 1
@@ -209,7 +209,7 @@ extension PJBaseTableViewDataSourceAndDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let object: Any? = self.tableView(tableView: tableView, objectForRowAtIndexPath: indexPath)
+        let object: Any? = self.tableView(tableView: tableView, objectAt: indexPath)
         
         /**
          *根据子类重写方法中返回的类型名来创建对应的cell
@@ -220,28 +220,28 @@ extension PJBaseTableViewDataSourceAndDelegate {
         let identifier:String = "\(cellClass.self)"
         var cell:UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: identifier)
         if cell == nil {
-            //获取cell类型
-            if let classType = NSClassFromString(className) as? PJBaseTableViewCell.Type {
-                
-                if classType.isLoadFromXIB {
+            if cell is PJBaseTableViewCellProtocol, let baseTableViewCellProtocol = cell as? PJBaseTableViewCellProtocol {
+                let cellClassType = type(of: baseTableViewCellProtocol)
+                if let isLoadFromXIB = cellClassType.isLoadFromXIB, isLoadFromXIB {
                     /**
                      *  从xib加载初始化cell
                      *
                      */
-                    cell = classType.cellWithTableView(tableview: tableView)
+                    cell = cellClassType.cellWithTableView?(tableview: tableView)
                 } else {
-                    if self.isRepeatCell {
-                        //不重用cell
-                        cell = classType.init(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+                    if let classType = NSClassFromString(className) as? UITableViewCell.Type {
+                        if self.isRepeatCell {
+                            //不重用cell
+                            cell = classType.init(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+                        } else {
+                            cell = classType.init(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
+                        }
                     } else {
-                        cell = classType.init(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
+                        PJPrintLog("获取cell类型失败,创建PJBaseTableViewCell失败!")
+                        cell = PJBaseTableViewCell()
+                        cell?.textLabel?.text = "获取cell类型失败,创建PJBaseTableViewCell失败!"
                     }
                 }
-            } else {
-                //创建PJBaseTableViewCell失败
-                PJPrintLog("获取cell类型失败,创建PJBaseTableViewCell失败!")
-                cell = PJBaseTableViewCell()
-                cell?.textLabel?.text = "获取cell类型失败,创建PJBaseTableViewCell失败!"
             }
         } else {
             if self.isClearRepeat {
@@ -253,10 +253,11 @@ extension PJBaseTableViewDataSourceAndDelegate {
         }
         
         cell?.selectionStyle = self.getUITableViewCellSelectionStyle()
-        if let pjBaseTableViewCell = cell as? PJBaseTableViewCell {
-            pjBaseTableViewCell.clearData()
+        
+        if cell is PJBaseTableViewCellProtocol, let baseTableViewCellProtocol = cell as? PJBaseTableViewCellProtocol {
+            baseTableViewCellProtocol.clearData?()
             //传递数据
-            pjBaseTableViewCell.setModel(model: object)
+            baseTableViewCellProtocol.setModel(model: object)
         }
         
         if object != nil {
@@ -273,7 +274,7 @@ extension PJBaseTableViewDataSourceAndDelegate {
 extension PJBaseTableViewDataSourceAndDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if let cell = tableView.cellForRow(at: indexPath), let object = self.tableView(tableView: tableView, objectForRowAtIndexPath: indexPath) {
+        if let cell = tableView.cellForRow(at: indexPath), let object = self.tableView(tableView: tableView, objectAt: indexPath) {
             self.cellClickClosure?(tableView,indexPath,cell,object)
         }
     }

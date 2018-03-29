@@ -14,12 +14,15 @@ class PJBaseTableViewManualDataSourceAndDelegate: PJBaseTableViewDataSourceAndDe
      获取cell的高度
      */
     func getHeightForRow(tableView:UITableView, at indexPath:IndexPath) -> CGFloat {
-        let object = self.tableView(tableView: tableView, objectForRowAtIndexPath: indexPath)
+        let object = self.tableView(tableView: tableView, objectAt: indexPath)
         let cls : AnyClass = self.tableView(tableView: tableView, cellClassForObject: object)
-        if let tempCls = cls as? PJBaseTableViewCell.Type {
-            return tempCls.tableView(tableView: tableView, rowHeightForObject: object,indexPath:indexPath)
+        if let tempCls = cls as? PJBaseTableViewCellProtocol.Type {
+            if let height = tempCls.tableView?(tableView: tableView, rowHeightForObject: object,indexPath:indexPath) {
+                return height
+            }
+            return 44.0
         } else {
-            return 44.0;
+            return 44.0
         }
     }
     
@@ -29,14 +32,14 @@ class PJBaseTableViewManualDataSourceAndDelegate: PJBaseTableViewDataSourceAndDe
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //自动计算cell高度(带有缓存)
         if self.isAutoCalculate {
-            let object = self.tableView(tableView: tableView, objectForRowAtIndexPath: indexPath)
+            let object = self.tableView(tableView: tableView, objectAt: indexPath)
             let cls : AnyClass = self.tableView(tableView: tableView, cellClassForObject: object)
             return tableView.fd_heightForCell(withIdentifier: String(describing: cls), cacheBy: indexPath) { [weak self] (cell : Any?) in
-                guard let tempCell = cell as? PJBaseTableViewCell else {
+                guard let tempCell = cell as? PJBaseTableViewCellProtocol else {
                     return
                 }
                 //自动计算cell高度
-                tempCell.setModel(model: self?.tableView(tableView: tableView, objectForRowAtIndexPath: indexPath))
+                tempCell.setModel(model: self?.tableView(tableView: tableView, objectAt: indexPath))
             }
         } else {
             return self.getHeightForRow(tableView: tableView, at: indexPath)
