@@ -8,26 +8,26 @@
 
 import UIKit
 
-protocol PJBaseEmptyViewDelegate : NSObjectProtocol {
+public protocol PJBaseEmptyViewDelegate : NSObjectProtocol {
     /**
      为空时点击回调
      */
     func emptyClick()
 }
 
-class PJBaseEmptyView: PJBaseView {
+open class PJBaseEmptyView: PJBaseView {
     
-    weak var delegate:PJBaseEmptyViewDelegate?
+    weak open var delegate:PJBaseEmptyViewDelegate?
     
     //点击空页面
-    override func viewClick(){
+    override open func viewClick(){
         self.delegate?.emptyClick()
     }
     
     /**
      *   设置出错时的提示文字
      */
-    func setEmptyText(text: String?) {
+    open func setEmptyText(text: String?) {
         self.setLabelText(text: text)
     }
 }

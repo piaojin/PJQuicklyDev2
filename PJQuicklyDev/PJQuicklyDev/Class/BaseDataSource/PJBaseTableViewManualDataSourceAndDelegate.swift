@@ -9,11 +9,11 @@
 import UIKit
 
 //适用手动计算cell高度
-class PJBaseTableViewManualDataSourceAndDelegate: PJBaseTableViewDataSourceAndDelegate {
+open class PJBaseTableViewManualDataSourceAndDelegate: PJBaseTableViewDataSourceAndDelegate {
     /**
      获取cell的高度
      */
-    func getHeightForRow(tableView:UITableView, at indexPath:IndexPath) -> CGFloat {
+    open func getHeightForRow(tableView:UITableView, at indexPath:IndexPath) -> CGFloat {
         let object = self.tableView(tableView: tableView, objectAt: indexPath)
         let cls : AnyClass = self.tableView(tableView: tableView, cellClassForObject: object)
         if let tempCls = cls as? PJBaseTableViewCellProtocol.Type {
@@ -29,7 +29,7 @@ class PJBaseTableViewManualDataSourceAndDelegate: PJBaseTableViewDataSourceAndDe
     /**
      计算cell高度的方式,自动计算(利用FDTemplateLayoutCell库)和手动frame计算,默认自动计算,如果是手动计算则cell子类需要重写class func tableView(tableView: UITableView, rowHeightForObject model: AnyObject?,indexPath:IndexPath) -> CGFloat
      */
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //自动计算cell高度(带有缓存)
         if self.isAutoCalculate {
             let object = self.tableView(tableView: tableView, objectAt: indexPath)

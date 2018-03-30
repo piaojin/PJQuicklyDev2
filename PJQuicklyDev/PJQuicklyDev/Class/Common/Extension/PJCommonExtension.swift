@@ -8,7 +8,7 @@
 
 import UIKit
 //MARK: UIColor扩展
-extension UIColor{
+public extension UIColor{
     public class func colorWithHex(rgbValue: Int32) -> UIColor {
         return UIColor.colorWithHex(rgbValue: rgbValue, alpha: 1.0)
     }
@@ -33,8 +33,8 @@ extension UIColor{
 }
 
 //MARK: UIView扩展
-extension UIView {
-    var pj_x : CGFloat{
+public extension UIView {
+    public var pj_x : CGFloat{
         get{
             return self.frame.origin.x
         }
@@ -43,7 +43,7 @@ extension UIView {
         }
     }
     
-    var pj_y : CGFloat{
+    public var pj_y : CGFloat{
         get{
             return self.frame.origin.y
         }
@@ -52,7 +52,7 @@ extension UIView {
         }
     }
     
-    var pj_width : CGFloat{
+    public var pj_width : CGFloat{
         get{
             return self.frame.size.width
         }
@@ -61,7 +61,7 @@ extension UIView {
         }
     }
     
-    var pj_height : CGFloat{
+    public var pj_height : CGFloat{
         get{
             return self.frame.size.height
         }
@@ -70,23 +70,23 @@ extension UIView {
         }
     }
     
-    var pj_minX : CGFloat{
+    public var pj_minX : CGFloat{
         return self.frame.minX
     }
     
-    var pj_minY : CGFloat{
+    public var pj_minY : CGFloat{
         return self.frame.minY
     }
     
-    var pj_maxX : CGFloat{
+    public var pj_maxX : CGFloat{
         return self.frame.maxX
     }
     
-    var pj_maxY : CGFloat{
+    public var pj_maxY : CGFloat{
         return self.frame.maxY
     }
     
-    var pj_centerX : CGFloat{
+    public var pj_centerX : CGFloat{
         get{
             return self.center.x
         }
@@ -95,7 +95,7 @@ extension UIView {
         }
     }
     
-    var pj_centerY : CGFloat{
+    public var pj_centerY : CGFloat{
         get{
             return self.center.x
         }
@@ -104,7 +104,7 @@ extension UIView {
         }
     }
     
-    var pj_cornerRadius : CGFloat{
+    public var pj_cornerRadius : CGFloat{
         get{
             return self.layer.cornerRadius
         }
@@ -113,15 +113,15 @@ extension UIView {
         }
     }
     
-    func pj_setCircle(){
+    public func pj_setCircle(){
         self.layer.cornerRadius = self.pj_height / 2.0
         self.layer.masksToBounds = true
     }
 }
 
 // MARK: - storyboard 圆角直接设置
-extension UIView {
-    @IBInspectable var cornerRadius: CGFloat {
+public extension UIView {
+    @IBInspectable public var cornerRadius: CGFloat {
         get {
             return layer.cornerRadius
         }
@@ -133,8 +133,8 @@ extension UIView {
 }
 
 // MARK: UIImage扩展
-extension UIImage {
-    func compressImageToSize(newSize: CGSize) -> UIImage {
+public extension UIImage {
+    public func compressImageToSize(newSize: CGSize) -> UIImage {
         UIGraphicsBeginImageContext(newSize)
         self.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -144,7 +144,7 @@ extension UIImage {
 }
 
 // 打印日志
-func PJPrintLog<T>(_ message: T, file: String = #file, method: String = #function, line: Int = #line) {
+public func PJPrintLog<T>(_ message: T, file: String = #file, method: String = #function, line: Int = #line) {
     #if PJDEBUG
         print("\((file as NSString).lastPathComponent)[\(line)], \(method): \(message)")
     #endif

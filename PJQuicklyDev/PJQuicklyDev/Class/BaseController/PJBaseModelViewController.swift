@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 //刷新类型
-enum PullLoadType: Int {
+public enum PullLoadType: Int {
     case pullDefault = 0
     case pullDownRefresh //下拉
     case pullUpLoadMore  //上拉
@@ -57,72 +57,72 @@ protocol PJBaseRequestFunc {
     func getModelClassType() -> AnyClass
 }
 
-class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
+open class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     /**
      *  网络请求配置,子类可以重写,如果有需要,可以设置返回的数据的模型类型
      */
-    typealias ModelType = PJBaseModel
+    public typealias ModelType = PJBaseModel
     
     /**
      *  数据源(设置为可选是因为这样外包或子类使用时不用去每次都解包，父类统一解包)
      */
-    lazy var items: [Any]? =  {
+    open lazy var items: [Any]? =  {
         return [Any]()
     }()
     
     /**
      *  网络请求类,子类可以重写,如果有需要
      */
-    lazy var httpRequestClient: PJClient = {
+    open lazy var httpRequestClient: PJClient = {
         return PJHttpRequestClient()
     }()
     
     /**
      *  网络请求配置
      */
-    lazy var baseRequest: PJBaseRequest = {
+    open lazy var baseRequest: PJBaseRequest = {
         return self.getBaseRequest()
     }()
     
-    var headers: HTTPHeaders = [:]
+    open var headers: HTTPHeaders = [:]
     
-    var httpMethod: HTTPMethod = .get
+    open var httpMethod: HTTPMethod = .get
     
     /**
      *  请求参数,子类重写以设置请求参数(重写params的get)
      */
-    var params:[String : Any] = [:]
+    open var params:[String : Any] = [:]
     
     /**
      *  请求地址，需要子类重写
      */
-    var requestUrl: String {
+    open var requestUrl: String {
         return self.getRequestUrl()
     }
     
     ///每次网络请求返回的新的数据量
-    var newItemsCount: Int = 0
+    open var newItemsCount: Int = 0
     
     ///是否正在上拉刷新
-    var isPullingUp: Bool = false
+    open var isPullingUp: Bool = false
     
     /**
      *  是否正在加载
      */
-    var isLoading = false
+    open var isLoading = false
     
     ///初始化网络请求数据
-    func initData() {
+    open func initData() {
         self.params = self.getParams()
     }
     
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         self.initData()
         // Do any additional setup after loading the view.
     }
     
-    override func didReceiveMemoryWarning() {
+    override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
@@ -130,7 +130,7 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     /**
      *  网络请求配置,子类可以重写,如果有需要,可以设置返回的数据的模型类型
      */
-    func getBaseRequest() -> PJBaseRequest<ModelType> {
+    open func getBaseRequest() -> PJBaseRequest<ModelType> {
         var baseRequest = PJBaseRequest<ModelType>(path: self.requestUrl, responseClass: self.getModelClassType())
         baseRequest.headers = self.headers
         baseRequest.httpMethod = .get
@@ -141,10 +141,10 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     /**
      *  发起请求数据
      */
-    func doRequest(){
+    open func doRequest(){
         PJPrintLog("网络请求的参数params: = \(String(describing: self.getParams()))")
         self.beforeDoRequest()
-        if self.requestUrl != nil {
+        if !self.requestUrl.isEmpty {
             /**
              *   开始网络请求，设置默认参数
              */
@@ -164,14 +164,14 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     /**
      在网络请求之前可以做的处理
      */
-    func beforeDoRequest(){
+    open func beforeDoRequest(){
         
     }
     
     /**
      *  开始请求
      */
-    func requestDidStartLoad() {
+    open func requestDidStartLoad() {
         //不是在下拉刷新
         if !self.isPullingUp {
             self.showLoading(show:true)
@@ -192,7 +192,7 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     /**
      *  请求完成
      */
-    func didFinishLoad(success: Any?, failure: Any?) {
+    open func didFinishLoad(success: Any?, failure: Any?) {
         self.requestDidFinishLoad(success: success, failure: failure)
         self.onDataUpdated()
         self.showLoading(show: false)
@@ -201,7 +201,7 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     /**
      *  请求失败
      */
-    func didFailLoadWithError(failure: Any?) {
+    open func didFailLoadWithError(failure: Any?) {
         self.requestDidFailLoadWithError(failure: failure)
         self.onLoadFailed()
         self.showLoading(show: false)
@@ -210,7 +210,7 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     /**
      *  数据开始更新
      */
-    func onDataUpdated() {
+    open func onDataUpdated() {
         self.showLoading(show:false)
         self.showError(show:false)
         self.isLoading = false
@@ -219,7 +219,7 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     /**
      *  加载失败
      */
-    func onLoadFailed() {
+    open func onLoadFailed() {
         self.showLoading(show:false)
         self.showError(show:true)
         self.isLoading = false
@@ -229,7 +229,7 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
      *   添加数据，每次请求完数据调用,items中的数据即是一个个model(items设置成可选，外部调用时不用每次都解包，这边统一处理，下同)
      *
      */
-    func addItems(items: [Any]?) {
+    open func addItems(items: [Any]?) {
         if let tempItem = items {
             self.items? += tempItem
             self.newItemsCount = tempItem.count
@@ -239,7 +239,7 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     }
     
     //添加数据，每次请求完数据调用,item即是一个model
-    func addItem(item: Any?) {
+    open func addItem(item: Any?) {
         if let tempItem = item {
             self.items?.append(tempItem)
             self.newItemsCount = 1
@@ -250,13 +250,13 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     
     // MARK: /********子类需要重写的方法（PJBaseRequestFunc）*********/
     ///网络请求地址
-    func getRequestUrl() -> String {
+    open func getRequestUrl() -> String {
         PJPrintLog("------->子类需要重写getRequestUrl<-------")
         return ""
     }
     
     ///网络请求参数
-    func getParams() -> [String : Any] {
+    open func getParams() -> [String : Any] {
         PJPrintLog("------->子类需要重写getParams<-------")
         return [:]
     }
@@ -264,29 +264,29 @@ class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     /**
      *  请求完成后数据传递给子类，子类需要重写
      */
-    func requestDidFinishLoad(success: Any?, failure: Any?){
+    open func requestDidFinishLoad(success: Any?, failure: Any?){
         
     }
     
     /**
      *  请求失败后数据传递给子类，子类需要重写
      */
-    func requestDidFailLoadWithError(failure: Any?) {
+    open func requestDidFailLoadWithError(failure: Any?) {
         
     }
     
-    func getHeaders() -> HTTPHeaders {
+    open func getHeaders() -> HTTPHeaders {
         return self.headers
     }
     
-    func getHttpMethod() -> HTTPMethod {
+    open func getHttpMethod() -> HTTPMethod {
         return self.httpMethod
     }
     
     /// 获取返回的数据的模型类型,子类需要重写
     ///
     /// - Returns: 获取返回的数据的模型类型
-    func getModelClassType() -> AnyClass {
+    open func getModelClassType() -> AnyClass {
         return ModelType.classForCoder()
     }
 }

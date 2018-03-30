@@ -8,7 +8,7 @@
 
 import Foundation
 public extension Date {
-    static func isToday(str: String) -> Bool {
+    public static func isToday(str: String) -> Bool {
         let todayDate = Date()
         let sec = todayDate.timeIntervalSinceNow
         let date = Date(timeIntervalSinceNow: sec)
@@ -22,7 +22,7 @@ public extension Date {
         }
     }
     
-    static func dateFromTimeInterval(timeInterval: String,formatter : String) -> String {
+    public static func dateFromTimeInterval(timeInterval: String,formatter : String) -> String {
         if let time = TimeInterval(timeInterval) {
             let date = Date(timeIntervalSince1970: time)
             let format = DateFormatter()

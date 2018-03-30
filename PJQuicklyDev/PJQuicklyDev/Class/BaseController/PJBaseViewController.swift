@@ -8,33 +8,33 @@
 
 import UIKit
 
-class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErrorViewDelegate, UIGestureRecognizerDelegate {
+open class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErrorViewDelegate, UIGestureRecognizerDelegate {
     
     //是否加载过空视图
-    var isAddEmptyView = false
+    open var isAddEmptyView = false
     
     //是否加载过出错视图
-    var isAddErrorView = false
+    open var isAddErrorView = false
     
     //是否是首页
-    var isRootViewController = false
+    open var isRootViewController = false
     
     //导航栏是否启用自定义返回按钮
-    var isUseCustomBack = true
+    open var isUseCustomBack = true
     
     //导航栏返回按钮图片名字
-    var backButtonImageName: String = ""
+    open var backButtonImageName: String = ""
     
     //用于各个控制器之间传值
-    var query: [String : Any]?
+    open var query: [String : Any]?
     
     //空视图子类可重写
-    lazy var emptyView: PJBaseEmptyView = {
+    open lazy var emptyView: PJBaseEmptyView = {
         return self.getEmptyView()
     }()
     
     //出错视图子类可重写
-    lazy var errorView: PJBaseErrorView = {
+    open lazy var errorView: PJBaseErrorView = {
         return self.getErrorView()
     }()
     
@@ -42,12 +42,12 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
      * 控制器传值
      *
      */
-    convenience init(query: [String : Any]?) {
+    public convenience init(query: [String : Any]?) {
         self.init()
         self.query = query
     }
     
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         if self.isRootViewController, self.isUseCustomBack {
@@ -58,12 +58,12 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
     }
     
     // MARK: 初始化UI控件
-    func initView(){
+    open func initView(){
         PJPrintLog("子类重写initView以初始化UI控件")
     }
     
     // MARK: 初始化导航栏
-    func initNavigationController(){
+    open func initNavigationController(){
         //解决右滑不能放回上一个控制器
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
@@ -73,7 +73,7 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
     }
     
     // MARK: 返回方法,可自定义重写
-    @objc func back(animated: Bool) {
+    @objc open func back(animated: Bool) {
         if let navigationController = self.navigationController {
             navigationController.popViewController(animated: true)
         } else {
@@ -82,7 +82,7 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
     }
     
     // MARK: 显示正在加载
-    func showLoading(show: Bool) {
+    open func showLoading(show: Bool) {
         if show {
             PJSVProgressHUD.show(withStatus: self.loadingText())
         } else {
@@ -90,12 +90,12 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
         }
     }
     
-    func loadingText() -> String {
+    open func loadingText() -> String {
         return "加载中..."
     }
     
     // MARK: 子类可以重写，以改成需要的错误视图
-    func getErrorView() -> PJBaseErrorView{
+    open func getErrorView() -> PJBaseErrorView{
         let tempErrorView = PJBaseErrorView(frame: self.errorViewFrame())
         tempErrorView.delegate = self
         tempErrorView.isHidden = true
@@ -104,7 +104,7 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
     }
     
     // MARK: 显示空页面
-    func showEmpty(show: Bool) {
+    open func showEmpty(show: Bool) {
         if show {
             if !self.isAddEmptyView {
                 self.isAddEmptyView = true
@@ -118,7 +118,7 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
     }
     
     // MARK: 子类可重写，修改空页面时的坐标
-    func emptyViewFrame() -> CGRect {
+    open func emptyViewFrame() -> CGRect {
         return self.view.bounds
     }
     
@@ -126,14 +126,14 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
      *   设置为空时的提示文字
      *
      */
-    func setEmptyText(text: String?) {
+    open func setEmptyText(text: String?) {
         self.emptyView.setEmptyText(text: text)
     }
     
     /**
      子类可以重写，以改成需要的空视图
      */
-    func getEmptyView() -> PJBaseEmptyView {
+    open func getEmptyView() -> PJBaseEmptyView {
         let tempEmptyView = PJBaseEmptyView(frame: self.emptyViewFrame())
         tempEmptyView.delegate = self
         tempEmptyView.isHidden = true
@@ -144,7 +144,7 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
     /**
      * 显示空页面
      */
-    func showError(show: Bool) {
+    open func showError(show: Bool) {
         if show {
             if !self.isAddErrorView {
                 self.isAddErrorView = true
@@ -160,7 +160,7 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
     /**
      子类可重写，修改空页面时的坐标
      */
-    func errorViewFrame() -> CGRect {
+    open func errorViewFrame() -> CGRect {
         return self.view.bounds
     }
     
@@ -168,21 +168,21 @@ class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBaseErr
      *   设置出错时的提示文字
      *
      */
-    func setErrorText(text: String?) {
+    open func setErrorText(text: String?) {
         self.errorView.setErrorText(text: text)
     }
     
     /**
      *   实现协议PJBaseEmptyViewDelegate
      */
-    func emptyClick() {
+    open func emptyClick() {
         
     }
     
     /**
      *   实现协议PJBaseErrorViewDelegate
      */
-    func errorClick() {
+    open func errorClick() {
         
     }
     

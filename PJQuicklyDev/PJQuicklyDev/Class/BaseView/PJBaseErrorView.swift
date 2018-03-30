@@ -8,26 +8,26 @@
 
 import UIKit
 
-protocol PJBaseErrorViewDelegate : NSObjectProtocol {
+public protocol PJBaseErrorViewDelegate : NSObjectProtocol {
     /**
      为空时点击回调
      */
     func errorClick()
 }
 
-class PJBaseErrorView: PJBaseView {
+open class PJBaseErrorView: PJBaseView {
     
-    weak var delegate:PJBaseErrorViewDelegate?
+    weak open var delegate:PJBaseErrorViewDelegate?
     
     //点击空页面
-    override func viewClick(){
+    override open func viewClick(){
         self.delegate?.errorClick()
     }
     
     /**
      *   设置出错时的提示文字
      */
-    func setErrorText(text: String?) {
+    open func setErrorText(text: String?) {
         self.setLabelText(text: text)
     }
 }

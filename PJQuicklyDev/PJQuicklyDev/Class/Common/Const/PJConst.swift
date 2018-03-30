@@ -17,11 +17,11 @@ func PJScale(scale:CGFloat) -> CGFloat{
     return scale * Scale
 }
 
-struct PJConst {
-    static var PJScreenSize = UIScreen.main.bounds.size
-    static var PJScreenWidth  = UIScreen.main.bounds.size.width
-    static var PJScreenHeight = UIScreen.main.bounds.size.height
-    static var PJScreenBounds = UIScreen.main.bounds
+public struct PJConst {
+    public static var PJScreenSize = UIScreen.main.bounds.size
+    public static var PJScreenWidth  = UIScreen.main.bounds.size.width
+    public static var PJScreenHeight = UIScreen.main.bounds.size.height
+    public static var PJScreenBounds = UIScreen.main.bounds
     //http://v5.owner.mjbang.cn
-    static let PJBaseUrl = "http://www.kuaidi100.com/"
+    public static let PJBaseUrl = "http://www.kuaidi100.com/"
 }

@@ -9,17 +9,21 @@
 import UIKit
 import HandyJSON
 
-struct PJBaseStructModel: HandyJSON, PJDecodable {
+public struct PJBaseStructModel: HandyJSON, PJDecodable {
     
-    var code: Int?
-    var message: String?
-    var data: Any?
+    public var code: Int?
+    public var message: String?
+    public var data: Any?
     
-    func parse(jsonString: String) -> PJBaseStructModel? {
+    public init() {
+        
+    }
+    
+    public func parse(jsonString: String) -> PJBaseStructModel? {
         return nil
     }
     
-    static func parseStruct(jsonString: String) -> PJBaseStructModel? {
+    public static func parseStruct(jsonString: String) -> PJBaseStructModel? {
         if let object = PJBaseStructModel.deserialize(from: jsonString) {
             return object
         }

@@ -13,20 +13,20 @@ import HandyJSON
  *假设服务器返的数据格式是{code:200, data: {字典}, message: "message"}
  *
 */
-class PJBaseModel: NSObject, HandyJSON, PJDecodable {
+open class PJBaseModel: NSObject, HandyJSON, PJDecodable {
     
 //    var code: Int?
 //    var message: String?
 //    var data: Any?
     
-    required override init() {
+    required override public init() {
         super.init()
     }
 }
 
-extension PJBaseModel {
+public extension PJBaseModel {
     
-    func parse(jsonString: String) -> Self? {
+    public func parse(jsonString: String) -> Self? {
         let classType = type(of: self)
         if let baseModel = classType.deserialize(from: jsonString) {
             return baseModel
@@ -34,7 +34,7 @@ extension PJBaseModel {
         return nil
     }
     
-    static func parseStruct(jsonString: String) -> Self? {
+    public static func parseStruct(jsonString: String) -> Self? {
         let type = self
         if let baseModel = type.deserialize(from: jsonString) {
             return baseModel
