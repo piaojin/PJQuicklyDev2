@@ -13,7 +13,7 @@ public protocol PJBaseTableViewDataSourceDelegate {
     /**
      * 子类必须实现协议,以告诉表格每个model所对应的cell是哪个
      */
-    func tableView(tableView: UITableView, cellClassForObject object: Any?) -> AnyClass
+    func tableView(tableView: UITableView, cellClassForObject object: Any?) -> UITableViewCell.Type
     
     /**
      *若为多组需要子类重写
@@ -30,6 +30,11 @@ public protocol PJBaseTableViewDataSourceDelegate {
  * 表格的数据源和事件全部放在里面,自动布局(如果要手动计算高度需要继承PJBaseTableViewManualDataSourceAndDelegate)
  */
 open class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,UITableViewDelegate,PJBaseTableViewDataSourceDelegate {
+    
+    /**
+     * 用于与tableView所属的viewController交互,需要自己设置
+     */
+    weak var viewController: UIViewController?
     
     /**
      * 单组数据的数据源
@@ -95,7 +100,7 @@ open class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,
      设置cell被选中时的样式
      */
     open func getUITableViewCellSelectionStyle() -> UITableViewCellSelectionStyle {
-        return UITableViewCellSelectionStyle.default
+        return .default
     }
     
     /// MARK: 子类可以重写以获取到刚初始化的cell,可在此时做一些额外的操作
@@ -106,8 +111,8 @@ open class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,
     /**
      * 子类重写,以告诉表格每个model所对应的cell是哪个
      */
-    open func tableView(tableView: UITableView, cellClassForObject object: Any?) -> AnyClass {
-        return PJBaseTableViewCell.classForCoder()
+    open func tableView(tableView: UITableView, cellClassForObject object: Any?) -> UITableViewCell.Type {
+        return PJBaseTableViewCell.self
     }
     
     /**

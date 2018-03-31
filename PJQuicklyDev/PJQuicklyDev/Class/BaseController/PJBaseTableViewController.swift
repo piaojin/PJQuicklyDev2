@@ -15,22 +15,24 @@ open class PJBaseTableViewController: PJBaseModelViewController {
      */
     open weak var dataSourceAndDelegate: PJBaseTableViewDataSourceAndDelegate? {
         didSet {
-            if let isSection = self.dataSourceAndDelegate?.isSection() {
-                if isSection {
-                    self.addItems(items: self.dataSourceAndDelegate?.sectionsItems)
-                } else {
-                    self.addItems(items: self.dataSourceAndDelegate?.items)
-                }
-            }
-            
-            if let _ = self.tableView.dataSource {
-                self.tableView.reloadData()
+            self.tableView.delegate = self.dataSourceAndDelegate
+            self.tableView.dataSource = self.dataSourceAndDelegate
+        }
+    }
+    
+    open override var items: [Any]? {
+        get {
+            if let isSection = self.dataSourceAndDelegate?.isSection(), isSection  {
+                return self.dataSourceAndDelegate?.sectionsItems
             } else {
-                self.tableView.dataSource = self.dataSourceAndDelegate
+                return self.dataSourceAndDelegate?.items
             }
-            
-            if self.tableView.delegate == nil {
-                self.tableView.delegate = self.dataSourceAndDelegate
+        }
+        set {
+            if let isSection = self.dataSourceAndDelegate?.isSection(), isSection {
+                self.dataSourceAndDelegate?.addSectionItems(sectionItems: newValue)
+            } else {
+                self.dataSourceAndDelegate?.addItems(items: newValue)
             }
         }
     }
@@ -76,7 +78,6 @@ open class PJBaseTableViewController: PJBaseModelViewController {
     open var forbidLoadMore: Bool = false {
         willSet {
             self.tableView.mj_footer.isHidden = newValue
-            //            self.tableView?.mj_footer.isAutomaticallyHidden = false
             self.tableView.mj_footer.isHidden = false
         }
     }
@@ -106,6 +107,7 @@ open class PJBaseTableViewController: PJBaseModelViewController {
         self.registerCell()
         self.initFreshView()
         self.initTableViewData()
+        self.createDataSource()
     }
     
     /**
@@ -217,9 +219,16 @@ open class PJBaseTableViewController: PJBaseModelViewController {
         
     }
     
+    /**
+     *   刷新数据
+     */
+    open func reloadData() {
+        self.tableView.reloadData()
+    }
+    
     override open func onDataUpdated() {
         super.onDataUpdated()
-        self.createDataSource()
+        self.reloadData()
         self.handleWhenLessOnePage()
         self.handleWhenNoneData()
         self.setPullEndStatus()

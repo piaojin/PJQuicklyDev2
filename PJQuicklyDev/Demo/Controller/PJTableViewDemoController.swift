@@ -13,12 +13,12 @@ let cellID = "ExpressTableViewCell"
 
 class PJTableViewDemoDataSource: PJBaseTableViewDataSourceAndDelegate{
     // MARK: /***********必须重写以告诉表格什么数据模型对应什么cell*************/
-    override func tableView(tableView: UITableView, cellClassForObject object: Any?) -> AnyClass {
+    override func tableView(tableView: UITableView, cellClassForObject object: Any?) -> UITableViewCell.Type {
 //        if let _ = object?.isKind(of: ExpressItemModel.classForCoder()){
 //            return ExpressTableViewCell.classForCoder()
 //        }
         if object is ExpressItemModel {
-            return ExpressTableViewCell.classForCoder()
+            return ExpressTableViewCell.self
         }
         return super.tableView(tableView: tableView, cellClassForObject: object)
     }
@@ -114,12 +114,12 @@ class PJTableViewDemoController: PJBaseTableViewController {
     }
     
     // MARK: 网络请求地址
-    override func getRequestUrl() -> String{
+    override func getRequestUrl() -> String {
         return "query"
     }
     
     // MARK: 网络请求参数
-    override func getParams() -> [String:Any] {
+    override func getParams() -> [String : Any] {
         return ["type":"shentong","postid":"3342625464825"]
     }
     
@@ -138,8 +138,10 @@ extension PJTableViewDemoController {
  
     // MARK: 第三步:
     func updateView(expressModel : ExpressModel){
+        self.addItems(items: expressModel.data)
+        self.reloadData()
         // TODO: - 注意此处添加网络返回的数据到表格代理数据源中
-        self.pjTableViewDemoDataSource.addItems(items: expressModel.data)
+//        self.pjTableViewDemoDataSource.addItems(items: expressModel.data)
         // TODO: - 更新表格显示self.createDataSource(),该调用会在父类进行,子类无需再次手动调用
     }
 }
