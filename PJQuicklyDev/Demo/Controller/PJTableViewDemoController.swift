@@ -75,7 +75,7 @@ class PJTableViewDemoController: PJBaseTableViewController {
         }
     }
     
-    override func initView() {
+    func initView() {
         self.title = "快递查询"
     }
     

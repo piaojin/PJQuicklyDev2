@@ -59,13 +59,6 @@ open class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBa
         if self.isRootViewController, self.isUseCustomBack {
             self.initNavigationController()
         }
-        
-        self.initView()
-    }
-    
-    // MARK: 初始化UI控件
-    open func initView(){
-        PJPrintLog("子类重写initView以初始化UI控件")
     }
     
     // MARK: 初始化导航栏

@@ -112,7 +112,7 @@ open class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
     open var isLoading = false
     
     ///初始化网络请求数据
-    open func initData() {
+    private func initData() {
         self.params = self.getParams()
     }
     
