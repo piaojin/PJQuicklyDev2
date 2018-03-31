@@ -28,6 +28,12 @@ open class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBa
     //用于各个控制器之间传值
     open var query: [String : Any]?
     
+    //是否显示空视图
+    open var isShowEmpty = false
+    
+    //是否显示错误视图
+    open var isShowError = false
+    
     //空视图子类可重写
     open lazy var emptyView: PJBaseEmptyView = {
         return self.getEmptyView()
@@ -105,15 +111,17 @@ open class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBa
     
     // MARK: 显示空页面
     open func showEmpty(show: Bool) {
-        if show {
-            if !self.isAddEmptyView {
-                self.isAddEmptyView = true
-                self.view.addSubview(self.emptyView)
+        if self.isShowEmpty {
+            if show {
+                if !self.isAddEmptyView {
+                    self.isAddEmptyView = true
+                    self.view.addSubview(self.emptyView)
+                }
+                self.view.bringSubview(toFront: self.emptyView)
+                self.emptyView.isHidden = false
+            } else {
+                self.emptyView.isHidden = true
             }
-            self.view.bringSubview(toFront: self.emptyView)
-            self.emptyView.isHidden = false
-        } else {
-            self.emptyView.isHidden = true
         }
     }
     
@@ -145,15 +153,17 @@ open class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBa
      * 显示空页面
      */
     open func showError(show: Bool) {
-        if show {
-            if !self.isAddErrorView {
-                self.isAddErrorView = true
-                self.view.addSubview(self.errorView)
+        if self.isShowError {
+            if show {
+                if !self.isAddErrorView {
+                    self.isAddErrorView = true
+                    self.view.addSubview(self.errorView)
+                }
+                self.view.bringSubview(toFront: self.errorView)
+                self.errorView.isHidden = false
+            } else {
+                self.errorView.isHidden = true
             }
-            self.view.bringSubview(toFront: self.errorView)
-            self.errorView.isHidden = false
-        } else {
-            self.errorView.isHidden = true
         }
     }
     
