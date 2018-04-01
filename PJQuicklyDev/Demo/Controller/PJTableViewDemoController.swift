@@ -43,6 +43,7 @@ class PJTableViewDemoController: PJBaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.register(ExpressTableViewCell.classForCoder(), forCellReuseIdentifier: "ExpressTableViewCell")
+        self.isAutoHiddenFooterView = false
         // MARK: 第一步:/******发起网络请求,默认get请求******/
         self.doRequest()
         

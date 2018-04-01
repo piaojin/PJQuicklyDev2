@@ -11,6 +11,11 @@ import UIKit
 open class PJBaseTableViewController: PJBaseModelViewController {
     
     /**
+     * 是否自动隐藏上拉加载更多
+     */
+    open var isAutoHiddenFooterView = true
+    
+    /**
      * 表格的数据源和事件全部放在里面
      */
     open weak var dataSourceAndDelegate: PJBaseTableViewDataSourceAndDelegate? {
@@ -59,7 +64,9 @@ open class PJBaseTableViewController: PJBaseModelViewController {
      */
     open var loadMoreEnable: Bool = true {
         willSet {
-            self.tableView.mj_footer.isHidden = !newValue
+            if self.isAutoHiddenFooterView {
+                self.tableView.mj_footer.isHidden = !newValue
+            }
         }
     }
     
@@ -78,7 +85,6 @@ open class PJBaseTableViewController: PJBaseModelViewController {
     open var forbidLoadMore: Bool = false {
         willSet {
             self.tableView.mj_footer.isHidden = newValue
-            self.tableView.mj_footer.isHidden = false
         }
     }
     
