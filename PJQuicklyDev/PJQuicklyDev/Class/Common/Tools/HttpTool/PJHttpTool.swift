@@ -13,7 +13,7 @@ import Alamofire
 public typealias PJSuccess<T: PJRequest> = (_ data: T.Response?, _ response : Any?) -> Void
 ///请求的结果是要转成struct的模型
 public typealias PJSuccessForStruct<T: PJRequest> = (_ data: T.Response?, _ response : Any?) -> Void
-public typealias PJFatalError = (_ error : Any?) -> Void
+public typealias PJFatalError = (_ error : Error?) -> Void
 
 ///服务器返回的数据类型
 public enum PJResponseDataType : Int{
@@ -38,25 +38,32 @@ public protocol PJDecodable {
 
 ///网络请求配置协议
 public protocol PJRequest {
-    var path: String { get }
-    var parameter: [String: Any] { get }
-    var headers: HTTPHeaders { get }
-    var httpMethod: HTTPMethod { get }
-    var host: String { get }
-    var responseDataType: PJResponseDataType { get }
     associatedtype Response: PJDecodable
+    var path: String { set get }
+    var parameter: [String : Any]? { set get }
+    var headers: HTTPHeaders { set get }
+    var httpMethod: HTTPMethod { set get }
+    var host: String { set get }
+    var responseDataType: PJResponseDataType { set get }
     ///要转换的目标数据模型
     var responseClass: AnyClass { set get }
+    var encoding: ParameterEncoding { set get }
+    var interceptor: RequestInterceptor? { set get }
+    var requestModifier: Session.RequestModifier? { set get }
 }
 
 ///默认网络请求配置，用于网络请求返回数据转成class的模型
 public struct PJBaseRequest<T: PJBaseModel>: PJRequest {
+    public var encoding: ParameterEncoding = URLEncoding.default
+    public var requestModifier: Session.RequestModifier? = nil
+    public var interceptor: RequestInterceptor? = nil
+    
     public var host: String = PJConst.PJBaseUrl
     public var responseDataType: PJResponseDataType = .json
     public var headers: HTTPHeaders = [:]
     public var httpMethod: HTTPMethod = .get
     public var path: String = ""
-    public var parameter: [String: Any] = [:]
+    public var parameter: [String : Any]? = nil
     /// 如果需要改变类型，可以用子类重写改类型
     public typealias Response = T
     public var responseClass: AnyClass = T.classForCoder()
@@ -74,12 +81,16 @@ public struct PJBaseRequest<T: PJBaseModel>: PJRequest {
 
 ///默认网络请求配置，用于网络请求返回数据转成struct的模型
 public struct PJBaseStrcutRequest<T: PJDecodable>: PJRequest {
+    public var encoding: ParameterEncoding = URLEncoding.default
+    public var interceptor: RequestInterceptor? = nil
+    public var requestModifier: Session.RequestModifier? = nil
+    
     public var host: String = PJConst.PJBaseUrl
     public var responseDataType: PJResponseDataType = .json
     public var headers: HTTPHeaders = [:]
     public var httpMethod: HTTPMethod = .get
     public var path: String = ""
-    public var parameter: [String: Any] = [:]
+    public var parameter: [String : Any]? = nil
     /// 如果需要改变类型，可以用子类重写改类型
     public typealias Response = T
     public var responseClass: AnyClass = PJBaseModel.classForCoder()
@@ -94,7 +105,7 @@ public struct PJHttpRequestClient: PJClient {
     ///用于网络请求的数据要转成struct类型的模型
     public func sendRequestForStruct<T: PJRequest>(_ r: T, success: @escaping PJSuccessForStruct<T>, fatalError: @escaping PJFatalError) {
         self.send(r, success: { (model, response) -> Void in
-            if let response = response as? DataResponse<Any>, let data = response.data, let jsonString = String(data:data, encoding: String.Encoding.utf8) {
+            if let response = response as? AFDataResponse<Any>, let data = response.data, let jsonString = String(data:data, encoding: String.Encoding.utf8) {
                 let object = T.Response.parseStruct(jsonString: jsonString)
                 success(object, response)
             } else {
@@ -108,34 +119,32 @@ public struct PJHttpRequestClient: PJClient {
     ///用于网络请求的数据要转成class类型的模型
     public func send<T: PJRequest>(_ r: T, success: @escaping PJSuccess<T>, fatalError: @escaping PJFatalError) {
         let url = r.host.appending(r.path)
-        let request: DataRequest = Alamofire.request(url, method: r.httpMethod, parameters: r.parameter, encoding: URLEncoding.default, headers: r.headers)
+        
+        let request: DataRequest = AF.request(url, method: r.httpMethod, parameters: r.parameter, encoding: r.encoding, headers: r.headers, interceptor: r.interceptor, requestModifier: r.requestModifier)
         
         switch r.responseDataType {
         case .json:
-            request.responseJSON(completionHandler: { (response : DataResponse<Any>) in
+            request.responseJSON { (response: AFDataResponse<Any>) in
                 self.responseHandle(r, response: response, success: success, fatalError: fatalError)
-            })
-            break
+            }
         case .string:
-            request.responseString(completionHandler: { (response : DataResponse<String>)  in
+            request.responseString { (response: AFDataResponse<String>) in
                 self.responseHandle(r, response: response, success: success, fatalError: fatalError)
-            })
-            break
+            }
         case .data:
-            request.responseData(completionHandler: { (response : DataResponse<Data>) in
+            request.responseData { (response: AFDataResponse<Data>) in
                 self.responseHandle(r, response: response, success: success, fatalError: fatalError)
-            })
-            break
+            }
         }
     }
     
     /*****解析服务器返回的数据*****/
-    public func responseHandle<T: PJRequest, P>(_ r: T, response : DataResponse<P>, success: @escaping PJSuccess<T>, fatalError: @escaping PJFatalError) {
-        if response.result.isSuccess {
-            
+    public func responseHandle<T: PJRequest, P>(_ r: T, response : AFDataResponse<P>, success: @escaping PJSuccess<T>, fatalError: @escaping PJFatalError) {
+        switch response.result {
+        case .success(let value):
             if let data = response.data, let jsonString = String(data:data, encoding: String.Encoding.utf8) {
                 PJPrintLog("请求成功结果JSON: \(jsonString)")
-                let className:String = NSStringFromClass(r.responseClass)
+                let className: String = NSStringFromClass(r.responseClass)
                 if let classType = NSClassFromString(className) as? PJBaseModel.Type {
                     let model = classType.init()
                     let object = model.parse(jsonString: jsonString)
@@ -144,12 +153,12 @@ public struct PJHttpRequestClient: PJClient {
                     success(nil, response)
                 }
             } else {
-                PJPrintLog("请求成功结果\(String(describing: response.result.value))")
+                PJPrintLog("请求成功结果\(String(describing: value))")
                 success(nil, response)
             }
-        }else{
-            PJPrintLog("请求失败结果error = \(String(describing: response.result.error))")
-            fatalError(response.result.error)
+        case .failure(let error):
+            PJPrintLog("请求失败结果error = \(String(describing: error))")
+            fatalError(error)
         }
     }
 }

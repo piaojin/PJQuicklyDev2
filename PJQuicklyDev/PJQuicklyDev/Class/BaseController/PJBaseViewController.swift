@@ -67,7 +67,7 @@ open class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBa
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         self.navigationController?.isNavigationBarHidden = false
-        let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: self.backButtonImageName), style: UIBarButtonItemStyle.plain, target: self, action: #selector(back(animated:)))
+        let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: self.backButtonImageName), style: UIBarButtonItem.Style.plain, target: self, action: #selector(back(animated:)))
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
@@ -110,7 +110,7 @@ open class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBa
                     self.isAddEmptyView = true
                     self.view.addSubview(self.emptyView)
                 }
-                self.view.bringSubview(toFront: self.emptyView)
+                self.view.bringSubviewToFront(self.emptyView)
                 self.emptyView.isHidden = false
             } else {
                 self.emptyView.isHidden = true
@@ -152,7 +152,7 @@ open class PJBaseViewController: UIViewController, PJBaseEmptyViewDelegate, PJBa
                     self.isAddErrorView = true
                     self.view.addSubview(self.errorView)
                 }
-                self.view.bringSubview(toFront: self.errorView)
+                self.view.bringSubviewToFront(self.errorView)
                 self.errorView.isHidden = false
             } else {
                 self.errorView.isHidden = true

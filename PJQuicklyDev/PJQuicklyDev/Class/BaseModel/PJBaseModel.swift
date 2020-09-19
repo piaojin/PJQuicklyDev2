@@ -26,7 +26,7 @@ open class PJBaseModel: NSObject, HandyJSON, PJDecodable {
 
 public extension PJBaseModel {
     
-    public func parse(jsonString: String) -> Self? {
+    func parse(jsonString: String) -> Self? {
         let classType = type(of: self)
         if let baseModel = classType.deserialize(from: jsonString) {
             return baseModel
@@ -34,7 +34,7 @@ public extension PJBaseModel {
         return nil
     }
     
-    public static func parseStruct(jsonString: String) -> Self? {
+    static func parseStruct(jsonString: String) -> Self? {
         let type = self
         if let baseModel = type.deserialize(from: jsonString) {
             return baseModel

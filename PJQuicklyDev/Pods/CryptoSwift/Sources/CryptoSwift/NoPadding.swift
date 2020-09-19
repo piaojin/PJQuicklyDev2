@@ -1,5 +1,4 @@
 //
-//  NoPadding.swift
 //  CryptoSwift
 //
 //  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
@@ -15,15 +14,14 @@
 //
 
 struct NoPadding: PaddingProtocol {
+  init() {
+  }
 
-    init() {
-    }
+  func add(to data: Array<UInt8>, blockSize _: Int) -> Array<UInt8> {
+    data
+  }
 
-    func add(to data: Array<UInt8>, blockSize _: Int) -> Array<UInt8> {
-        return data
-    }
-
-    func remove(from data: Array<UInt8>, blockSize _: Int?) -> Array<UInt8> {
-        return data
-    }
+  func remove(from data: Array<UInt8>, blockSize _: Int?) -> Array<UInt8> {
+    data
+  }
 }

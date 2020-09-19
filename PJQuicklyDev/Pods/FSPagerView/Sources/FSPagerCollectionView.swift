@@ -1,5 +1,5 @@
 //
-//  FSPagerViewCollectionView.swift
+//  FSPagerCollectionView.swift
 //  FSPagerView
 //
 //  Created by Wenchao Ding on 24/12/2016.
@@ -10,11 +10,7 @@
 
 import UIKit
 
-class FSPagerViewCollectionView: UICollectionView {
-    
-    fileprivate var pagerView: FSPagerView? {
-        return self.superview?.superview as? FSPagerView
-    }
+class FSPagerCollectionView: UICollectionView {
     
     #if !os(tvOS)
     override var scrollsToTop: Bool {
@@ -52,11 +48,14 @@ class FSPagerViewCollectionView: UICollectionView {
     
     fileprivate func commonInit() {
         self.contentInset = .zero
-        self.decelerationRate = UIScrollViewDecelerationRateFast
+        self.decelerationRate = UIScrollView.DecelerationRate.fast
         self.showsVerticalScrollIndicator = false
         self.showsHorizontalScrollIndicator = false
         if #available(iOS 10.0, *) {
             self.isPrefetchingEnabled = false
+        }
+        if #available(iOS 11.0, *) {
+            self.contentInsetAdjustmentBehavior = .never
         }
         #if !os(tvOS)
             self.scrollsToTop = false

@@ -1,5 +1,4 @@
 //
-//  Digest.swift
 //  CryptoSwift
 //
 //  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
@@ -15,5 +14,5 @@
 //
 
 internal protocol DigestType {
-    func calculate(for bytes: Array<UInt8>) -> Array<UInt8>
+  func calculate(for bytes: Array<UInt8>) -> Array<UInt8>
 }

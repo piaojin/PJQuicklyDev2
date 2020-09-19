@@ -48,7 +48,7 @@ open class PJBaseTableViewController: PJBaseModelViewController {
         tempTableView.backgroundColor = self.view.backgroundColor
         tempTableView.separatorStyle = .none
         tempTableView.estimatedRowHeight = 44.0
-        tempTableView.rowHeight = UITableViewAutomaticDimension
+        tempTableView.rowHeight = UITableView.automaticDimension
         return tempTableView
     }()
     
@@ -65,7 +65,7 @@ open class PJBaseTableViewController: PJBaseModelViewController {
     open var loadMoreEnable: Bool = true {
         willSet {
             if self.isAutoHiddenFooterView {
-                self.tableView.mj_footer.isHidden = !newValue
+                self.tableView.mj_footer?.isHidden = !newValue
             }
         }
     }
@@ -75,7 +75,7 @@ open class PJBaseTableViewController: PJBaseModelViewController {
      */
     open var loadRefreshEnable: Bool = true {
         willSet {
-            self.tableView.mj_header.isHidden = !newValue
+            self.tableView.mj_header?.isHidden = !newValue
         }
     }
     
@@ -84,7 +84,7 @@ open class PJBaseTableViewController: PJBaseModelViewController {
      */
     open var forbidLoadMore: Bool = false {
         willSet {
-            self.tableView.mj_footer.isHidden = newValue
+            self.tableView.mj_footer?.isHidden = newValue
         }
     }
     
@@ -93,7 +93,7 @@ open class PJBaseTableViewController: PJBaseModelViewController {
      */
     open var forbidRefresh: Bool = false {
         willSet {
-            self.tableView.mj_header.isHidden = newValue
+            self.tableView.mj_header?.isHidden = newValue
         }
     }
     
@@ -245,8 +245,8 @@ open class PJBaseTableViewController: PJBaseModelViewController {
         self.setPullFailedStatus()
     }
     
-    open func tableViewStyle() -> UITableViewStyle {
-        return UITableViewStyle.plain
+    open func tableViewStyle() -> UITableView.Style {
+        return UITableView.Style.plain
     }
     
     // MARK: - 表格的frame
@@ -344,7 +344,7 @@ open class PJBaseTableViewController: PJBaseModelViewController {
      停止上拉更多
      */
     open func endLoadMore() {
-        self.tableView.mj_footer.endRefreshing()
+        self.tableView.mj_footer?.endRefreshing()
         self.isLoading = false
         self.pullLoadType = .pullDefault
         self.isPullingUp = false
@@ -354,7 +354,7 @@ open class PJBaseTableViewController: PJBaseModelViewController {
      停止下拉更多
      */
     @objc open func endRefresh() {
-        self.tableView.mj_header.endRefreshing()
+        self.tableView.mj_header?.endRefreshing()
         self.isLoading = false
         if self.pullLoadType != .pullUpLoadMore {
             self.pullLoadType = .pullDefault

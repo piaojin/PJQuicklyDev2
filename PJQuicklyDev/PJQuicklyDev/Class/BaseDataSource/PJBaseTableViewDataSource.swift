@@ -99,7 +99,7 @@ open class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,
     /**
      设置cell被选中时的样式
      */
-    open func getUITableViewCellSelectionStyle() -> UITableViewCellSelectionStyle {
+    open func getUITableViewCellSelectionStyle() -> UITableViewCell.SelectionStyle {
         return .default
     }
     
@@ -168,11 +168,11 @@ public extension PJBaseTableViewDataSourceAndDelegate {
     /**
      * 是否是分组数据,默认否,默认单组,子类可以重写
      */
-    public func isSection() -> Bool {
+    func isSection() -> Bool {
         return false
     }
     
-    public func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         if self.isSection() {
             if let tempSectionsItems = self.sectionsItems {
                 if tempSectionsItems.count > 0 {
@@ -191,7 +191,7 @@ public extension PJBaseTableViewDataSourceAndDelegate {
     /**
      *若为多组需要子类重写
      */
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.isSection() {
             if let tempSectionsItemsCount = self.sectionsItems?.count {
                 /**
@@ -213,7 +213,7 @@ public extension PJBaseTableViewDataSourceAndDelegate {
         }
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let object: Any? = self.tableView(tableView: tableView, objectAt: indexPath)
         
         /**
@@ -237,9 +237,9 @@ public extension PJBaseTableViewDataSourceAndDelegate {
                     if let classType = NSClassFromString(className) as? UITableViewCell.Type {
                         if self.isRepeatCell {
                             //不重用cell
-                            cell = classType.init(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+                            cell = classType.init(style: UITableViewCell.CellStyle.default, reuseIdentifier: nil)
                         } else {
-                            cell = classType.init(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
+                            cell = classType.init(style: UITableViewCell.CellStyle.default, reuseIdentifier: identifier)
                         }
                     } else {
                         PJPrintLog("获取cell类型失败,创建PJBaseTableViewCell失败!")
@@ -277,7 +277,7 @@ public extension PJBaseTableViewDataSourceAndDelegate {
  * delegate表格点击事件代理
  */
 public extension PJBaseTableViewDataSourceAndDelegate {
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if let cell = tableView.cellForRow(at: indexPath), let object = self.tableView(tableView: tableView, objectAt: indexPath) {
             self.cellClickClosure?(tableView,indexPath,cell,object)
@@ -290,7 +290,7 @@ public extension PJBaseTableViewDataSourceAndDelegate {
     /**
      * 单组数据添加多个模型数据
      */
-    public func addItems(items : [Any]?) {
+    func addItems(items : [Any]?) {
         if let items = items {
             self.items? += items
         }
@@ -299,7 +299,7 @@ public extension PJBaseTableViewDataSourceAndDelegate {
     /**
      * 单组数据添加一个模型数据
      */
-    public func addItem(item : Any?) {
+    func addItem(item : Any?) {
         if let item = item {
             self.items?.append(item)
         }
@@ -308,7 +308,7 @@ public extension PJBaseTableViewDataSourceAndDelegate {
     /**
      * 分组数据添加多个模型数据
      */
-    public func addSectionItems(sectionItems : [Any]?) {
+    func addSectionItems(sectionItems : [Any]?) {
         if let sectionItems = sectionItems {
             self.sectionsItems? += sectionItems
         }
@@ -317,7 +317,7 @@ public extension PJBaseTableViewDataSourceAndDelegate {
     /**
      * 分组数据添加一个模型数据
      */
-    public func addSectionItem(sectionItem : AnyObject?) {
+    func addSectionItem(sectionItem : AnyObject?) {
         if let sectionItem = sectionItem{
             self.sectionsItems?.append(sectionItem)
         }

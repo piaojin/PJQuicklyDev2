@@ -16,9 +16,9 @@ open class PJBaseCustomTableViewController: PJBaseModelViewController,UITableVie
         tempTableView.backgroundColor = self.view.backgroundColor
         tempTableView.delegate = self
         tempTableView.dataSource = self
-        tempTableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        tempTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tempTableView.estimatedRowHeight = 66
-        tempTableView.rowHeight = UITableViewAutomaticDimension
+        tempTableView.rowHeight = UITableView.automaticDimension
         tempTableView.translatesAutoresizingMaskIntoConstraints = false
         return tempTableView
     }()
@@ -35,7 +35,7 @@ open class PJBaseCustomTableViewController: PJBaseModelViewController,UITableVie
      */
     open var loadMoreEnable: Bool = true {
         willSet {
-            self.tableView.mj_footer.isHidden = !newValue
+            self.tableView.mj_footer?.isHidden = !newValue
         }
     }
     
@@ -44,7 +44,7 @@ open class PJBaseCustomTableViewController: PJBaseModelViewController,UITableVie
      */
     open var loadRefreshEnable: Bool = true {
         willSet {
-            self.tableView.mj_header.isHidden = !newValue
+            self.tableView.mj_header?.isHidden = !newValue
         }
     }
     
@@ -53,8 +53,8 @@ open class PJBaseCustomTableViewController: PJBaseModelViewController,UITableVie
      */
     open var forbidLoadMore: Bool = false {
         willSet {
-            self.tableView.mj_footer.isHidden = newValue
-            self.tableView.mj_footer.isAutomaticallyHidden = false
+            self.tableView.mj_footer?.isHidden = newValue
+            self.tableView.mj_footer?.isAutomaticallyHidden = false
         }
     }
     
@@ -63,7 +63,7 @@ open class PJBaseCustomTableViewController: PJBaseModelViewController,UITableVie
      */
     open var forbidRefresh: Bool = false {
         willSet {
-            self.tableView.mj_header.isHidden = newValue
+            self.tableView.mj_header?.isHidden = newValue
         }
     }
     
@@ -136,8 +136,8 @@ open class PJBaseCustomTableViewController: PJBaseModelViewController,UITableVie
         // Dispose of any resources that can be recreated.
     }
     
-    open func tableViewStyle() -> UITableViewStyle {
-        return UITableViewStyle.plain
+    open func tableViewStyle() -> UITableView.Style {
+        return UITableView.Style.plain
     }
     
     // MARK: - 表格的frame
@@ -238,7 +238,7 @@ open class PJBaseCustomTableViewController: PJBaseModelViewController,UITableVie
      停止上拉更多
      */
     open func endLoadMore() {
-        self.tableView.mj_footer.endRefreshing()
+        self.tableView.mj_footer?.endRefreshing()
         self.isLoading = false
         self.pullLoadType = .pullDefault
         self.isPullingUp = false
@@ -248,7 +248,7 @@ open class PJBaseCustomTableViewController: PJBaseModelViewController,UITableVie
      停止下拉更多
      */
     @objc open func endRefresh() {
-        self.tableView.mj_header.endRefreshing()
+        self.tableView.mj_header?.endRefreshing()
         self.isLoading = false
         if self.pullLoadType != .pullUpLoadMore {
             self.pullLoadType = .pullDefault
@@ -367,14 +367,14 @@ open class PJBaseCustomTableViewController: PJBaseModelViewController,UITableVie
 
 // MARK: - tableView dataSource
 public extension PJBaseCustomTableViewController {
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let count = self.items?.count else {
             return 0
         }
         return count
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell") else {
             return UITableViewCell()
         }

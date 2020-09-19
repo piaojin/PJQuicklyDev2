@@ -1,5 +1,4 @@
 //
-//  Utils+Foundation.swift
 //  CryptoSwift
 //
 //  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
@@ -17,12 +16,12 @@
 import Foundation
 
 func perf(_ text: String, closure: () -> Void) {
-    let measurementStart = Date()
+  let measurementStart = Date()
 
-    closure()
+  closure()
 
-    let measurementStop = Date()
-    let executionTime = measurementStop.timeIntervalSince(measurementStart)
+  let measurementStop = Date()
+  let executionTime = measurementStop.timeIntervalSince(measurementStart)
 
-    print("\(text) \(executionTime)")
+  print("\(text) \(executionTime)")
 }

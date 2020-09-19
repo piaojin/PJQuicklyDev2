@@ -1,5 +1,4 @@
 //
-//  BlockCipher.swift
 //  CryptoSwift
 //
 //  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
@@ -15,5 +14,5 @@
 //
 
 protocol BlockCipher: Cipher {
-    static var blockSize: Int { get }
+  static var blockSize: Int { get }
 }
