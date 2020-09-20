@@ -34,8 +34,8 @@ open class PJBaseCustomTableViewController: PJBaseModelViewController,UITableVie
      是否可以上拉刷新
      */
     open var loadMoreEnable: Bool = true {
-        willSet {
-            self.tableView.mj_footer?.isHidden = !newValue
+        didSet {
+            self.tableView.mj_footer?.isHidden = !loadMoreEnable
         }
     }
     
@@ -43,8 +43,8 @@ open class PJBaseCustomTableViewController: PJBaseModelViewController,UITableVie
      是否可以下拉刷新
      */
     open var loadRefreshEnable: Bool = true {
-        willSet {
-            self.tableView.mj_header?.isHidden = !newValue
+        didSet {
+            self.tableView.mj_header?.isHidden = !loadRefreshEnable
         }
     }
     
@@ -52,9 +52,8 @@ open class PJBaseCustomTableViewController: PJBaseModelViewController,UITableVie
      是否禁用上拉刷新
      */
     open var forbidLoadMore: Bool = false {
-        willSet {
-            self.tableView.mj_footer?.isHidden = newValue
-            self.tableView.mj_footer?.isAutomaticallyHidden = false
+        didSet {
+            self.tableView.mj_footer?.isHidden = forbidLoadMore
         }
     }
     
@@ -62,8 +61,8 @@ open class PJBaseCustomTableViewController: PJBaseModelViewController,UITableVie
      是否禁用下拉刷新
      */
     open var forbidRefresh: Bool = false {
-        willSet {
-            self.tableView.mj_header?.isHidden = newValue
+        didSet {
+            self.tableView.mj_header?.isHidden = forbidRefresh
         }
     }
     

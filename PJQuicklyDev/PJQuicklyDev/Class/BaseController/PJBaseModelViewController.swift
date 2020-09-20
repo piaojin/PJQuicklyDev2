@@ -16,7 +16,7 @@ public enum PullLoadType: Int {
     case pullUpLoadMore  //上拉
 }
 
-protocol PJBaseRequestFunc {
+protocol PJBaseRequestProtocol {
     /**
      *  网络请求配置,子类可以重写,如果有需要,可以设置返回的数据的模型类型
      */
@@ -57,7 +57,7 @@ protocol PJBaseRequestFunc {
     func getModelClassType() -> AnyClass
 }
 
-open class PJBaseModelViewController: PJBaseViewController, PJBaseRequestFunc {
+open class PJBaseModelViewController: PJBaseViewController, PJBaseRequestProtocol {
     /**
      *  网络请求配置,子类可以重写,如果有需要,可以设置返回的数据的模型类型
      */

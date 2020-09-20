@@ -54,10 +54,6 @@ public protocol PJRequest {
 
 ///默认网络请求配置，用于网络请求返回数据转成class的模型
 public struct PJBaseRequest<T: PJBaseModel>: PJRequest {
-    public var encoding: ParameterEncoding = URLEncoding.default
-    public var requestModifier: Session.RequestModifier? = nil
-    public var interceptor: RequestInterceptor? = nil
-    
     public var host: String = PJConst.PJBaseUrl
     public var responseDataType: PJResponseDataType = .json
     public var headers: HTTPHeaders = [:]
@@ -67,6 +63,9 @@ public struct PJBaseRequest<T: PJBaseModel>: PJRequest {
     /// 如果需要改变类型，可以用子类重写改类型
     public typealias Response = T
     public var responseClass: AnyClass = T.classForCoder()
+    public var encoding: ParameterEncoding = URLEncoding.default
+    public var requestModifier: Session.RequestModifier? = nil
+    public var interceptor: RequestInterceptor? = nil
     
     ///responseClass:用于指定请求结果要转换的目标数据模型
     public init(path: String, responseClass: AnyClass) {
@@ -81,10 +80,6 @@ public struct PJBaseRequest<T: PJBaseModel>: PJRequest {
 
 ///默认网络请求配置，用于网络请求返回数据转成struct的模型
 public struct PJBaseStrcutRequest<T: PJDecodable>: PJRequest {
-    public var encoding: ParameterEncoding = URLEncoding.default
-    public var interceptor: RequestInterceptor? = nil
-    public var requestModifier: Session.RequestModifier? = nil
-    
     public var host: String = PJConst.PJBaseUrl
     public var responseDataType: PJResponseDataType = .json
     public var headers: HTTPHeaders = [:]
@@ -94,6 +89,10 @@ public struct PJBaseStrcutRequest<T: PJDecodable>: PJRequest {
     /// 如果需要改变类型，可以用子类重写改类型
     public typealias Response = T
     public var responseClass: AnyClass = PJBaseModel.classForCoder()
+    public var encoding: ParameterEncoding = URLEncoding.default
+    public var interceptor: RequestInterceptor? = nil
+    public var requestModifier: Session.RequestModifier? = nil
+    
     public init(path: String) {
         self.path = path
     }
@@ -138,7 +137,7 @@ public struct PJHttpRequestClient: PJClient {
         }
     }
     
-    /*****解析服务器返回的数据*****/
+    ///解析服务器返回的数据
     public func responseHandle<T: PJRequest, P>(_ r: T, response : AFDataResponse<P>, success: @escaping PJSuccess<T>, fatalError: @escaping PJFatalError) {
         switch response.result {
         case .success(let value):

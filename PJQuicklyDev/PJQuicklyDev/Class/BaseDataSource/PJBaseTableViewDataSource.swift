@@ -34,20 +34,20 @@ open class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,
     /**
      * 用于与tableView所属的viewController交互,需要自己设置
      */
-    weak var viewController: UIViewController?
+    weak var sourceViewController: UIViewController?
     
     /**
      * 单组数据的数据源
      */
-    open lazy var items :[Any]? = {
-        return [Any]()
+    open lazy var items: [Any]? = {
+        return []
     }()
     
     /**
      * 分组数据的数据源
      */
-    open lazy var sectionsItems :[Any]? = {
-        return [Any]()
+    open lazy var sectionsItems: [Any]? = {
+        return []
     }()
     
     /**
@@ -119,17 +119,17 @@ open class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,
      *若为多组需要子类重写
      */
     open func tableView(tableView: UITableView, indexPathForObject object: Any) -> NSIndexPath? {
-        var objectIndex:Int
-        let tempItems = self.items! as NSArray
-        objectIndex = tempItems.index(of: object)
-        if objectIndex >= 0 {
-            return  NSIndexPath(row: objectIndex, section: 0)
+        if let tempItems = self.items as NSArray? {
+            let objectIndex = tempItems.index(of: object)
+            if objectIndex >= 0 {
+                return  NSIndexPath(row: objectIndex, section: 0)
+            }
         }
         return nil
     }
     
     open func tableView(tableView: UITableView, objectAt indexPath: IndexPath) -> Any? {
-        if self.isSection(){
+        if self.isUseSection(){
             /**
              *因数据结构差异，需在子类重写
              * eg: id obj = [self.sectionsItems objectAtIndex:(NSUInteger) indexPath.section];
@@ -144,7 +144,7 @@ open class PJBaseTableViewDataSourceAndDelegate: NSObject,UITableViewDataSource,
         } else {
             if let tempItems = self.items {
                 if tempItems.count > 0 && indexPath.row < tempItems.count {
-                    return self.items![indexPath.row]
+                    return tempItems[indexPath.row]
                 } else {
                     return nil
                 }
@@ -168,18 +168,14 @@ public extension PJBaseTableViewDataSourceAndDelegate {
     /**
      * 是否是分组数据,默认否,默认单组,子类可以重写
      */
-    func isSection() -> Bool {
+    func isUseSection() -> Bool {
         return false
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if self.isSection() {
-            if let tempSectionsItems = self.sectionsItems {
-                if tempSectionsItems.count > 0 {
-                    return self.sectionsItems!.count
-                } else {
-                    return 1
-                }
+        if self.isUseSection() {
+            if let count = self.sectionsItems?.count, count > 0 {
+                return count
             } else {
                 return 1
             }
@@ -192,24 +188,16 @@ public extension PJBaseTableViewDataSourceAndDelegate {
      *若为多组需要子类重写
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.isSection() {
-            if let tempSectionsItemsCount = self.sectionsItems?.count {
-                /**
-                 *因数据结构差异，需在子类重写
-                 * eg:
-                 var item:CategoryItem = self.sectionsItems[section]
-                 return item.dataArray.count
-                 */
-                return tempSectionsItemsCount
-            } else {
-                return 0
-            }
+        if self.isUseSection() {
+            /**
+            *因数据结构差异，需在子类重写
+            * eg:
+            var item:CategoryItem = self.sectionsItems[section]
+            return item.dataArray.count
+            */
+            return self.sectionsItems?.count ?? 0
         } else {
-            if let tempCount = self.items?.count {
-                return tempCount
-            } else {
-                return 0
-            }
+            return self.items?.count ?? 0
         }
     }
     
@@ -219,11 +207,12 @@ public extension PJBaseTableViewDataSourceAndDelegate {
         /**
          *根据子类重写方法中返回的类型名来创建对应的cell
          */
-        let cellClass:AnyClass = self.tableView(tableView: tableView, cellClassForObject: object)
-        let className:String = NSStringFromClass(cellClass)
+        let cellClass: AnyClass = self.tableView(tableView: tableView, cellClassForObject: object)
+        let className: String = NSStringFromClass(cellClass)
         //用类型名称做ID
         let identifier:String = "\(cellClass.self)"
-        var cell:UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: identifier)
+        var cell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: identifier)
+        
         if cell == nil {
             if cell is PJBaseTableViewCellProtocol, let baseTableViewCellProtocol = cell as? PJBaseTableViewCellProtocol {
                 let cellClassType = type(of: baseTableViewCellProtocol)

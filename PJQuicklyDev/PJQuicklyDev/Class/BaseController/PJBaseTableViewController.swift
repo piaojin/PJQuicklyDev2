@@ -27,14 +27,14 @@ open class PJBaseTableViewController: PJBaseModelViewController {
     
     open override var items: [Any]? {
         get {
-            if let isSection = self.dataSourceAndDelegate?.isSection(), isSection  {
+            if let isSection = self.dataSourceAndDelegate?.isUseSection(), isSection  {
                 return self.dataSourceAndDelegate?.sectionsItems
             } else {
                 return self.dataSourceAndDelegate?.items
             }
         }
         set {
-            if let isSection = self.dataSourceAndDelegate?.isSection(), isSection {
+            if let isSection = self.dataSourceAndDelegate?.isUseSection(), isSection {
                 self.dataSourceAndDelegate?.addSectionItems(sectionItems: newValue)
             } else {
                 self.dataSourceAndDelegate?.addItems(items: newValue)
@@ -63,9 +63,9 @@ open class PJBaseTableViewController: PJBaseModelViewController {
      是否可以上拉刷新
      */
     open var loadMoreEnable: Bool = true {
-        willSet {
+        didSet {
             if self.isAutoHiddenFooterView {
-                self.tableView.mj_footer?.isHidden = !newValue
+                self.tableView.mj_footer?.isHidden = !loadMoreEnable
             }
         }
     }
@@ -74,8 +74,8 @@ open class PJBaseTableViewController: PJBaseModelViewController {
      是否可以下拉刷新
      */
     open var loadRefreshEnable: Bool = true {
-        willSet {
-            self.tableView.mj_header?.isHidden = !newValue
+        didSet {
+            self.tableView.mj_header?.isHidden = !loadRefreshEnable
         }
     }
     
@@ -83,8 +83,8 @@ open class PJBaseTableViewController: PJBaseModelViewController {
      是否禁用上拉刷新
      */
     open var forbidLoadMore: Bool = false {
-        willSet {
-            self.tableView.mj_footer?.isHidden = newValue
+        didSet {
+            self.tableView.mj_footer?.isHidden = forbidLoadMore
         }
     }
     
@@ -92,8 +92,8 @@ open class PJBaseTableViewController: PJBaseModelViewController {
      是否禁用下拉刷新
      */
     open var forbidRefresh: Bool = false {
-        willSet {
-            self.tableView.mj_header?.isHidden = newValue
+        didSet {
+            self.tableView.mj_header?.isHidden = forbidRefresh
         }
     }
     
@@ -310,7 +310,7 @@ open class PJBaseTableViewController: PJBaseModelViewController {
         //下拉刷新先清空旧数据
         self.items?.removeAll()
         //if let 解包,只要成功解包就会进入{}中,并不会因为isSection()的值为true,故这边要这么写
-        if let isSection = self.dataSourceAndDelegate?.isSection() {
+        if let isSection = self.dataSourceAndDelegate?.isUseSection() {
             if isSection {
                 self.dataSourceAndDelegate?.sectionsItems?.removeAll()
             } else {

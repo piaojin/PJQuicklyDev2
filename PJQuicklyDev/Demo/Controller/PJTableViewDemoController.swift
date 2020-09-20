@@ -44,6 +44,7 @@ class PJTableViewDemoController: PJBaseTableViewController {
         super.viewDidLoad()
         self.tableView.register(ExpressTableViewCell.classForCoder(), forCellReuseIdentifier: "ExpressTableViewCell")
         self.isAutoHiddenFooterView = false
+        self.forbidLoadMore = true
         // MARK: 第一步:/******发起网络请求,默认get请求******/
         self.doRequest()
         
