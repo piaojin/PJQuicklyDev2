@@ -41,7 +41,6 @@ public enum DebugMode: Int {
 }
 
 public struct HandyJSONConfiguration {
-
     private static var _mode = DebugMode.error
     public static var debugMode: DebugMode {
         get {

@@ -26,9 +26,9 @@ struct _class_rw_t {
 
     // reference: include/swift/Remote/MetadataReader.h/readObjcRODataPtr
     func class_ro_t() -> UnsafePointer<_class_ro_t>? {
-        var addr: UInt = self.ro
-        if (self.ro & UInt(1)) != 0 {
-            if let ptr = UnsafePointer<UInt>(bitPattern: self.ro ^ 1) {
+        var addr: UInt = ro
+        if (ro & UInt(1)) != 0 {
+            if let ptr = UnsafePointer<UInt>(bitPattern: ro ^ 1) {
                 addr = ptr.pointee
             }
         }
@@ -44,12 +44,12 @@ struct _class_ro_t {
 }
 
 // MARK: MetadataType
-protocol MetadataType : PointerType {
+
+protocol MetadataType: PointerType {
     static var kind: Metadata.Kind? { get }
 }
 
 extension MetadataType {
-
     var kind: Metadata.Kind {
         return Metadata.Kind(flag: UnsafePointer<Int>(pointer).pointee)
     }
@@ -63,7 +63,8 @@ extension MetadataType {
 }
 
 // MARK: Metadata
-struct Metadata : MetadataType {
+
+struct Metadata: MetadataType {
     var pointer: UnsafePointer<Int>
 
     init(type: Any.Type) {
@@ -78,6 +79,7 @@ var is64BitPlatform: Bool {
 }
 
 // MARK: Metadata + Kind
+
 // include/swift/ABI/MetadataKind.def
 let MetadataKindIsNonHeap = 0x200
 let MetadataKindIsRuntimePrivate = 0x100
@@ -103,20 +105,20 @@ extension Metadata {
         case `class` // The kind only valid for non-class metadata
         init(flag: Int) {
             switch flag {
-            case (0 | MetadataKindIsNonHeap): self = .struct
-            case (1 | MetadataKindIsNonHeap): self = .enum
-            case (2 | MetadataKindIsNonHeap): self = .optional
-            case (3 | MetadataKindIsNonHeap): self = .foreignClass
-            case (0 | MetadataKindIsRuntimePrivate | MetadataKindIsNonHeap): self = .opaque
-            case (1 | MetadataKindIsRuntimePrivate | MetadataKindIsNonHeap): self = .tuple
-            case (2 | MetadataKindIsRuntimePrivate | MetadataKindIsNonHeap): self = .function
-            case (3 | MetadataKindIsRuntimePrivate | MetadataKindIsNonHeap): self = .existential
-            case (4 | MetadataKindIsRuntimePrivate | MetadataKindIsNonHeap): self = .metatype
-            case (5 | MetadataKindIsRuntimePrivate | MetadataKindIsNonHeap): self = .objCClassWrapper
-            case (6 | MetadataKindIsRuntimePrivate | MetadataKindIsNonHeap): self = .existentialMetatype
-            case (0 | MetadataKindIsNonType): self = .heapLocalVariable
-            case (0 | MetadataKindIsNonType | MetadataKindIsRuntimePrivate): self = .heapGenericLocalVariable
-            case (1 | MetadataKindIsNonType | MetadataKindIsRuntimePrivate): self = .errorObject
+            case 0 | MetadataKindIsNonHeap: self = .struct
+            case 1 | MetadataKindIsNonHeap: self = .enum
+            case 2 | MetadataKindIsNonHeap: self = .optional
+            case 3 | MetadataKindIsNonHeap: self = .foreignClass
+            case 0 | MetadataKindIsRuntimePrivate | MetadataKindIsNonHeap: self = .opaque
+            case 1 | MetadataKindIsRuntimePrivate | MetadataKindIsNonHeap: self = .tuple
+            case 2 | MetadataKindIsRuntimePrivate | MetadataKindIsNonHeap: self = .function
+            case 3 | MetadataKindIsRuntimePrivate | MetadataKindIsNonHeap: self = .existential
+            case 4 | MetadataKindIsRuntimePrivate | MetadataKindIsNonHeap: self = .metatype
+            case 5 | MetadataKindIsRuntimePrivate | MetadataKindIsNonHeap: self = .objCClassWrapper
+            case 6 | MetadataKindIsRuntimePrivate | MetadataKindIsNonHeap: self = .existentialMetatype
+            case 0 | MetadataKindIsNonType: self = .heapLocalVariable
+            case 0 | MetadataKindIsNonType | MetadataKindIsRuntimePrivate: self = .heapGenericLocalVariable
+            case 1 | MetadataKindIsNonType | MetadataKindIsRuntimePrivate: self = .errorObject
             default: self = .class
             }
         }
@@ -124,19 +126,17 @@ extension Metadata {
 }
 
 // MARK: Metadata + Class
-extension Metadata {
-    struct Class : ContextDescriptorType {
 
+extension Metadata {
+    struct Class: ContextDescriptorType {
         static let kind: Kind? = .class
         var pointer: UnsafePointer<_Metadata._Class>
 
         var isSwiftClass: Bool {
-            get {
-                // see include/swift/Runtime/Config.h macro SWIFT_CLASS_IS_SWIFT_MASK
-                // it can be 1 or 2 depending on environment
-                let lowbit = self.pointer.pointee.rodataPointer & 3
-                return lowbit != 0
-            }
+            // see include/swift/Runtime/Config.h macro SWIFT_CLASS_IS_SWIFT_MASK
+            // it can be 1 or 2 depending on environment
+            let lowbit = pointer.pointee.rodataPointer & 3
+            return lowbit != 0
         }
 
         var contextDescriptorOffsetLocation: Int {
@@ -150,7 +150,7 @@ extension Metadata {
 
             // If the superclass doesn't conform to handyjson/handyjsonenum protocol,
             // we should ignore the properties inside
-            if !(superclass is HandyJSON.Type) && !(superclass is HandyJSONEnum.Type) {
+            if !(superclass is HandyJSON.Type), !(superclass is HandyJSONEnum.Type) {
                 return nil
             }
 
@@ -171,7 +171,7 @@ extension Metadata {
         var genericArgumentVector: UnsafeRawPointer? {
             let pointer = UnsafePointer<Int>(self.pointer)
             var superVTableSize = 0
-            if let _superclass = self.superclass {
+            if let _superclass = superclass {
                 superVTableSize = _superclass.vTableSize / MemoryLayout<Int>.size
             }
             let base = pointer.advanced(by: contextDescriptorOffsetLocation + 2 + superVTableSize)
@@ -184,27 +184,27 @@ extension Metadata {
         func _propertyDescriptionsAndStartPoint() -> ([Property.Description], Int32?)? {
             let instanceStart = pointer.pointee.class_rw_t()?.pointee.class_ro_t()?.pointee.instanceStart
             var result: [Property.Description] = []
-            if let fieldOffsets = self.fieldOffsets, let fieldRecords = self.reflectionFieldDescriptor?.fieldRecords {
+            if let fieldOffsets = self.fieldOffsets, let fieldRecords = reflectionFieldDescriptor?.fieldRecords {
                 class NameAndType {
                     var name: String?
                     var type: Any.Type?
                 }
-                
-                for i in 0..<self.numberOfFields {
+
+                for i in 0 ..< numberOfFields {
                     let name = fieldRecords[i].fieldName
                     if let cMangledTypeName = fieldRecords[i].mangledTypeName,
-                        let fieldType = _getTypeByMangledNameInContext(cMangledTypeName, getMangledTypeNameSize(cMangledTypeName), genericContext: self.contextDescriptorPointer, genericArguments: self.genericArgumentVector) {
-
+                        let fieldType = _getTypeByMangledNameInContext(cMangledTypeName, getMangledTypeNameSize(cMangledTypeName), genericContext: contextDescriptorPointer, genericArguments: genericArgumentVector)
+                    {
                         result.append(Property.Description(key: name, type: fieldType, offset: fieldOffsets[i]))
                     }
                 }
             }
 
             if let superclass = superclass,
-                String(describing: unsafeBitCast(superclass.pointer, to: Any.Type.self)) != "SwiftObject",  // ignore the root swift object
+                String(describing: unsafeBitCast(superclass.pointer, to: Any.Type.self)) != "SwiftObject", // ignore the root swift object
                 let superclassProperties = superclass._propertyDescriptionsAndStartPoint(),
-                superclassProperties.0.count > 0 {
-
+                superclassProperties.0.count > 0
+            {
                 return (superclassProperties.0 + result, superclassProperties.1)
             }
             return (result, instanceStart)
@@ -213,11 +213,12 @@ extension Metadata {
         func propertyDescriptions() -> [Property.Description]? {
             let propsAndStp = _propertyDescriptionsAndStartPoint()
             if let firstInstanceStart = propsAndStp?.1,
-                let firstProperty = propsAndStp?.0.first?.offset {
-                    return propsAndStp?.0.map({ (propertyDesc) -> Property.Description in
-                        let offset = propertyDesc.offset - firstProperty + Int(firstInstanceStart)
-                        return Property.Description(key: propertyDesc.key, type: propertyDesc.type, offset: offset)
-                    })
+                let firstProperty = propsAndStp?.0.first?.offset
+            {
+                return propsAndStp?.0.map { (propertyDesc) -> Property.Description in
+                    let offset = propertyDesc.offset - firstProperty + Int(firstInstanceStart)
+                    return Property.Description(key: propertyDesc.key, type: propertyDesc.type, offset: offset)
+                }
             } else {
                 return propsAndStp?.0
             }
@@ -245,19 +246,20 @@ extension _Metadata {
 
         func class_rw_t() -> UnsafePointer<_class_rw_t>? {
             if MemoryLayout<Int>.size == MemoryLayout<Int64>.size {
-                let fast_data_mask: UInt64 = 0x00007ffffffffff8
-                let databits_t: UInt64 = UInt64(self.rodataPointer)
+                let fast_data_mask: UInt64 = 0x0000_7FFF_FFFF_FFF8
+                let databits_t = UInt64(rodataPointer)
                 return UnsafePointer<_class_rw_t>(bitPattern: UInt(databits_t & fast_data_mask))
             } else {
-                return UnsafePointer<_class_rw_t>(bitPattern: self.rodataPointer & 0xfffffffc)
+                return UnsafePointer<_class_rw_t>(bitPattern: rodataPointer & 0xFFFF_FFFC)
             }
         }
     }
 }
 
 // MARK: Metadata + Struct
+
 extension Metadata {
-    struct Struct : ContextDescriptorType {
+    struct Struct: ContextDescriptorType {
         static let kind: Kind? = .struct
         var pointer: UnsafePointer<_Metadata._Struct>
         var contextDescriptorOffsetLocation: Int {
@@ -278,7 +280,7 @@ extension Metadata {
         }
 
         func propertyDescriptions() -> [Property.Description]? {
-            guard let fieldOffsets = self.fieldOffsets, let fieldRecords = self.reflectionFieldDescriptor?.fieldRecords else {
+            guard let fieldOffsets = self.fieldOffsets, let fieldRecords = reflectionFieldDescriptor?.fieldRecords else {
                 return []
             }
             var result: [Property.Description] = []
@@ -286,11 +288,11 @@ extension Metadata {
                 var name: String?
                 var type: Any.Type?
             }
-            for i in 0..<self.numberOfFields {
+            for i in 0 ..< numberOfFields {
                 let name = fieldRecords[i].fieldName
                 if let cMangledTypeName = fieldRecords[i].mangledTypeName,
-                    let fieldType = _getTypeByMangledNameInContext(cMangledTypeName, getMangledTypeNameSize(cMangledTypeName), genericContext: self.contextDescriptorPointer, genericArguments: self.genericArgumentVector) {
-
+                    let fieldType = _getTypeByMangledNameInContext(cMangledTypeName, getMangledTypeNameSize(cMangledTypeName), genericContext: contextDescriptorPointer, genericArguments: genericArgumentVector)
+                {
                     result.append(Property.Description(key: name, type: fieldType, offset: fieldOffsets[i]))
                 }
             }
@@ -308,6 +310,7 @@ extension _Metadata {
 }
 
 // MARK: Metadata + ObjcClassWrapper
+
 extension Metadata {
     struct ObjcClassWrapper: ContextDescriptorType {
         static let kind: Kind? = .objCClassWrapper
@@ -317,9 +320,7 @@ extension Metadata {
         }
 
         var targetType: Any.Type? {
-            get {
-                return pointer.pointee.targetType
-            }
+            return pointer.pointee.targetType
         }
     }
 }

@@ -29,13 +29,11 @@
 import Foundation
 
 open class ISO8601DateTransform: DateFormatterTransform {
+    public init() {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
 
-	public init() {
-		let formatter = DateFormatter()
-		formatter.locale = Locale(identifier: "en_US_POSIX")
-		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-
-		super.init(dateFormatter: formatter)
-	}
-
+        super.init(dateFormatter: formatter)
+    }
 }

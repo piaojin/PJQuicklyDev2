@@ -14,4 +14,6 @@ target 'PJQuicklyDev' do
     pod 'FSPagerView', '~> 0.8.3'
     pod 'CocoaLumberjack/Swift', '~> 3.6.2'
     pod 'ReachabilitySwift', '~> 5.0.0'
+#    pod 'SwiftFormat', '~> 0.46.2'
+    pod 'SwiftFormat/CLI', '~> 0.46.2'
 end

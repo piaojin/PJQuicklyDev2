@@ -29,9 +29,9 @@ public func _getTypeByMangledNameInContext(
     _ name: UnsafePointer<UInt8>,
     _ nameLength: Int,
     genericContext: UnsafeRawPointer?,
-    genericArguments: UnsafeRawPointer?)
+    genericArguments: UnsafeRawPointer?
+)
     -> Any.Type?
-
 
 @_silgen_name("swift_getTypeContextDescriptor")
 public func _swift_getTypeContextDescriptor(_ metadata: UnsafeRawPointer?) -> UnsafeRawPointer?

@@ -22,7 +22,6 @@
 //
 
 struct InternalLogger {
-
     static func logError(_ items: Any..., separator: String = " ", terminator: String = "\n") {
         if HandyJSONConfiguration.debugMode.rawValue <= DebugMode.error.rawValue {
             print(items, separator: separator, terminator: terminator)

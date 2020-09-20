@@ -16,25 +16,24 @@ public protocol _ExtendCustomModelType: _Transformable {
 }
 
 extension _ExtendCustomModelType {
-
     public mutating func willStartMapping() {}
-    public mutating func mapping(mapper: HelpingMapper) {}
+    public mutating func mapping(mapper _: HelpingMapper) {}
     public mutating func didFinishMapping() {}
 }
 
-fileprivate func convertKeyIfNeeded(dict: [String: Any]) -> [String: Any] {
+private func convertKeyIfNeeded(dict: [String: Any]) -> [String: Any] {
     if HandyJSONConfiguration.deserializeOptions.contains(.caseInsensitive) {
         var newDict = [String: Any]()
-        dict.forEach({ (kvPair) in
+        dict.forEach { kvPair in
             let (key, value) = kvPair
             newDict[key.lowercased()] = value
-        })
+        }
         return newDict
     }
     return dict
 }
 
-fileprivate func getRawValueFrom(dict: [String: Any], property: PropertyInfo, mapper: HelpingMapper) -> Any? {
+private func getRawValueFrom(dict: [String: Any], property: PropertyInfo, mapper: HelpingMapper) -> Any? {
     let address = Int(bitPattern: property.address)
     if let mappingHandler = mapper.getMappingHandler(key: address) {
         if let mappingPaths = mappingHandler.mappingPaths, mappingPaths.count > 0 {
@@ -52,7 +51,7 @@ fileprivate func getRawValueFrom(dict: [String: Any], property: PropertyInfo, ma
     return dict[property.key]
 }
 
-fileprivate func convertValue(rawValue: Any, property: PropertyInfo, mapper: HelpingMapper) -> Any? {
+private func convertValue(rawValue: Any, property: PropertyInfo, mapper: HelpingMapper) -> Any? {
     if rawValue is NSNull { return nil }
     if let mappingHandler = mapper.getMappingHandler(key: Int(bitPattern: property.address)), let transformer = mappingHandler.assignmentClosure {
         return transformer(rawValue)
@@ -64,7 +63,7 @@ fileprivate func convertValue(rawValue: Any, property: PropertyInfo, mapper: Hel
     }
 }
 
-fileprivate func assignProperty(convertedValue: Any, instance: _ExtendCustomModelType, property: PropertyInfo) {
+private func assignProperty(convertedValue: Any, instance: _ExtendCustomModelType, property: PropertyInfo) {
     if property.bridged {
         (instance as! NSObject).setValue(convertedValue, forKey: property.key)
     } else {
@@ -72,7 +71,7 @@ fileprivate func assignProperty(convertedValue: Any, instance: _ExtendCustomMode
     }
 }
 
-fileprivate func readAllChildrenFrom(mirror: Mirror) -> [(String, Any)] {
+private func readAllChildrenFrom(mirror: Mirror) -> [(String, Any)] {
     var children = [(label: String?, value: Any)]()
     let mirrorChildrenCollection = AnyRandomAccessCollection(mirror.children)!
     children += mirrorChildrenCollection
@@ -84,7 +83,7 @@ fileprivate func readAllChildrenFrom(mirror: Mirror) -> [(String, Any)] {
         currentMirror = currentMirror.superclassMirror!
     }
     var result = [(String, Any)]()
-    children.forEach { (child) in
+    children.forEach { child in
         if let _label = child.label {
             result.append((_label, child.value))
         }
@@ -92,14 +91,14 @@ fileprivate func readAllChildrenFrom(mirror: Mirror) -> [(String, Any)] {
     return result
 }
 
-fileprivate func merge(children: [(String, Any)], propertyInfos: [PropertyInfo]) -> [String: (Any, PropertyInfo?)] {
+private func merge(children: [(String, Any)], propertyInfos: [PropertyInfo]) -> [String: (Any, PropertyInfo?)] {
     var infoDict = [String: PropertyInfo]()
-    propertyInfos.forEach { (info) in
+    propertyInfos.forEach { info in
         infoDict[info.key] = info
     }
 
     var result = [String: (Any, PropertyInfo?)]()
-    children.forEach { (child) in
+    children.forEach { child in
         result[child.0] = (child.1, infoDict[child.0])
     }
     return result
@@ -113,22 +112,20 @@ extension NSObject {
 }
 
 extension _ExtendCustomModelType {
-
     static func _transform(from object: Any) -> Self? {
         if let dict = object as? [String: Any] {
             // nested object, transform recursively
-            return self._transform(dict: dict) as? Self
+            return _transform(dict: dict) as? Self
         }
         return nil
     }
 
     static func _transform(dict: [String: Any]) -> _ExtendCustomModelType? {
-
         var instance: Self
         if let _nsType = Self.self as? NSObject.Type {
             instance = _nsType.createInstance() as! Self
         } else {
-            instance = Self.init()
+            instance = Self()
         }
         instance.willStartMapping()
         _transform(dict: dict, to: &instance)
@@ -181,13 +178,11 @@ extension _ExtendCustomModelType {
 }
 
 extension _ExtendCustomModelType {
-
     func _plainValue() -> Any? {
         return Self._serializeAny(object: self)
     }
 
     static func _serializeAny(object: _Transformable) -> Any? {
-
         let mirror = Mirror(reflecting: object)
 
         guard let displayStyle = mirror.displayStyle else {
@@ -215,10 +210,10 @@ extension _ExtendCustomModelType {
             let instanceIsNsObject = mutableObject.isNSObjectType()
             let head = mutableObject.headPointer()
             let bridgedProperty = mutableObject.getBridgedPropertyList()
-            let propertyInfos = properties.map({ (desc) -> PropertyInfo in
-                return PropertyInfo(key: desc.key, type: desc.type, address: head.advanced(by: desc.offset),
-                                        bridged: instanceIsNsObject && bridgedProperty.contains(desc.key))
-            })
+            let propertyInfos = properties.map { (desc) -> PropertyInfo in
+                PropertyInfo(key: desc.key, type: desc.type, address: head.advanced(by: desc.offset),
+                             bridged: instanceIsNsObject && bridgedProperty.contains(desc.key))
+            }
 
             mutableObject.mapping(mapper: mapper)
 
@@ -231,7 +226,6 @@ extension _ExtendCustomModelType {
     }
 
     static func _serializeModelObject(instance: _ExtendCustomModelType, properties: [String: (Any, PropertyInfo?)], mapper: HelpingMapper) -> [String: Any] {
-
         var dict = [String: Any]()
         for (key, property) in properties {
             var realKey = key
@@ -263,7 +257,7 @@ extension _ExtendCustomModelType {
             }
 
             if let typedValue = realValue as? _Transformable {
-                if let result = self._serializeAny(object: typedValue) {
+                if let result = _serializeAny(object: typedValue) {
                     dict[realKey] = result
                     continue
                 }
@@ -274,4 +268,3 @@ extension _ExtendCustomModelType {
         return dict
     }
 }
-

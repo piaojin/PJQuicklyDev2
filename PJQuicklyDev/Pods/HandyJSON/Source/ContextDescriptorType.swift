@@ -18,12 +18,11 @@
 //  Created by zhouzhuo on 07/01/2017.
 //
 
-protocol ContextDescriptorType : MetadataType {
+protocol ContextDescriptorType: MetadataType {
     var contextDescriptorOffsetLocation: Int { get }
 }
 
 extension ContextDescriptorType {
-
     var contextDescriptor: ContextDescriptorProtocol? {
         let pointer = UnsafePointer<Int>(self.pointer)
         let base = pointer.advanced(by: contextDescriptorOffsetLocation)
@@ -31,7 +30,7 @@ extension ContextDescriptorType {
             // swift class created dynamically in objc-runtime didn't have valid contextDescriptor
             return nil
         }
-        if self.kind == .class {
+        if kind == .class {
             return ContextDescriptor<_ClassContextDescriptor>(pointer: relativePointer(base: base, offset: base.pointee - Int(bitPattern: base)))
         } else {
             return ContextDescriptor<_StructContextDescriptor>(pointer: relativePointer(base: base, offset: base.pointee - Int(bitPattern: base)))
@@ -61,7 +60,8 @@ extension ContextDescriptorType {
         let base = pointer.advanced(by: contextDescriptorOffsetLocation)
         let mangledNameAddress = base.pointee + 2 * 4 // 2 properties in front
         if let offset = contextDescriptor?.mangledName,
-            let cString = UnsafePointer<UInt8>(bitPattern: mangledNameAddress + offset) {
+            let cString = UnsafePointer<UInt8>(bitPattern: mangledNameAddress + offset)
+        {
             return String(cString: cString)
         }
         return ""
@@ -79,12 +79,12 @@ extension ContextDescriptorType {
         guard vectorOffset != 0 else {
             return nil
         }
-        if self.kind == .class {
-            return (0..<contextDescriptor.numberOfFields).map {
+        if kind == .class {
+            return (0 ..< contextDescriptor.numberOfFields).map {
                 return UnsafePointer<Int>(pointer)[vectorOffset + $0]
             }
         } else {
-            return (0..<contextDescriptor.numberOfFields).map {
+            return (0 ..< contextDescriptor.numberOfFields).map {
                 return Int(UnsafePointer<Int32>(pointer)[vectorOffset * (is64BitPlatform ? 2 : 1) + $0])
             }
         }
@@ -113,7 +113,6 @@ protocol ContextDescriptorProtocol {
 }
 
 struct ContextDescriptor<T: _ContextDescriptorProtocol>: ContextDescriptorProtocol, PointerType {
-
     var pointer: UnsafePointer<T>
 
     var mangledName: Int {

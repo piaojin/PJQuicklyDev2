@@ -15,7 +15,7 @@
 
 @_exported import CocoaLumberjack
 #if SWIFT_PACKAGE
-import CocoaLumberjackSwiftSupport
+    import CocoaLumberjackSwiftSupport
 #endif
 
 extension DDLogFlag {
@@ -23,9 +23,9 @@ extension DDLogFlag {
         return DDLogFlag(rawValue: logLevel.rawValue)
     }
 
-	public init(_ logLevel: DDLogLevel) {
+    public init(_ logLevel: DDLogLevel) {
         self = DDLogFlag(rawValue: logLevel.rawValue)
-	}
+    }
 
     /// Returns the log level, or the lowest equivalent.
     public func toLogLevel() -> DDLogLevel {
@@ -87,10 +87,11 @@ public func _DDLogMessage(_ message: @autoclosure () -> Any,
                           line: UInt,
                           tag: Any?,
                           asynchronous: Bool,
-                          ddlog: DDLog) {
+                          ddlog: DDLog)
+{
     // The `dynamicLogLevel` will always be checked here (instead of being passed in).
     // We cannot "mix" it with the `DDDefaultLogLevel`, because otherwise the compiler won't strip strings that are not logged.
-    if level.rawValue & flag.rawValue != 0 && dynamicLogLevel.rawValue & flag.rawValue != 0 {
+    if level.rawValue & flag.rawValue != 0, dynamicLogLevel.rawValue & flag.rawValue != 0 {
         // Tell the DDLogMessage constructor to copy the C strings that get passed to it.
         let logMessage = DDLogMessage(message: String(describing: message()),
                                       level: level,
@@ -115,7 +116,8 @@ public func DDLogDebug(_ message: @autoclosure () -> Any,
                        line: UInt = #line,
                        tag: Any? = nil,
                        asynchronous async: Bool = asyncLoggingEnabled,
-                       ddlog: DDLog = .sharedInstance) {
+                       ddlog: DDLog = .sharedInstance)
+{
     _DDLogMessage(message(), level: level, flag: .debug, context: context, file: file, function: function, line: line, tag: tag, asynchronous: async, ddlog: ddlog)
 }
 
@@ -128,7 +130,8 @@ public func DDLogInfo(_ message: @autoclosure () -> Any,
                       line: UInt = #line,
                       tag: Any? = nil,
                       asynchronous async: Bool = asyncLoggingEnabled,
-                      ddlog: DDLog = .sharedInstance) {
+                      ddlog: DDLog = .sharedInstance)
+{
     _DDLogMessage(message(), level: level, flag: .info, context: context, file: file, function: function, line: line, tag: tag, asynchronous: async, ddlog: ddlog)
 }
 
@@ -141,7 +144,8 @@ public func DDLogWarn(_ message: @autoclosure () -> Any,
                       line: UInt = #line,
                       tag: Any? = nil,
                       asynchronous async: Bool = asyncLoggingEnabled,
-                      ddlog: DDLog = .sharedInstance) {
+                      ddlog: DDLog = .sharedInstance)
+{
     _DDLogMessage(message(), level: level, flag: .warning, context: context, file: file, function: function, line: line, tag: tag, asynchronous: async, ddlog: ddlog)
 }
 
@@ -154,7 +158,8 @@ public func DDLogVerbose(_ message: @autoclosure () -> Any,
                          line: UInt = #line,
                          tag: Any? = nil,
                          asynchronous async: Bool = asyncLoggingEnabled,
-                         ddlog: DDLog = .sharedInstance) {
+                         ddlog: DDLog = .sharedInstance)
+{
     _DDLogMessage(message(), level: level, flag: .verbose, context: context, file: file, function: function, line: line, tag: tag, asynchronous: async, ddlog: ddlog)
 }
 
@@ -167,7 +172,8 @@ public func DDLogError(_ message: @autoclosure () -> Any,
                        line: UInt = #line,
                        tag: Any? = nil,
                        asynchronous async: Bool = false,
-                       ddlog: DDLog = .sharedInstance) {
+                       ddlog: DDLog = .sharedInstance)
+{
     _DDLogMessage(message(), level: level, flag: .error, context: context, file: file, function: function, line: line, tag: tag, asynchronous: async, ddlog: ddlog)
 }
 

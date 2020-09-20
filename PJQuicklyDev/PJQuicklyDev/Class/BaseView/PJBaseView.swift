@@ -9,47 +9,43 @@
 import UIKit
 
 open class PJBaseView: UIView {
-
-    open lazy var label:UILabel = {
+    open lazy var label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
     }()
-    
+
     override public init(frame: CGRect) {
         super.init(frame: frame)
-        self.initView()
-        let tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewClick))
-        self.addGestureRecognizer(tap)
+        initView()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(viewClick))
+        addGestureRecognizer(tap)
     }
-    
-    required public init?(coder aDecoder: NSCoder) {
+
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     /**
      方法
      */
-    private func initView(){
-        self.label.text = "设置提示文字"
-        self.addSubview(self.label)
-        self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        self.label.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        self.label.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+    private func initView() {
+        label.text = "设置提示文字"
+        addSubview(label)
+        label.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        label.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        label.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        label.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
-    
-    open func setLabelText(text:String?) {
-        self.label.text = text
+
+    open func setLabelText(text: String?) {
+        label.text = text
     }
-    
+
     /**
      子类重写点击事件
      */
-    @objc open func viewClick(){
-        
-    }
-
+    @objc open func viewClick() {}
 }

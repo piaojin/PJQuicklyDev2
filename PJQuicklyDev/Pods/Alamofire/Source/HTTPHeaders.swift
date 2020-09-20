@@ -81,7 +81,7 @@ public struct HTTPHeaders {
             return
         }
 
-        headers.replaceSubrange(index...index, with: [header])
+        headers.replaceSubrange(index ... index, with: [header])
     }
 
     /// Case-insensitively removes an `HTTPHeader`, if it exists, from the instance.
@@ -383,23 +383,23 @@ extension HTTPHeader {
             let versionString = "\(version.majorVersion).\(version.minorVersion).\(version.patchVersion)"
             let osName: String = {
                 #if os(iOS)
-                #if targetEnvironment(macCatalyst)
-                return "macOS(Catalyst)"
-                #else
-                return "iOS"
-                #endif
+                    #if targetEnvironment(macCatalyst)
+                        return "macOS(Catalyst)"
+                    #else
+                        return "iOS"
+                    #endif
                 #elseif os(watchOS)
-                return "watchOS"
+                    return "watchOS"
                 #elseif os(tvOS)
-                return "tvOS"
+                    return "tvOS"
                 #elseif os(macOS)
-                return "macOS"
+                    return "macOS"
                 #elseif os(Linux)
-                return "Linux"
+                    return "Linux"
                 #elseif os(Windows)
-                return "Windows"
+                    return "Windows"
                 #else
-                return "Unknown"
+                    return "Unknown"
                 #endif
             }()
 

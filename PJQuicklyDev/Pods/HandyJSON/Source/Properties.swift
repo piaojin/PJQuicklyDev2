@@ -18,7 +18,6 @@
 //  Created by zhouzhuo on 07/01/2017.
 //
 
-
 /// An instance property
 struct Property {
     let key: String
@@ -61,7 +60,8 @@ func getProperties(forType type: Any.Type) -> [Property.Description]? {
     } else if let classDescriptor = Metadata.Class(anyType: type) {
         return classDescriptor.propertyDescriptions()
     } else if let objcClassDescriptor = Metadata.ObjcClassWrapper(anyType: type),
-        let targetType = objcClassDescriptor.targetType {
+        let targetType = objcClassDescriptor.targetType
+    {
         return getProperties(forType: targetType)
     }
     return nil

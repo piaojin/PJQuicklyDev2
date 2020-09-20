@@ -21,8 +21,8 @@ public extension Date {
             return false
         }
     }
-    
-    static func dateFromTimeInterval(timeInterval: String,formatter : String) -> String {
+
+    static func dateFromTimeInterval(timeInterval: String, formatter: String) -> String {
         if let time = TimeInterval(timeInterval) {
             let date = Date(timeIntervalSince1970: time)
             let format = DateFormatter()

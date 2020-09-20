@@ -76,14 +76,14 @@ public protocol ServerTrustEvaluating {
     #if os(Linux)
     // Implement this once Linux has API for evaluating server trusts.
     #else
-    /// Evaluates the given `SecTrust` value for the given `host`.
-    ///
-    /// - Parameters:
-    ///   - trust: The `SecTrust` value to evaluate.
-    ///   - host:  The host for which to evaluate the `SecTrust` value.
-    ///
-    /// - Returns: A `Bool` indicating whether the evaluator considers the `SecTrust` value valid for `host`.
-    func evaluate(_ trust: SecTrust, forHost host: String) throws
+        /// Evaluates the given `SecTrust` value for the given `host`.
+        ///
+        /// - Parameters:
+        ///   - trust: The `SecTrust` value to evaluate.
+        ///   - host:  The host for which to evaluate the `SecTrust` value.
+        ///
+        /// - Returns: A `Bool` indicating whether the evaluator considers the `SecTrust` value valid for `host`.
+        func evaluate(_ trust: SecTrust, forHost host: String) throws
     #endif
 }
 
@@ -215,7 +215,8 @@ public final class PinnedCertificatesTrustEvaluator: ServerTrustEvaluating {
     public init(certificates: [SecCertificate] = Bundle.main.af.certificates,
                 acceptSelfSignedCertificates: Bool = false,
                 performDefaultValidation: Bool = true,
-                validateHost: Bool = true) {
+                validateHost: Bool = true)
+    {
         self.certificates = certificates
         self.acceptSelfSignedCertificates = acceptSelfSignedCertificates
         self.performDefaultValidation = performDefaultValidation
@@ -276,7 +277,8 @@ public final class PublicKeysTrustEvaluator: ServerTrustEvaluating {
     ///                               `true` by default.
     public init(keys: [SecKey] = Bundle.main.af.publicKeys,
                 performDefaultValidation: Bool = true,
-                validateHost: Bool = true) {
+                validateHost: Bool = true)
+    {
         self.keys = keys
         self.performDefaultValidation = performDefaultValidation
         self.validateHost = validateHost
@@ -352,7 +354,7 @@ public final class DisabledTrustEvaluator: ServerTrustEvaluating {
     /// Creates an instance.
     public init() {}
 
-    public func evaluate(_ trust: SecTrust, forHost host: String) throws {}
+    public func evaluate(_: SecTrust, forHost _: String) throws {}
 }
 
 // MARK: - Extensions
@@ -361,18 +363,18 @@ public extension Array where Element == ServerTrustEvaluating {
     #if os(Linux)
     // Add this same convenience method for Linux.
     #else
-    /// Evaluates the given `SecTrust` value for the given `host`.
-    ///
-    /// - Parameters:
-    ///   - trust: The `SecTrust` value to evaluate.
-    ///   - host:  The host for which to evaluate the `SecTrust` value.
-    ///
-    /// - Returns: Whether or not the evaluator considers the `SecTrust` value valid for `host`.
-    func evaluate(_ trust: SecTrust, forHost host: String) throws {
-        for evaluator in self {
-            try evaluator.evaluate(trust, forHost: host)
+        /// Evaluates the given `SecTrust` value for the given `host`.
+        ///
+        /// - Parameters:
+        ///   - trust: The `SecTrust` value to evaluate.
+        ///   - host:  The host for which to evaluate the `SecTrust` value.
+        ///
+        /// - Returns: Whether or not the evaluator considers the `SecTrust` value valid for `host`.
+        func evaluate(_ trust: SecTrust, forHost host: String) throws {
+            for evaluator in self {
+                try evaluator.evaluate(trust, forHost: host)
+            }
         }
-    }
     #endif
 }
 
@@ -475,7 +477,7 @@ public extension AlamofireExtension where ExtendedType == SecTrust {
         var result = SecTrustResultType.invalid
         let status = SecTrustEvaluate(type, &result)
 
-        guard status.af.isSuccess && result.af.isSuccess else {
+        guard status.af.isSuccess, result.af.isSuccess else {
             throw errorProducer(status, result)
         }
     }
@@ -507,7 +509,7 @@ public extension AlamofireExtension where ExtendedType == SecTrust {
 
     /// The `SecCertificate`s contained i `self`.
     var certificates: [SecCertificate] {
-        (0..<SecTrustGetCertificateCount(type)).compactMap { index in
+        (0 ..< SecTrustGetCertificateCount(type)).compactMap { index in
             SecTrustGetCertificateAtIndex(type, index)
         }
     }

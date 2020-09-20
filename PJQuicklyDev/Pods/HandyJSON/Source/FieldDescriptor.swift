@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum FieldDescriptorKind : UInt16 {
+enum FieldDescriptorKind: UInt16 {
     // Swift nominal types.
     case Struct = 0
     case Class
@@ -24,7 +24,7 @@ enum FieldDescriptorKind : UInt16 {
 
     // A Swift opaque protocol. There are no fields, just a record for the
     // type itself.
-    case `Protocol`
+    case Protocol
 
     // A Swift class-bound protocol.
     case ClassProtocol
@@ -39,7 +39,6 @@ enum FieldDescriptorKind : UInt16 {
 }
 
 struct FieldDescriptor: PointerType {
-
     var pointer: UnsafePointer<_FieldDescriptor>
 
     var fieldRecordSize: Int {
@@ -51,9 +50,9 @@ struct FieldDescriptor: PointerType {
     }
 
     var fieldRecords: [FieldRecord] {
-        return (0..<numFields).map({ (i) -> FieldRecord in
-            return FieldRecord(pointer: UnsafePointer<_FieldRecord>(pointer + 1) + i)
-        })
+        return (0 ..< numFields).map { (i) -> FieldRecord in
+            FieldRecord(pointer: UnsafePointer<_FieldRecord>(pointer + 1) + i)
+        }
     }
 }
 
@@ -66,7 +65,6 @@ struct _FieldDescriptor {
 }
 
 struct FieldRecord: PointerType {
-
     var pointer: UnsafePointer<_FieldRecord>
 
     var fieldRecordFlags: Int {

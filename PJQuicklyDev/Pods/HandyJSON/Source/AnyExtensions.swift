@@ -24,7 +24,6 @@
 protocol AnyExtensions {}
 
 extension AnyExtensions {
-
     public static func isValueTypeOrSubtype(_ value: Any) -> Bool {
         return value is Self
     }
@@ -46,7 +45,7 @@ extension AnyExtensions {
 }
 
 func extensions(of type: Any.Type) -> AnyExtensions.Type {
-    struct Extensions : AnyExtensions {}
+    struct Extensions: AnyExtensions {}
     var extensions: AnyExtensions.Type = Extensions.self
     withUnsafePointer(to: &extensions) { pointer in
         UnsafeMutableRawPointer(mutating: pointer).assumingMemoryBound(to: Any.Type.self).pointee = type
@@ -55,7 +54,7 @@ func extensions(of type: Any.Type) -> AnyExtensions.Type {
 }
 
 func extensions(of value: Any) -> AnyExtensions {
-    struct Extensions : AnyExtensions {}
+    struct Extensions: AnyExtensions {}
     var extensions: AnyExtensions = Extensions()
     withUnsafePointer(to: &extensions) { pointer in
         UnsafeMutableRawPointer(mutating: pointer).assumingMemoryBound(to: Any.self).pointee = value
@@ -74,15 +73,15 @@ func == (lhs: Any.Type, rhs: Any.Type) -> Bool {
 }
 
 // MARK: AnyExtension + Storage
-extension AnyExtensions {
 
+extension AnyExtensions {
     mutating func storage() -> UnsafeRawPointer {
         if type(of: self) is AnyClass {
             let opaquePointer = Unmanaged.passUnretained(self as AnyObject).toOpaque()
             return UnsafeRawPointer(opaquePointer)
         } else {
             return withUnsafePointer(to: &self) { pointer in
-                return UnsafeRawPointer(pointer)
+                UnsafeRawPointer(pointer)
             }
         }
     }

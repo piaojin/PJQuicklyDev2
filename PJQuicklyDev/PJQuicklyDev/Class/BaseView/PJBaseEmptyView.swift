@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol PJBaseEmptyViewDelegate : NSObjectProtocol {
+public protocol PJBaseEmptyViewDelegate: NSObjectProtocol {
     /**
      为空时点击回调
      */
@@ -16,18 +16,17 @@ public protocol PJBaseEmptyViewDelegate : NSObjectProtocol {
 }
 
 open class PJBaseEmptyView: PJBaseView {
-    
-    weak open var delegate:PJBaseEmptyViewDelegate?
-    
-    //点击空页面
-    override open func viewClick(){
-        self.delegate?.emptyClick()
+    open weak var delegate: PJBaseEmptyViewDelegate?
+
+    // 点击空页面
+    override open func viewClick() {
+        delegate?.emptyClick()
     }
-    
+
     /**
      *   设置出错时的提示文字
      */
     open func setEmptyText(text: String?) {
-        self.setLabelText(text: text)
+        setLabelText(text: text)
     }
 }

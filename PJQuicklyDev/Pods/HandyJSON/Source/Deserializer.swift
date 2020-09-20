@@ -20,7 +20,6 @@
 import Foundation
 
 public extension HandyJSON {
-
     /// Finds the internal dictionary in `dict` as the `designatedPath` specified, and converts it to a Model
     /// `designatedPath` is a string like `result.data.orderInfo`, which each element split by `.` represents key of each layer
     static func deserialize(from dict: NSDictionary?, designatedPath: String? = nil) -> Self? {
@@ -41,7 +40,6 @@ public extension HandyJSON {
 }
 
 public extension Array where Element: HandyJSON {
-
     /// if the JSON field finded by `designatedPath` in `json` is representing a array, such as `[{...}, {...}, {...}]`,
     /// this method converts it to a Models array
     static func deserialize(from json: String?, designatedPath: String? = nil) -> [Element?]? {
@@ -60,7 +58,6 @@ public extension Array where Element: HandyJSON {
 }
 
 public class JSONDeserializer<T: HandyJSON> {
-
     /// Finds the internal dictionary in `dict` as the `designatedPath` specified, and map it to a Model
     /// `designatedPath` is a string like `result.data.orderInfo`, which each element split by `.` represents key of each layer, or nil
     public static func deserializeFrom(dict: NSDictionary?, designatedPath: String? = nil) -> T? {
@@ -89,9 +86,9 @@ public class JSONDeserializer<T: HandyJSON> {
         do {
             let jsonObject = try JSONSerialization.jsonObject(with: _json.data(using: String.Encoding.utf8)!, options: .allowFragments)
             if let jsonDict = jsonObject as? NSDictionary {
-                return self.deserializeFrom(dict: jsonDict, designatedPath: designatedPath)
+                return deserializeFrom(dict: jsonDict, designatedPath: designatedPath)
             }
-        } catch let error {
+        } catch {
             InternalLogger.logError(error)
         }
         return nil
@@ -120,7 +117,7 @@ public class JSONDeserializer<T: HandyJSON> {
             if let jsonDict = jsonObject as? [String: Any] {
                 update(object: &object, from: jsonDict, designatedPath: designatedPath)
             }
-        } catch let error {
+        } catch {
             InternalLogger.logError(error)
         }
     }
@@ -134,11 +131,11 @@ public class JSONDeserializer<T: HandyJSON> {
         do {
             let jsonObject = try JSONSerialization.jsonObject(with: _json.data(using: String.Encoding.utf8)!, options: .allowFragments)
             if let jsonArray = getInnerObject(inside: jsonObject, by: designatedPath) as? [Any] {
-                return jsonArray.map({ (item) -> T? in
-                    return self.deserializeFrom(dict: item as? [String: Any])
-                })
+                return jsonArray.map { (item) -> T? in
+                    self.deserializeFrom(dict: item as? [String: Any])
+                }
             }
-        } catch let error {
+        } catch {
             InternalLogger.logError(error)
         }
         return nil
@@ -154,18 +151,18 @@ public class JSONDeserializer<T: HandyJSON> {
         guard let _arr = array else {
             return nil
         }
-        return _arr.map({ (item) -> T? in
-            return self.deserializeFrom(dict: item as? NSDictionary)
-        })
+        return _arr.map { (item) -> T? in
+            self.deserializeFrom(dict: item as? NSDictionary)
+        }
     }
 }
 
-fileprivate func getInnerObject(inside object: Any?, by designatedPath: String?) -> Any? {
+private func getInnerObject(inside object: Any?, by designatedPath: String?) -> Any? {
     var result: Any? = object
     var abort = false
     if let paths = designatedPath?.components(separatedBy: "."), paths.count > 0 {
         var next = object as? [String: Any]
-        paths.forEach({ (seg) in
+        paths.forEach { seg in
             if seg.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" || abort {
                 return
             }
@@ -175,7 +172,7 @@ fileprivate func getInnerObject(inside object: Any?, by designatedPath: String?)
             } else {
                 abort = true
             }
-        })
+        }
     }
     return abort ? nil : result
 }

@@ -144,7 +144,8 @@ public struct URLEncoding: ParameterEncoding {
     ///   - boolEncoding:  `BoolEncoding` to use. `.numeric` by default.
     public init(destination: Destination = .methodDependent,
                 arrayEncoding: ArrayEncoding = .brackets,
-                boolEncoding: BoolEncoding = .numeric) {
+                boolEncoding: BoolEncoding = .numeric)
+    {
         self.destination = destination
         self.arrayEncoding = arrayEncoding
         self.boolEncoding = boolEncoding

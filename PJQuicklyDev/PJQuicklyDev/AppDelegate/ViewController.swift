@@ -9,15 +9,13 @@
 import UIKit
 
 class ViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        //"http://v5.owner.mjbang.cn/api/gallery/get_experience_house"
+        // "http://v5.owner.mjbang.cn/api/gallery/get_experience_house"
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 }
-

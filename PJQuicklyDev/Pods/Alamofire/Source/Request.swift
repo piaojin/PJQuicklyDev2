@@ -257,7 +257,8 @@ public class Request {
          serializationQueue: DispatchQueue,
          eventMonitor: EventMonitor?,
          interceptor: RequestInterceptor?,
-         delegate: RequestDelegate) {
+         delegate: RequestDelegate)
+    {
         self.id = id
         self.underlyingQueue = underlyingQueue
         self.serializationQueue = serializationQueue
@@ -635,7 +636,7 @@ public class Request {
     ///   - session: `URLSession` which creates the `URLSessionTask`.
     ///
     /// - Returns:   The `URLSessionTask` created.
-    func task(for request: URLRequest, using session: URLSession) -> URLSessionTask {
+    func task(for _: URLRequest, using _: URLSession) -> URLSessionTask {
         fatalError("Subclasses must override.")
     }
 
@@ -844,7 +845,7 @@ public class Request {
 // MARK: - Protocol Conformances
 
 extension Request: Equatable {
-    public static func ==(lhs: Request, rhs: Request) -> Bool {
+    public static func == (lhs: Request, rhs: Request) -> Bool {
         lhs.id == rhs.id
     }
 }
@@ -906,7 +907,8 @@ extension Request {
         if let configuration = delegate?.sessionConfiguration, configuration.httpShouldSetCookies {
             if
                 let cookieStorage = configuration.httpCookieStorage,
-                let cookies = cookieStorage.cookies(for: url), !cookies.isEmpty {
+                let cookies = cookieStorage.cookies(for: url), !cookies.isEmpty
+            {
                 let allCookies = cookies.map { "\($0.name)=\($0.value)" }.joined(separator: ";")
 
                 components.append("-b \"\(allCookies)\"")
@@ -1005,7 +1007,8 @@ public class DataRequest: Request {
          serializationQueue: DispatchQueue,
          eventMonitor: EventMonitor?,
          interceptor: RequestInterceptor?,
-         delegate: RequestDelegate) {
+         delegate: RequestDelegate)
+    {
         self.convertible = convertible
 
         super.init(id: id,
@@ -1185,7 +1188,8 @@ public final class DataStreamRequest: Request {
          serializationQueue: DispatchQueue,
          eventMonitor: EventMonitor?,
          interceptor: RequestInterceptor?,
-         delegate: RequestDelegate) {
+         delegate: RequestDelegate)
+    {
         self.convertible = convertible
         self.automaticallyCancelOnStreamError = automaticallyCancelOnStreamError
 
@@ -1284,7 +1288,8 @@ public final class DataStreamRequest: Request {
     }
 
     func appendStreamCompletion<Success, Failure>(on queue: DispatchQueue,
-                                                  stream: @escaping Handler<Success, Failure>) {
+                                                  stream: @escaping Handler<Success, Failure>)
+    {
         appendResponseSerializer {
             self.underlyingQueue.async {
                 self.responseSerializerDidComplete {
@@ -1305,7 +1310,8 @@ public final class DataStreamRequest: Request {
     }
 
     func enqueueCompletion<Success, Failure>(on queue: DispatchQueue,
-                                             stream: @escaping Handler<Success, Failure>) {
+                                             stream: @escaping Handler<Success, Failure>)
+    {
         queue.async {
             do {
                 let completion = Completion(request: self.request,
@@ -1389,7 +1395,8 @@ public class DownloadRequest: Request {
     /// - Returns: The `Destination` closure.
     public class func suggestedDownloadDestination(for directory: FileManager.SearchPathDirectory = .documentDirectory,
                                                    in domain: FileManager.SearchPathDomainMask = .userDomainMask,
-                                                   options: Options = []) -> Destination {
+                                                   options: Options = []) -> Destination
+    {
         { temporaryURL, response in
             let directoryURLs = FileManager.default.urls(for: directory, in: domain)
             let url = directoryURLs.first?.appendingPathComponent(response.suggestedFilename!) ?? temporaryURL
@@ -1467,7 +1474,8 @@ public class DownloadRequest: Request {
          eventMonitor: EventMonitor?,
          interceptor: RequestInterceptor?,
          delegate: RequestDelegate,
-         destination: @escaping Destination) {
+         destination: @escaping Destination)
+    {
         self.downloadable = downloadable
         self.destination = destination
 
@@ -1684,7 +1692,8 @@ public class UploadRequest: DataRequest {
          eventMonitor: EventMonitor?,
          interceptor: RequestInterceptor?,
          fileManager: FileManager,
-         delegate: RequestDelegate) {
+         delegate: RequestDelegate)
+    {
         upload = convertible
         self.fileManager = fileManager
 

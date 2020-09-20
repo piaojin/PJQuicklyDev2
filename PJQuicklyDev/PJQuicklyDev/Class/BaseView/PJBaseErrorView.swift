@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol PJBaseErrorViewDelegate : NSObjectProtocol {
+public protocol PJBaseErrorViewDelegate: NSObjectProtocol {
     /**
      为空时点击回调
      */
@@ -16,18 +16,17 @@ public protocol PJBaseErrorViewDelegate : NSObjectProtocol {
 }
 
 open class PJBaseErrorView: PJBaseView {
-    
-    weak open var delegate:PJBaseErrorViewDelegate?
-    
-    //点击空页面
-    override open func viewClick(){
-        self.delegate?.errorClick()
+    open weak var delegate: PJBaseErrorViewDelegate?
+
+    // 点击空页面
+    override open func viewClick() {
+        delegate?.errorClick()
     }
-    
+
     /**
      *   设置出错时的提示文字
      */
     open func setErrorText(text: String?) {
-        self.setLabelText(text: text)
+        setLabelText(text: text)
     }
 }

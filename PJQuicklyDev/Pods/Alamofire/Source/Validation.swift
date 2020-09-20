@@ -66,7 +66,7 @@ extension Request {
 
     // MARK: Properties
 
-    fileprivate var acceptableStatusCodes: Range<Int> { 200..<300 }
+    fileprivate var acceptableStatusCodes: Range<Int> { 200 ..< 300 }
 
     fileprivate var acceptableContentTypes: [String] {
         if let accept = request?.value(forHTTPHeaderField: "Accept") {
@@ -81,9 +81,10 @@ extension Request {
     fileprivate func validate<S: Sequence>(statusCode acceptableStatusCodes: S,
                                            response: HTTPURLResponse)
         -> ValidationResult
-        where S.Iterator.Element == Int {
+        where S.Iterator.Element == Int
+    {
         if acceptableStatusCodes.contains(response.statusCode) {
-            return .success(Void())
+            return .success(())
         } else {
             let reason: ErrorReason = .unacceptableStatusCode(code: response.statusCode)
             return .failure(AFError.responseValidationFailed(reason: reason))
@@ -96,8 +97,9 @@ extension Request {
                                            response: HTTPURLResponse,
                                            data: Data?)
         -> ValidationResult
-        where S.Iterator.Element == String {
-        guard let data = data, !data.isEmpty else { return .success(Void()) }
+        where S.Iterator.Element == String
+    {
+        guard let data = data, !data.isEmpty else { return .success(()) }
 
         return validate(contentType: acceptableContentTypes, response: response)
     }
@@ -105,14 +107,15 @@ extension Request {
     fileprivate func validate<S: Sequence>(contentType acceptableContentTypes: S,
                                            response: HTTPURLResponse)
         -> ValidationResult
-        where S.Iterator.Element == String {
+        where S.Iterator.Element == String
+    {
         guard
             let responseContentType = response.mimeType,
             let responseMIMEType = MIMEType(responseContentType)
         else {
             for contentType in acceptableContentTypes {
                 if let mimeType = MIMEType(contentType), mimeType.isWildcard {
-                    return .success(Void())
+                    return .success(())
                 }
             }
 
@@ -126,7 +129,7 @@ extension Request {
 
         for contentType in acceptableContentTypes {
             if let acceptableMIMEType = MIMEType(contentType), acceptableMIMEType.matches(responseMIMEType) {
-                return .success(Void())
+                return .success(())
             }
         }
 

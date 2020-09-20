@@ -8,8 +8,8 @@
 
 import Foundation
 
- // mangled name might contain 0 but it is not the end, do not just use strlen
-func getMangledTypeNameSize(_ mangledName: UnsafePointer<UInt8>) -> Int {
-    // TODO: should find the actually size 
+// mangled name might contain 0 but it is not the end, do not just use strlen
+func getMangledTypeNameSize(_: UnsafePointer<UInt8>) -> Int {
+    // TODO: should find the actually size
     return 256
 }

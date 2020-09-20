@@ -389,6 +389,7 @@
 			buildConfigurationList = CAAD19701E9E56370046E69B /* Build configuration list for PBXNativeTarget "PJQuicklyDev" */;
 			buildPhases = (
 				9B37520C0B0D51C6EF9F9EE8 /* [CP] Check Pods Manifest.lock */,
+				CAA009832517A77A00B35987 /* ShellScript */,
 				CAAD19441E9E56370046E69B /* Sources */,
 				CAAD19451E9E56370046E69B /* Frameworks */,
 				CAAD19461E9E56370046E69B /* Resources */,
@@ -570,6 +571,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PJQuicklyDev/Pods-PJQuicklyDev-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		CAA009832517A77A00B35987 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"$SRCROOT\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

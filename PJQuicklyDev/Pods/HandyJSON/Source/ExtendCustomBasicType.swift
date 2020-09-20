@@ -22,7 +22,6 @@
 //
 
 public protocol _ExtendCustomBasicType: _Transformable {
-
     static func _transform(from object: Any) -> Self?
     func _plainValue() -> Any?
 }

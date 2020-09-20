@@ -24,7 +24,6 @@
 import Foundation
 
 public extension HandyJSON {
-
     func toJSON() -> [String: Any]? {
         if let dict = Self._serializeAny(object: self) as? [String: Any] {
             return dict
@@ -33,8 +32,7 @@ public extension HandyJSON {
     }
 
     func toJSONString(prettyPrint: Bool = false) -> String? {
-
-        if let anyObject = self.toJSON() {
+        if let anyObject = toJSON() {
             if JSONSerialization.isValidJSONObject(anyObject) {
                 do {
                     let jsonData: Data
@@ -44,7 +42,7 @@ public extension HandyJSON {
                         jsonData = try JSONSerialization.data(withJSONObject: anyObject, options: [])
                     }
                     return String(data: jsonData, encoding: .utf8)
-                } catch let error {
+                } catch {
                     InternalLogger.logError(error)
                 }
             } else {
@@ -56,14 +54,12 @@ public extension HandyJSON {
 }
 
 public extension Collection where Iterator.Element: HandyJSON {
-
     func toJSON() -> [[String: Any]?] {
-        return self.map{ $0.toJSON() }
+        return map { $0.toJSON() }
     }
 
     func toJSONString(prettyPrint: Bool = false) -> String? {
-
-        let anyArray = self.toJSON()
+        let anyArray = toJSON()
         if JSONSerialization.isValidJSONObject(anyArray) {
             do {
                 let jsonData: Data
@@ -73,11 +69,11 @@ public extension Collection where Iterator.Element: HandyJSON {
                     jsonData = try JSONSerialization.data(withJSONObject: anyArray, options: [])
                 }
                 return String(data: jsonData, encoding: .utf8)
-            } catch let error {
+            } catch {
                 InternalLogger.logError(error)
             }
         } else {
-            InternalLogger.logDebug("\(self.toJSON()) is not a valid JSON Object")
+            InternalLogger.logDebug("\(toJSON()) is not a valid JSON Object")
         }
         return nil
     }

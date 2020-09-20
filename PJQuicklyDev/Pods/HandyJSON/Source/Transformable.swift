@@ -11,7 +11,6 @@ import Foundation
 public protocol _Transformable: _Measurable {}
 
 extension _Transformable {
-
     static func transform(from object: Any) -> Self? {
         if let typedObject = object as? Self {
             return typedObject
@@ -49,4 +48,3 @@ extension _Transformable {
         }
     }
 }
-

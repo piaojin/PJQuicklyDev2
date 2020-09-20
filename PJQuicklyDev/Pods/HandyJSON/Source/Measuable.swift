@@ -13,10 +13,8 @@ typealias Byte = Int8
 public protocol _Measurable {}
 
 extension _Measurable {
-
     // locate the head of a struct type object in memory
     mutating func headPointerOfStruct() -> UnsafeMutablePointer<Byte> {
-
         return withUnsafeMutablePointer(to: &self) {
             return UnsafeMutableRawPointer($0).bindMemory(to: Byte.self, capacity: MemoryLayout<Self>.stride)
         }
@@ -24,7 +22,6 @@ extension _Measurable {
 
     // locating the head of a class type object in memory
     mutating func headPointerOfClass() -> UnsafeMutablePointer<Byte> {
-
         let opaquePointer = Unmanaged.passUnretained(self as AnyObject).toOpaque()
         let mutableTypedPointer = opaquePointer.bindMemory(to: Byte.self, capacity: MemoryLayout<Self>.stride)
         return UnsafeMutablePointer<Byte>(mutableTypedPointer)
@@ -33,9 +30,9 @@ extension _Measurable {
     // locating the head of an object
     mutating func headPointer() -> UnsafeMutablePointer<Byte> {
         if Self.self is AnyClass {
-            return self.headPointerOfClass()
+            return headPointerOfClass()
         } else {
-            return self.headPointerOfStruct()
+            return headPointerOfStruct()
         }
     }
 
@@ -67,9 +64,9 @@ extension _Measurable {
             free(props)
         }
         #if swift(>=4.1)
-        count.deallocate()
+            count.deallocate()
         #else
-        count.deallocate(capacity: 1)
+            count.deallocate(capacity: 1)
         #endif
         return propertyList
     }
@@ -92,4 +89,3 @@ extension _Measurable {
         return m == 0 ? 0 : (align - m)
     }
 }
-

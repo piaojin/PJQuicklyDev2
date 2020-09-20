@@ -20,7 +20,6 @@
 import Foundation
 
 protocol _BuiltInBasicType: _Transformable {
-
     static func _transform(from object: Any) -> Self?
     func _plainValue() -> Any?
 }
@@ -33,7 +32,6 @@ protocol IntegerPropertyProtocol: FixedWidthInteger, _BuiltInBasicType {
 }
 
 extension IntegerPropertyProtocol {
-
     static func _transform(from object: Any) -> Self? {
         switch object {
         case let str as String:
@@ -44,7 +42,7 @@ extension IntegerPropertyProtocol {
             return nil
         }
     }
-    
+
     func _plainValue() -> Any? {
         return self
     }
@@ -62,7 +60,6 @@ extension UInt32: IntegerPropertyProtocol {}
 extension UInt64: IntegerPropertyProtocol {}
 
 extension Bool: _BuiltInBasicType {
-
     static func _transform(from object: Any) -> Bool? {
         switch object {
         case let str as NSString:
@@ -93,7 +90,6 @@ protocol FloatPropertyProtocol: _BuiltInBasicType, LosslessStringConvertible {
 }
 
 extension FloatPropertyProtocol {
-
     static func _transform(from object: Any) -> Self? {
         switch object {
         case let str as String:
@@ -113,7 +109,7 @@ extension FloatPropertyProtocol {
 extension Float: FloatPropertyProtocol {}
 extension Double: FloatPropertyProtocol {}
 
-fileprivate let formatter: NumberFormatter = {
+private let formatter: NumberFormatter = {
     let formatter = NumberFormatter()
     formatter.usesGroupingSeparator = false
     formatter.numberStyle = .decimal
@@ -122,7 +118,6 @@ fileprivate let formatter: NumberFormatter = {
 }()
 
 extension String: _BuiltInBasicType {
-
     static func _transform(from object: Any) -> String? {
         switch object {
         case let str as String:
@@ -152,7 +147,6 @@ extension String: _BuiltInBasicType {
 // MARK: Optional Support
 
 extension Optional: _BuiltInBasicType {
-
     static func _transform(from object: Any) -> Optional? {
         if let value = (Wrapped.self as? _Transformable.Type)?.transform(from: object) as? Wrapped {
             return Optional(value)
@@ -163,9 +157,9 @@ extension Optional: _BuiltInBasicType {
     }
 
     func _getWrappedValue() -> Any? {
-        return self.map( { (wrapped) -> Any in
-            return wrapped as Any
-        })
+        return map { (wrapped) -> Any in
+            wrapped as Any
+        }
     }
 
     func _plainValue() -> Any? {
@@ -183,15 +177,14 @@ extension Optional: _BuiltInBasicType {
 // MARK: Collection Support : Array & Set
 
 extension Collection {
-
     static func _collectionTransform(from object: Any) -> [Iterator.Element]? {
         guard let arr = object as? [Any] else {
             InternalLogger.logDebug("Expect object to be an array but it's not")
             return nil
         }
         typealias Element = Iterator.Element
-        var result: [Element] = [Element]()
-        arr.forEach { (each) in
+        var result = [Element]()
+        arr.forEach { each in
             if let element = (Element.self as? _Transformable.Type)?.transform(from: each) as? Element {
                 result.append(element)
             } else if let element = each as? Element {
@@ -203,8 +196,8 @@ extension Collection {
 
     func _collectionPlainValue() -> Any? {
         typealias Element = Iterator.Element
-        var result: [Any] = [Any]()
-        self.forEach { (each) in
+        var result = [Any]()
+        forEach { each in
             if let transformable = each as? _Transformable, let transValue = transformable.plainValue() {
                 result.append(transValue)
             } else {
@@ -216,34 +209,31 @@ extension Collection {
 }
 
 extension Array: _BuiltInBasicType {
-
     static func _transform(from object: Any) -> [Element]? {
-        return self._collectionTransform(from: object)
+        return _collectionTransform(from: object)
     }
 
     func _plainValue() -> Any? {
-        return self._collectionPlainValue()
+        return _collectionPlainValue()
     }
 }
 
 extension Set: _BuiltInBasicType {
-
     static func _transform(from object: Any) -> Set<Element>? {
-        if let arr = self._collectionTransform(from: object) {
+        if let arr = _collectionTransform(from: object) {
             return Set(arr)
         }
         return nil
     }
 
     func _plainValue() -> Any? {
-        return self._collectionPlainValue()
+        return _collectionPlainValue()
     }
 }
 
 // MARK: Dictionary Support
 
 extension Dictionary: _BuiltInBasicType {
-
     static func _transform(from object: Any) -> [Key: Value]? {
         guard let dict = object as? [String: Any] else {
             InternalLogger.logDebug("Expect object to be an NSDictionary but it's not")
@@ -276,4 +266,3 @@ extension Dictionary: _BuiltInBasicType {
         return result
     }
 }
-
