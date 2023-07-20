@@ -304,7 +304,7 @@ lazy var pjTableViewDemoDataSource : PJTableViewDemoDataSource = {
 ```swift
 self.doRequest()
 ```
-#### 发起网络请求，一个完整的tableview网络请求变搞定。当然可以定制，修改这边不一一列举。今天就到这里，大概是这样，代码和思路大量借鉴🐱神(福建文档写的最烂的男人😜(有问题联系804488815@qq.com))
+#### 发起网络请求，一个完整的tableview网络请求变搞定。当然可以定制，修改这边不一一列举。今天就到这里，大概是这样，代码和思路大量借鉴🐱神(有问题联系804488815@qq.com)
 
 
 
