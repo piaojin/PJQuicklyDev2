@@ -5,7 +5,7 @@ PODS:
     - CocoaLumberjack/Core
   - CryptoSwift (1.3.1)
   - FSPagerView (0.8.3)
-  - HandyJSON (5.0.2)
+  - HandyJSON (5.0.4-beta)
   - Kingfisher (5.15.0):
     - Kingfisher/Core (= 5.15.0)
   - Kingfisher/Core (5.15.0)
@@ -20,7 +20,7 @@ DEPENDENCIES:
   - CocoaLumberjack/Swift (~> 3.6.2)
   - CryptoSwift (~> 1.3.1)
   - FSPagerView (~> 0.8.3)
-  - HandyJSON (~> 5.0.2)
+  - HandyJSON (~> 5.0.4-beta)
   - Kingfisher (~> 5.15.0)
   - MJRefresh (~> 3.5.0)
   - ReachabilitySwift (~> 5.0.0)
@@ -29,26 +29,25 @@ DEPENDENCIES:
   - "UITableView+FDTemplateLayoutCell (~> 1.6)"
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - CocoaLumberjack
-    - SVProgressHUD
-    - "UITableView+FDTemplateLayoutCell"
   trunk:
     - Alamofire
+    - CocoaLumberjack
     - CryptoSwift
     - FSPagerView
     - HandyJSON
     - Kingfisher
     - MJRefresh
     - ReachabilitySwift
+    - SVProgressHUD
     - SwiftFormat
+    - "UITableView+FDTemplateLayoutCell"
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   CocoaLumberjack: bd155f2dd06c0e0b03f876f7a3ee55693122ec94
   CryptoSwift: f12f037f6d0fcd6d48c96db0071b653de64e6c4d
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
-  HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
+  HandyJSON: a9c67202df97805a0ba4a00e30b50e9a30ac28f3
   Kingfisher: 1acb67597a520c2d0310677e66d6e0af455ef757
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
@@ -56,6 +55,6 @@ SPEC CHECKSUMS:
   SwiftFormat: 46baf677c105265a99b488b51cd062e23eb2fc14
   "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
 
-PODFILE CHECKSUM: 69cfe745fae4c4daa15f1a375ee990d7e5bc3489
+PODFILE CHECKSUM: a843c2672844016b1eb301cdcdef4abec9bd9904
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.12.1

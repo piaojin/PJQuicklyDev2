@@ -8,7 +8,7 @@ target 'PJQuicklyDev' do
     pod 'Kingfisher', '~> 5.15.0'
     pod 'MJRefresh', '~> 3.5.0'
     pod 'SVProgressHUD'
-    pod 'HandyJSON', '~> 5.0.2'
+    pod 'HandyJSON', '~> 5.0.4-beta'
     pod 'UITableView+FDTemplateLayoutCell', '~> 1.6'
     pod 'CryptoSwift', '~> 1.3.1'
     pod 'FSPagerView', '~> 0.8.3'
