@@ -1,4 +1,4 @@
-> ### PJQuicklyDev2 快速开发框架的2.0版本，Swift4.0 Xcode9.1
+> ### PJQuicklyDev2 快速开发框架的2.0版本，Swift5.0 Xcode14.2
 #### 1.0版本如果有兴趣[请移步](https://github.com/piaojin/PJQuicklyDev),相关信息可以参考1.0版本。
 
 #### 在看了🐱神的文章[面向协议编程与 Cocoa 的邂逅 (上)](https://onevcat.com/2016/11/pop-cocoa-1/)与[面向协议编程与 Cocoa 的邂逅 (下)](https://onevcat.com/2016/12/pop-cocoa-2/)
